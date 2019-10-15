@@ -1,0 +1,24 @@
+<div class="container-fluid">
+  <div class="homepage--inner-wrapper">
+    <div class="row no-margin">
+      <div class="col-6 homepage__banner-wrapper mobile-view__bg-wrapper">
+        <div class="banner-message">
+          <div class="banner-message__title">{{constants.MSG_AUTH_VERTEX_BANNER_MSG_TITLE}}</div>
+          <p class="banner-message__description">{{constants.MSG_AUTH_VERTEX_BANNER_MSG_DESC}}</p>
+        </div>
+      </div>
+      <div class="col-6 homepage__login-wrapper">
+        <div class="text-left homepage__login-vessel">
+          <router-outlet></router-outlet>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row footer--inner-page">
+    <div class="col-sm-12 text-center padding--t10 padding--b10">
+      <p class="no-margin--bottom">Copyright &copy; 2019 Vertex, Inc All rights reserved.</p>
+    </div>
+  </div>
+
+</div>

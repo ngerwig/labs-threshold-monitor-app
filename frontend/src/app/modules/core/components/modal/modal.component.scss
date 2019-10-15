@@ -1,0 +1,30 @@
+@import '../../../../theme/variable';
+
+.modal-content {
+  border: 0;
+  border-radius: 0;
+  .modal-header {
+    border: 0 none;
+    border-radius: 0;
+    .modal-title {
+      color: $title-color;
+    }
+  }
+  .modal-body {
+    p {
+      color: $default-text;
+      font-size: 14px;
+      &:last-child {
+        margin: 0;
+      }
+    }
+  }
+  .modal-footer {
+    border: 0;
+    border-radius: 0;
+    button.btn {
+      min-width: 124px;
+      margin-right: 10px !important;
+    }
+  }
+}

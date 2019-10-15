@@ -1,0 +1,73 @@
+<div class="container-fluid no-padding profile-settings" *ngIf="checkURLProfileRegStates()">
+  <div class="row no-margin">
+    <div class="col-12 margin--t20 innerpage-full-height">
+      <h3 id="reg-states-back" *ngIf="checkURLProfileRegStates()" class="u-sr-only" tabindex="-1">{{registeredStatesTitle}} Page</h3>
+      <a  class="mb-4 title-link d-inline-block" href="javascript:void(0)" (click)="navigateToPage()" aria-label="back to profile page link">
+        <svg class="u-icon-i-chevron-left-dims l-size left-nav-arrow">
+          <use xlink:href="#i-chevron-left"></use>
+        </svg>
+        {{constants.HEADER_REGISTERED_STATES}}
+      </a>
+      <div class="col-12 no-padding--left padding--b20 px-0">
+        <form [formGroup]="registeredStatesForm" (ngSubmit)="onSubmit()" #myForm="ngForm">
+          <div class="custom__cb-group--horizontal flex-wrap">
+            <div class="custom__cb" *ngFor="let state of sortedArrayAllStates">
+              <input type="checkbox" [checked]="typecheck(state.stateCode)" id="{{state.stateCode}}_state"
+                name="{{state.stateName}}" value="{{state.stateCode}}" (change)="addStateCode($event)"><label
+                for="{{state.stateCode}}_state"><span class="custom__cb__label-text">{{state.stateName}}</span></label>
+            </div>
+          </div>
+
+          <vtx-footer (saveHandler)="saveRegisteredStates()" (cancelHandler)="navigateToProfileSettings()" [modeNoProceedButton]="false"></vtx-footer>
+
+        </form>
+      </div>
+      <div class="innerpage__footer text-center">
+        <p>Copyright &copy; 2019 Vertex, Inc All rights reserved.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="container-fluid no-padding profile-settings" *ngIf="checkURLDbrdRegStates()">
+  <div class="row no-margin">
+    <div class="col-12 margin--t20 innerpage-full-height">
+      <h3 class="mb-3 u-inline-block u-link" >
+        <!-- <svg class="u-icon-i-chevron-left-dims l-size left-nav-arrow">
+          <use xlink:href="#i-chevron-left"></use>
+        </svg>-->
+        {{constants.HEADER_REGISTERED_STATES}}
+        <button id="reg-state-info" class="btn-text btn--info-notify" [disabled]="disableInfoIcon" (click)="showNotification($event)"  aria-label="show notification" [attr.aria-hidden]="disableInfoIcon">
+          <svg class="u-icon-i-information-dims">
+              <use xlink:href="#i-information"></use>
+          </svg>
+        </button>
+      </h3>
+      <vtx-notification (showNotification)="infoIconFunction($event)" [showMessage]="showNotificationBox"[notificationMessageId]="'reg-state-notification'" >
+        <span class="u-sr-only" id="tooltip-info">{{constants.MSG_DASHBOARD_REGISTERED_STATES_NOTIFICATION}}</span>
+        <ol class="mr-1 notification_order-list" type="1" id="reg-state-notification">
+          <li>{{constants.MSG_DASHBOARD_REGISTERED_STATES_NOTIFICATION}}</li>
+        </ol>
+      </vtx-notification>
+      <div class="col-12 no-padding--left padding--b20 mt-5 px-0">
+        <form [formGroup]="registeredStatesForm" (ngSubmit)="onSubmit()" #myForm="ngForm">
+          <div class="custom__cb-group--horizontal flex-wrap">
+            <div class="custom__cb" *ngFor="let state of allStates">
+              <input type="checkbox" [checked]="typecheckTemp(state.stateCode)" id="{{state.stateCode}}_state"
+                name="{{state.stateName}}" value="{{state.stateCode}}" (change)="addStateCodeTemp($event)"><label
+                for="{{state.stateCode}}_state"><span class="custom__cb__label-text">{{state.stateName}}</span></label>
+            </div>
+          </div>
+
+          <vtx-footer (proceedHandler)="proceedRegisteredStates()" (saveHandler)="saveRegisteredStatesTemp()" (cancelHandler)="backToDashboard()"></vtx-footer>
+
+        </form>
+      </div>
+      <div class="innerpage__footer text-center">
+        <p>{{constants.LABEL_COMMON_CPY_RIGHT_FRSTHLF}} &copy;{{constants.LABEL_COMMON_CPY_RIGHT_SCONDHLF}}</p>
+      </div>
+    </div>
+  </div>
+</div>

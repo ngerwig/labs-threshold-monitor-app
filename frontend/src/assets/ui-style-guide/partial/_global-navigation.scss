@@ -1,0 +1,435 @@
+/*
+ * global app navigation
+ *
+ ********************************************************************************/
+
+.site-nav {
+
+    @include bem-e('container') {
+        z-index: z-index(menus) - 1;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 100%;
+        max-width: 314px;
+        background-color: color(secondary, darker);
+        transition: max-width ($transition-duration * 2), max-height ($transition-duration * 2);
+
+        @media (max-width: $screen-sm-max) {
+            max-width: 100vw;
+            max-height: calc(100vh - 72px); // magic number to account for header
+        }
+
+        .collapse-btn {
+
+            @media (max-width: $screen-sm-max) { display: none; }
+        }
+
+        &.is-loading {
+
+            @media (max-width: $screen-sm-max) { display: none; }
+        }
+    }
+
+    @include bem-e('context') {
+        padding: 20px 20px 30px;
+
+        @include bem-e('item') {
+
+            &:not(:first-child) { margin-top: 20px; }
+        }
+
+        @include bem-e('label') {
+            display: block;
+            max-height: 36px;
+            overflow: hidden;
+            opacity: 1;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            color: color(default, light);
+        }
+
+        @include bem-e('input') {
+            @include font-size(10);
+
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        @include bem-e('icon') {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0;
+            border: 0;
+            width: 0;
+            height: 0;
+            background-color: color(default, light);
+            opacity: 0;
+
+            svg { fill: color(secondary, base); }
+        }
+    }
+
+    @include bem-e('nav-container') {
+
+        @include bem-m('primary') {
+            position: absolute;
+            width: 100%;
+            height: calc(100% - 56px);
+            overflow-x: hidden;
+
+            > .site-nav__list > .site-nav__item:last-child { border-bottom: 1px solid color(default, dark); }
+        }
+
+        @include bem-m('child') {
+            display: none;
+            height: 0;
+            overflow: hidden;
+            background-color: color(secondary, dark);
+            transition: height 500ms ease-in-out;
+
+            &.is-visible {
+                display: block;
+                height: auto;
+            }
+        }
+    }
+
+    @include bem-e('title') {
+        @include line-height(16, 28);
+        @include font-size(12);
+
+        display: none;
+        padding: 8px 20px;
+        width: 100%;
+        text-align: left;
+        font-family: $brand-font-medium;
+        color: color(default, light);
+    }
+
+    @include bem-e('list') { margin-bottom: 0; }
+
+    @include bem-e('item') {
+        margin-top: 0;
+        outline: 0;
+        border-top: 1px solid color(default, dark);
+        white-space: nowrap;
+        transition: background-color $transition-duration;
+
+        &:focus,
+        &:hover {
+            outline: 0;
+
+            > .site-nav__link .nav-toggle__icon::before,
+            > .site-nav__link .nav-toggle__icon::after {
+                background-color: color(primary, base);
+                transition: background-color $transition-duration;
+            }
+
+            > .site-nav__link .site-nav__icon {
+                fill: color(primary, base);
+                transition: fill $transition-duration;
+            }
+        }
+
+        &:hover { cursor: pointer; }
+
+        &.is-expanded,
+        &.is-active {
+
+            // primary navigation - active
+            .site-nav__nav-container--primary & {
+                background-color: color(secondary, darkest);
+
+                .site-nav__link-text { color: color(default, light); }
+
+                > .site-nav__link .nav-toggle__icon::before,
+                > .site-nav__link .nav-toggle__icon::after { background-color: color(primary, base); }
+            }
+
+            // secondary navigation - active
+            .site-nav__nav-container--secondary & {
+                background-color: color(secondary, base);
+                color: color(default, light);
+
+                > .site-nav__link .nav-toggle__icon::before,
+                > .site-nav__link .nav-toggle__icon::after { background-color: color(default, light); }
+            }
+
+            .site-nav__icon { fill: color(primary, base); }
+        }
+
+        &.is-expanded > .site-nav__link {
+            background-color: color(secondary, darker);
+
+            .nav-toggle__icon::before { background-color: color(primary, base) !important; } // sass-lint:disable-line no-important
+
+            .nav-toggle__icon::after { display: none; }
+        }
+    }
+
+    @include bem-e('link') {
+        @include line-height(14, 24);
+
+        position: relative;
+        display: block;
+        padding: ($grid-horizontal-padding / 2) ($grid-horizontal-padding * 2) ($grid-horizontal-padding / 2) $grid-horizontal-padding;
+        width: 100%;
+        text-align: left;
+        text-decoration: none;
+        color: color(default, light);
+
+        &:hover { cursor: pointer; }
+
+        .site-nav__nav-container--primary & {
+            @include font-size(14);
+
+            height: 54px; /* magic value added to remove vertical shifting when text is collapsed */
+            font-family: $brand-font-medium;
+        }
+
+        .site-nav__nav-container--child & {
+            @include font-size(12);
+
+            padding-top: 8px;
+            padding-bottom: 8px;
+            height: auto;
+            font-family: $brand-font;
+
+            &:focus,
+            &:hover {
+                background-color: color(secondary, darker);
+                transition: background-color $transition-duration;
+            }
+        }
+
+        .site-nav__nav-container--secondary & { padding-left: 58px; }
+        .site-nav__nav-container--tertiary & { padding-left: 75px; }
+
+        .site-nav__item.is-active &,
+        .site-nav__item.is-active & { background-color: transparent; }
+    }
+
+    @include bem-e('icon') {
+        fill: color(default, light);
+
+        &:focus,
+        &:hover { fill: color(primary, base); }
+    }
+
+    @include bem-e('link-text') {
+        display: inline-block;
+        margin-left: 10px;
+        width: 100%;
+        overflow: hidden;
+        opacity: 1;
+        vertical-align: middle;
+        color: color(default, light);
+        transition: opacity $transition-duration;
+    }
+}
+
+/*
+ * nav collapse and expand toggle
+ *
+ ************************************************************/
+
+ .collapse-toggle {
+    position: relative;
+
+    @media (min-width: $screen-md-min) { display: none; }
+
+    @include bem-e('btn') {
+        position: absolute;
+        top: 14px;
+        left: 0;
+        width: 40px;
+        height: 40px;
+        transform: translateY(-50%);
+        transition: opacity $transition-duration;
+
+        &:focus,
+        &:hover { cursor: pointer; }
+
+        &:hover { opacity: .75; }
+    }
+
+    @include bem-e('icon') {
+        position: relative;
+        top: 3px;
+        display: inline-block;
+        width: 24px;
+        height: 20px;
+        transform: translate3d(0);
+
+        // individual menu icon elements
+        span {
+            position: absolute;
+            left: 0;
+            display: block;
+            border-radius: 3px;
+            width: 100%;
+            height: 3px;
+            background-color: color(neutral);
+            transition: transform $transition-duration;
+
+            &:nth-child(1),
+            &:nth-child(4) { width: 21px; }
+
+            &:nth-child(1) { top: 0; }
+
+            &:nth-child(2),
+            &:nth-child(3) { top: calc(50% - 1px); }
+
+            &:nth-child(4) { top: 18px; }
+
+            // open state of primary navigation toggle
+            .is-open & {
+                background-color: color(secondary);
+
+                &:nth-child(1),
+                &:nth-child(4) {
+                    top: calc(50% - 2px);
+                    left: 50%;
+                    width: 0;
+                }
+
+                &:nth-child(2) { transform: rotate(45deg); }
+                &:nth-child(3) { transform: rotate(-45deg); }
+            }
+        }
+    }
+}
+
+/*
+ * nav accordion collapse and expand button/icon
+ *
+ ************************************************************/
+
+.nav-toggle {
+
+    @include bem-e('icon') {
+        position: absolute;
+        top: calc(50% - 5px);
+        right: calc(0% + 25px); /* unit required to know how to treat position */
+        display: block;
+        margin: 0 auto;
+        width: 12px;
+        height: 12px;
+        transition: opacity $transition-duration;
+
+        &::before,
+        &::after {
+            position: absolute;
+            display: block;
+            background-color: color(default, light);
+            content: '';
+        }
+
+        &::before {
+            top: calc(50% - 1px);
+            width: 12px;
+            height: 2px;
+        }
+
+        &::after {
+            left: calc(50% - 1px);
+            width: 2px;
+            height: 12px;
+        }
+    }
+}
+
+/*
+ * collapsed nav state
+ *
+ ****************************************/
+
+.is-collapsed {
+
+    &.site-nav__container {
+
+        &:not(.is-hovered) {
+            max-width: 74px;
+
+            @media (max-width: $screen-sm-max) {
+                max-width: 100vw;
+                max-height: 0;
+            }
+
+            .site-nav {
+
+                @include bem-e('context') {
+                    padding: 20px 10px;
+                    transition: padding;
+                    transition-delay: $transition-duration;
+
+                    @include bem-e('label') {
+                        margin: 0;
+                        max-height: 0;
+                        opacity: 0;
+                        transition: margin, max-height, opacity $transition-duration;
+                        transition-delay: $transition-duration;
+                    }
+
+                    @include bem-e('input') {
+                        margin: 0;
+                        border: 0;
+                        padding: 0;
+                        background: transparent;
+                        color: color(default, light);
+                        transition: margin, border, padding, background, color;
+                        transition-delay: $transition-duration;
+
+                        &::placeholder {
+                            color: color(default, light);
+                            transition: color;
+                            transition-delay: $transition-duration;
+                        }
+                    }
+
+                    @include bem-e('icon') {
+                        margin: 6px;
+                        border: 1px solid color(neutral, light);
+                        width: 40px;
+                        height: 40px;
+                        opacity: 1;
+                        transition: margin, border, width, height, opacity $transition-duration;
+                        transition-delay: $transition-duration;
+                    }
+
+                    .input-group__icon {
+                        border: 0;
+                        width: 0;
+                        transition: border, width;
+                        transition-delay: $transition-duration;
+                    }
+                }
+
+                @include bem-e('link') {
+
+                    .nav-toggle__icon { opacity: 0; }
+                }
+
+                @include bem-e('link-text') { opacity: 0; }
+
+                @include bem-e('nav-container') {
+
+                    @include bem-m('child') { display: none; }
+                }
+            }
+        }
+
+        @media (max-width: $screen-sm-max) { max-height: 0; }
+
+        &.is-hovered {
+
+            .collapse-btn__label {
+                margin-left: 10px;
+                opacity: 1;
+            }
+        }
+    }
+}

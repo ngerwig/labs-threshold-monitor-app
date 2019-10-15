@@ -1,0 +1,554 @@
+@import '../../../../theme/variable';
+
+.taxation-data_wrapper {
+  min-height: calc(100vh - 82px);
+  max-width: 1100px !important;
+  padding-bottom: 52px;
+  position: relative;
+  // overflow: hidden;
+  .innerpage__footer {
+    bottom: 70px;
+  }
+  .btn--sm {
+    padding: 7px 10px 4px;
+  }
+  .title-layer {
+    min-height: 72px;
+  }
+}
+
+.manual__entry {
+  height: 100%;
+  // margin-bottom: 40px;
+  // min-height: 300px;
+
+  table.manual-table {
+    border: 1px solid $border-color-secondary;
+    table-layout: fixed;
+  }
+
+  tbody{ //Temp style for tr focus
+    tr{
+      &:focus{
+        background-color: #d1e3f8;
+        outline: none;
+      }
+    }
+  }
+
+  table.manual-table > thead > tr {
+    border-bottom: 1px solid $border-color-light;
+    &.active {
+      .icon-plus__bar--vertical {
+        opacity: 0;
+      }
+    }
+    &:last-child {
+      border-bottom: 0;
+    }
+  }
+
+  table.manual-table > thead > tr > th {
+    background-color: $table-title-bg !important;
+    border: 0;
+    color: $table-title-text;
+    font-family: "montserratmedium", sans-serif;
+    width: 20%;
+    &:first-child {
+      width: 30%;
+    }
+    &:first-child {
+      padding-left: 45px;
+    }
+    &:last-child,
+    &.tabular-data__column--icon {
+      width: 10%;
+      .vtx-tooltip__message {
+        margin-right: 10px;
+        top: -12px;
+      }
+    }
+  }
+
+  table.manual-table > tbody > tr {
+    border-bottom: 1px solid $border-color-light;
+    &.active {
+      .icon-plus__bar--vertical {
+        opacity: 0;
+      }
+    }
+    &:last-child {
+      border-bottom: 1px solid $border-color-light;;
+    }
+    &:nth-child(odd) > td {
+      background-color: transparent;
+    }
+  }
+
+  table.manual-table > tbody > tr > td {
+    border: 0;
+    height: 54px;
+    width: 20%;
+    
+    input[type="text"],
+    select {
+      color: $default-text;
+      font-family: "montserratregular", sans-serif;
+      padding: 8px 10px;
+    }
+    &:first-child {
+      vtx-tooltip {
+        display: none;
+      }
+    }
+    .u-icon-i-warning-dims {
+      height: 18px;
+      width: 18px;
+    }
+    &.tabular-data__column--icon {
+      padding-top: 18px;
+    }
+    .vtx-tooltip {
+      position: absolute;
+    }
+    
+    &:first-child {
+      width: 30%;
+    }
+    &:last-child,
+    &.tabular-data__column--icon {
+      width: 10%;
+      .vtx-tooltip__message {
+        margin-right: 10px;
+        top: -12px;
+      }
+    }
+
+    .form-item {
+      display: inline-flex;
+      &.form-item--checkbox {
+        width: 72px;
+        .btn-text {
+          display: none;
+        }
+        .collapsible-table__toggle-icon {
+          color: $btn-secondary;
+          cursor: pointer;
+          padding: 2px;
+          height: 18px;
+          width: 18px;
+        }
+      }
+      &.form-item--info-container {
+        position: absolute;
+        input {
+          padding-left: 32px;
+          text-align: right;
+        }
+        .vtx-tooltip {
+          left: 0;
+          margin: 0;
+        }
+        .vtx-tooltip__message {
+          margin-right: 17px;
+          top: -2px;
+          width: 250px;
+          z-index: 1 !important;
+        }
+      }
+      .label {
+        display: none;
+        margin-bottom: 3px;
+      }
+      input[type="text"].sales-value {
+        text-align: right;
+      }
+    }
+    &.vtx-date-column,
+    &.vtx-inputinfo-column {
+      position: absolute;
+      .form-item {
+        &.vtx-date-picker,
+        &.form-item--info-container {
+          position: absolute;
+          width: calc(100% - 24px);
+          .datepicker-calendar {
+            min-width: 250px;
+            width: 100%;
+          }
+        }
+        vtx-month-picker {
+          width: 100%;
+        }
+        .input-group {
+          background-color: $white;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 320px) and (max-width:767px) {
+  .taxation-data_wrapper {
+    padding: 0 13px 102px !important;
+    max-width: 500px !important;
+    min-height: calc(100vh - 70px);
+    .notification_order-list {
+      width: 100% !important;
+    }
+    .title-layer {
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-bottom: 10px;
+      h1.d-inline-flex {
+        margin-bottom: 0;
+      }
+    }
+  }
+  .page-footer {
+    .container-fluid {
+      max-width: 320px !important;
+      .btn {
+        min-width: 72px !important;
+        &.btn--secondary {
+          background-color: transparent !important;
+          border-color: #484848 !important;
+          color: #484848 !important;
+        }
+      }
+    }
+  }
+  .manual__entry {
+    &.manual__entry--mobile-view {
+      // border-bottom: 1px solid $border-color-secondary;
+      padding: 0;
+      min-height: auto;
+      overflow: hidden;
+      
+      table.manual-table > thead {
+        display: none;
+      }
+
+      table.manual-table > tbody > tr {
+        border-bottom: 1px solid $border-color-secondary;
+        overflow: hidden;
+        height: 57px;
+        float: left;
+        width: 100%;
+        transition: all 0.3s ease-in-out 0s;
+        &.active {
+          height: 318px;
+          .vtx-tooltip--top {
+            top: 38px !important;
+          }
+        }
+      }
+      table.manual-table > tbody > tr.active > td {
+        display: block;
+        &:last-child,
+        &.tabular-data__column--icon {
+          display: none !important;
+        }
+        .form-item {
+          .label {
+            display: block;
+          }
+        }
+      }
+
+      table.manual-table > tbody > tr > td {
+        display: none;
+        float: left;
+        height: 75px !important;
+        padding-left: 82px;
+        width: 100% !important;
+        .form-item {
+          display: inline-block;
+          margin-right: 10px;
+          width: calc(100% - 45px);
+          .btn-text {
+            display: inline-block !important;
+            margin-right: 17px;
+          }
+          .collapsible-table__toggle-icon {
+            display: inline-block !important;
+          }
+          .custom__cb {
+            display: inline-block;
+            vertical-align: middle;
+            width: 18px;
+          }
+          &.form-item--checkbox {
+            width: 60px !important;
+          }
+        }
+        &:first-child {
+          display: block;
+          padding-left: 12px;
+          position: relative;
+          .tabular-data__cell-icon {
+            display: block;
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            svg {
+              height: 18px;
+              width: 18px;
+            }
+          }
+          vtx-tooltip {
+            display: inline-block;
+            .vtx-tooltip {
+              top: 18px;
+            }
+          }
+          .form-item {
+            width: calc(100% - 115px);
+          }
+        }
+        .form-item--info-container {
+          width: calc(100% - 170px) !important;
+          .vtx-tooltip {
+            top: 20px !important;
+            .vtx-tooltip__message {
+              width: 200px;
+            }
+          }
+        }
+        &:nth-child(4) {
+          height: 75px;
+        }
+        &.vtx-date-column,
+        &.vtx-inputinfo-column {
+          position: unset;
+          .vtx-date-picker,
+          .form-item--info-container {
+            width: calc(100% - 170px) !important;
+            .date {
+              width: 100%;
+            }
+          }
+        }
+      }
+    }
+  }
+  .tooltip--mobile {
+    overflow: hidden;
+    .tooltip-overlay {
+      display: block;
+      background-color: rgba(255, 255,255, 0.5);
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      z-index: 5;
+      height: 100%;
+      width: 100%;
+    }
+    .vtx-tooltip__message {
+      &.tooltip--error {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        margin: 0;
+        transform: translate(-50%, -50%);
+        width: 300px;
+        z-index: 6;
+        .vtx-tooltip__arrow {
+          display: none !important;
+        }
+      }
+    }
+    .error__close-btn {
+      display: block;
+    }
+  }
+}
+
+@media (min-width:768px) and (max-width:1024px){
+  .manual__entry {
+    table.manual-table > thead > tr > th {
+      padding: 8px;
+      width: 20%;
+      &:first-child {
+        width: 27%;
+        .form-item {
+          width: calc(100% - 40px);
+          &.form-item--checkbox {
+            width: 36px;
+          }
+        }
+      }
+      &:last-child {
+        width: 13%;
+      }
+    }
+    table.manual-table > tbody > tr > td {
+      padding: 8px;
+      width: 20%;
+      &:first-child {
+        width: 27%;
+        .form-item {
+          width: calc(100% - 40px);
+          &.form-item--checkbox {
+            width: 36px;
+          }
+        }
+      }
+      &:last-child {
+        width: 13%;
+      }
+      input[type="text"],
+      select {
+        font-size: 0.75rem !important;
+      }
+      .form-item {
+        margin-right: 0;
+        width: 100%;
+        &.form-item--info-container {
+          .btn-txt {
+            padding: 8px;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (min-width:1024px) {
+  .manual__entry table.manual-table > thead > tr > th:first-child {
+    padding-left: 48px;
+  }
+  table.manual-table > tbody > tr > td {
+    &:first-child {
+      .form-item {
+        width: calc(100% - 36px);
+        &.form-item--checkbox {
+          width: 36px;
+        }
+      }
+    }
+  }
+}
+
+
+// Customize Date Picker Styles as per our UX
+/*.input-group {
+  .datepicker-button {  
+    background-image: url(/assets/images/svg/i-chevron-down-blue.svg);
+    background-color: transparent !important;
+    background-repeat: no-repeat;
+    background-size: 12px;
+    background-position: 94% 12px;
+    height: 38px;
+    position: absolute;
+    right: 0;
+    padding: 0;
+    min-width: auto;
+    width: 100%;
+    z-index: 0;
+    .arrow-up {
+      background-image: url(/assets/images/svg/i-chevron-up-blue.svg);
+    }
+  }
+}
+.datepicker-calendar {
+  z-index: 1 !important;
+  table.datepicker-grid {
+    thead,
+    tbody {
+      th, td {
+        color: #141414 !important;
+        height: 30px;
+        font-size: 0.875rem;
+        line-height: 30px;
+        &.month {
+          background-color: $white !important;
+          border-radius: 6px;
+          height: 60px;
+          line-height: 60px;
+          width: 60px;
+          &.selectable:hover,
+          &.selectable:focus {
+            background-color: rgba(0, 96, 156, 0.2) !important;
+          }
+        }
+        &.curMonth,
+        .curYear {
+          background-color: #00609c !important;
+          color: #fff !important;
+          &.selectable:hover,
+          &.selectable:focus {
+            background-color: #00609c !important;
+            color: #fff !important;
+          }
+        }
+        &.selectable:hover,
+        &.selectable:focus {
+          background-color: rgba(0, 96, 156, 0.2) !important;
+        }
+      }
+    }
+  }
+  .datepicker-month-wrap {
+    padding: 6px 10px !important;
+    height: 42px !important;
+    .datepicker-month {
+      color: #141414;
+      font-size: 1rem;
+      line-height: 1.25;
+      &:hover {
+        background-color: rgba(0, 96, 156, 0.2) !important;
+        border-color: transparent !important;
+      }
+    }
+    .datepicker-calendar .datepicker-month-prev,
+    .datepicker-calendar .datepicker-month-next,
+    .datepicker-month-prev,
+    .datepicker-month-next {
+      border: 2px solid #00609c;
+      border-radius: 50%;
+      background-image: url(/assets/images/svg/i-previous-month-blue.svg);
+      background-repeat: no-repeat;
+      background-size: 7px 10px;
+      background-position: 4px 4px;
+      height: 22px;
+      width: 22px;
+      &:hover {
+        background-color: transparent !important;
+        border: 2px solid #00609c !important;
+        border-radius: 50% !important;
+        margin-top: 3px !important;
+      }
+    }
+    .datepicker-calendar, .datepicker-month-next {
+      background-image: url(/assets/images/svg/i-next-month-blue.svg);
+      background-position: 7px 4px;
+    }
+    .datepicker-month {
+      &:after {
+        display: none !important;
+      }
+    }
+  }
+  &.default table.datepicker-grid td.year {
+    border-radius: 6px;
+    background-color: #fff;
+    line-height: 45px;
+  }
+  &.default table.datepicker-grid td.year {
+    background-color: #fff !important;
+  }
+  &.default table.datepicker-grid .year.selectable:hover,
+  &.default table.datepicker-grid .year.selectable:focus {
+    background-color: rgba(0, 96, 156, 0.2) !important;
+  }
+  &.default table.datepicker-grid td.curYear {
+    background-color: #00609c !important;
+    color: #fff !important;
+    &.selectable:hover,
+    &.year.selectable:focus {
+      background-color: #00609c !important;
+      color: #fff !important;
+    }
+  }
+} */

@@ -1,0 +1,53 @@
+<div class="threshold_stategraph--details-vessel" *ngIf = "currentSelectedStateTaxData && !checkIfRegistered()">
+  <div class="stategraph__header text-center">
+    <h2 class="stategraph__name no-margin">{{currentSelectedStateTaxData.stateName}}</h2>
+    <div class="stategraph__selection-month">{{getTaxationPeriod()}}</div>    
+  </div>
+  <div class="stategraph__values-wrapper" *ngIf="!currentSelectedStateTaxData.isSalesOptional">
+    <div class="stategraph__max-value">
+      <div class="max-value__label" [ngStyle]="{'left':salesThresholdIndicatorLabelPosition}">
+        <div class="">Threshold</div>
+        <div class="">{{formatSales(currentSelectedStateTaxData.salesThreshold,'$')}}</div>
+      </div>
+    </div>
+    <div class="stategraph__values-graph">
+      <div class="stategraph__yAxis-indicator" [ngStyle]="{'left':salesYaxisPosition}"></div>
+      <div class="stategraph__values-container" [ngClass]="{'values--full':isSalesCrossed}"><!--when the values full add this class= "values--full"-->
+        <div id="salesBar" class="stategraph__sales-bar" [ngStyle]="{'width':salesGraphBarWidth}"></div>
+        <span id="salesBarValue" class="stategraph__sales-value">{{formatSales(currentSelectedStateTaxData.actualSales,'$')}}</span>
+      </div>
+      <div class="stategraph__threshold-indicator" [ngStyle]="{'left':salesThresholdIndicatorPosition}"></div>
+    </div>
+    <p class="stategraph__graph-label font-medium text-center"> Sales Value Plot </p>
+  </div>
+
+  <div class="stategraph__values-wrapper" *ngIf="!currentSelectedStateTaxData.isTransactionOptional">
+    <div class="stategraph__max-value">
+      <div class="max-value__label" [ngStyle]="{'left':transactionThresholdIndicatorLabelPosition}">
+        <div class="">Threshold</div>
+        <div class="">{{formatSales(currentSelectedStateTaxData.transactionThreshold)}}</div>
+      </div>
+    </div>
+    <div class="stategraph__values-graph">
+      <div class="stategraph__yAxis-indicator" [ngStyle]="{'left':transactionYaxisPosition}"></div>
+      <div class="stategraph__values-container" [ngClass]="{'values--full':isTransactionCrossed}">
+        <div id='transactionBar' class="stategraph__sales-bar" [ngStyle]="{'width':transactionGraphBarWidth}"></div><!--when the values full add this class= "values--full"-->
+        <span id='transactionBarValue' class="stategraph__sales-value">{{formatSales(currentSelectedStateTaxData.actualTransaction)}}</span>
+      </div>
+      <div class="stategraph__threshold-indicator" [ngStyle]="{'left':transactionThresholdIndicatorPosition}"></div>
+    </div>
+    <p class="stategraph__graph-label font-medium text-center">Transactions Plot</p>
+  </div>
+</div>
+<div *ngIf="!currentSelectedStateTaxData" class="h-100 align-items-center" [ngClass]="!currentSelectedStateTaxData ? 'd-flex' : 'd-none'">
+  <div class="flex-column w-100 p-4 align-items-center text-center rounded border">
+    <h3 class="mt-1 mb-2 u-link--primary">No data to view</h3>
+    <p class="font-s12 m-0">To view threshold data, select one or more states</p>
+  </div>
+</div>
+<div *ngIf="checkIfRegistered()" class="h-100 align-items-center" [ngClass]="currentSelectedStateTaxData ? 'd-flex' : 'd-none'">
+  <div class="flex-column w-100 p-4 align-items-center text-center rounded border">
+    <h3 class="mt-1 mb-2 u-link--primary">{{currentSelectedStateTaxData.stateName}}</h3>
+    <p class="font-s12 m-0">{{constants.MSG_STATE_REGISTERED_TOOLTIP}}</p>
+  </div>
+</div>

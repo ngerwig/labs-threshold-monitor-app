@@ -1,0 +1,54 @@
+/*
+ * input group
+ *
+ ********************************************************************************/
+
+.input-group {
+    @include bem-e('wrapper') {
+        position: relative;
+        display: flex;
+
+        @include bem-m('icon-left') {
+
+            .input-group__icon { border-right: 0; }
+        }
+
+        @include bem-m('icon-right') {
+            flex-direction: row-reverse;
+
+            .input-group__icon { border-left: 0; }
+        }
+    }
+
+    @include bem-e('icon') {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid color(neutral, light);
+        width: 42px;
+
+        @include bem-m('clickable') {
+            background-color: color(default, light);
+            color: color(secondary);
+
+            svg { fill: color(secondary); }
+        }
+
+        @include bem-m('non-clickable') {
+            background-color: color(neutral, lightest);
+
+            svg { fill: color(neutral); }
+        }
+    }
+
+    @include bem-e('btn') {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 100%;
+        cursor: pointer;
+
+        &:focus { outline: 0; }
+    }
+}

@@ -1,0 +1,384 @@
+/*
+ * utility
+ *
+ ********************************************************************************/
+
+// https://www.lullabot.com/articles/importing-css-breakpoints-into-javascript
+body::before {
+    display: none;
+    content: 'base';
+
+    @media (min-width: $screen-xs-min) { content: 'x-small'; }
+
+    @media (min-width: $screen-sm-min) { content: 'small'; }
+
+    @media (min-width: $screen-md-min) { content: 'medium'; }
+
+    @media (min-width: $screen-lg-min) { content: 'large'; }
+}
+
+
+/*
+ * screen readers
+ *
+ ************************************************************/
+
+// hide visually and from screen readers
+.u-hidden {
+    // sass-lint:disable-block no-important
+    display: none !important;
+}
+
+/* hide an element from the screen but visible to screen readers
+ * https://snook.ca/archives/html_and_css/hiding-content-for-accessibility
+ * http://a11yproject.com/posts/how-to-hide-content/
+ *
+ * 1. For long content, line feeds are not interpreted as spaces and small width
+ *    causes content to wrap 1 word per line:
+ *    https://medium.com/@jessebeach/beware-smushed-off-screen-accessible-text-5952a4c2cbfe
+ */
+.u-sr-only {
+    position: absolute;
+    margin: -1px;
+    border: 0;
+    padding: 0;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    white-space: nowrap; /* 1 */
+    clip: rect(0 0 0 0);
+
+    /*
+     * Extends the .visuallyhidden class to allow the element
+     * to be focusable when navigated to via the keyboard:
+     * https://www.drupal.org/node/897638
+     */
+    &.u-focusable:active,
+    &.u-focusable:focus {
+        position: static;
+        margin: 0;
+        width: auto;
+        height: auto;
+        overflow: visible;
+        white-space: inherit;
+        clip: auto;
+    }
+}
+
+.u-sr-reveal {
+    position: relative;
+    display: block;
+    margin: 12px 0 0;
+    width: auto;
+    height: auto;
+    overflow: auto;
+    white-space: normal;
+    clip: auto;
+}
+
+
+/*
+ * position
+ *
+ ************************************************************/
+
+.u-relative { position: relative; }
+
+.u-inline-block { display: inline-block; }
+
+.u-inline { display: inline; }
+
+.u-vertical-align {
+
+    @include bem-m('top') { vertical-align: top; }
+    @include bem-m('middle') { vertical-align: middle; }
+}
+
+/*
+ * floating elements
+ *
+ ************************************************************/
+
+.u-float-left { float: left; }
+.u-float-right { float: right; }
+
+// clear fix - https://css-tricks.com/snippets/css/clear-fix/
+// applied to both before and after to help with floated flexible content display
+.u-cf::before,
+.u-cf::after {
+    display: table;
+    clear: both;
+    content: '';
+}
+
+
+/*
+ * spacing
+ *
+ ************************************************************/
+
+/*
+ * spacing - margin
+ *
+ ****************************************/
+
+// remove margins
+.u-margin-hug {
+    // sass-lint:disable-block no-important
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+
+    @include bem-m('top') { margin-top: 0 !important; }
+    @include bem-m('right') { margin-right: 0 !important; }
+    @include bem-m('bottom') { margin-bottom: 0 !important; }
+    @include bem-m('left') { margin-left: 0 !important; }
+}
+
+// add margins
+.u-margin {
+
+    // top
+    &-top {
+        margin-top: $base-vertical-margin;
+
+        @include bem-m('sm') { margin-top: ($base-vertical-margin / 2); }
+        @include bem-m('md') { margin-top: ($base-vertical-margin * 2); }
+        @include bem-m('lg') { margin-top: ($base-vertical-margin * 4); }
+    }
+
+    // right
+    &-right {
+        margin-right: $base-vertical-margin;
+
+        @include bem-m('sm') { margin-right: ($base-vertical-margin / 2); }
+    }
+
+    // top
+    &-bottom {
+        margin-bottom: $base-vertical-margin;
+
+        @include bem-m('sm') { margin-bottom: ($base-vertical-margin / 2); }
+        @include bem-m('md') { margin-bottom: ($base-vertical-margin * 2); }
+        @include bem-m('lg') { margin-bottom: ($base-vertical-margin * 4); }
+    }
+
+    // left
+    &-left {
+        margin-left: $base-vertical-margin;
+
+        @include bem-m('sm') { margin-left: ($base-vertical-margin / 2); }
+    }
+}
+
+
+/*
+ * spacing - padding
+ *
+ ****************************************/
+
+// remove paddings
+.u-padding-hug {
+    // sass-lint:disable-block no-important
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+
+    @include bem-m('top') { padding-top: 0 !important; }
+    @include bem-m('right') { padding-right: 0 !important; }
+    @include bem-m('bottom') { padding-bottom: 0 !important; }
+    @include bem-m('left') { padding-left: 0 !important; }
+}
+
+// add paddings
+.u-padding {
+
+    // top
+    &-top {
+        padding-top: $grid-vertical-padding;
+
+        @include bem-m('sm') { padding-top: ($grid-vertical-padding / 2); }
+        @include bem-m('md') { padding-top: ($grid-vertical-padding * 2); }
+        @include bem-m('lg') { padding-top: ($grid-vertical-padding * 4); }
+    }
+
+    // right
+    &-right {
+        padding-right: $grid-vertical-padding;
+
+        @include bem-m('sm') { padding-right: ($grid-vertical-padding / 2); }
+    }
+
+    // top
+    &-bottom {
+        padding-bottom: $base-vertical-margin;
+
+        @include bem-m('sm') { padding-bottom: ($grid-vertical-padding / 2); }
+        @include bem-m('md') { padding-bottom: ($grid-vertical-padding * 2); }
+        @include bem-m('lg') { padding-bottom: ($grid-vertical-padding * 4); }
+    }
+
+    // left
+    &-left {
+        padding-left: $grid-vertical-padding;
+
+        @include bem-m('sm') { padding-left: ($grid-vertical-padding / 2); }
+    }
+}
+
+
+/*
+ * text adjustments
+ *
+ ************************************************************/
+
+// text alignment
+.u-text-left        { text-align: left; }
+.u-text-right       { text-align: right; }
+.u-text-center      { text-align: center; }
+.u-text-justify     { text-align: justify; }
+.u-text-nowrap      { white-space: nowrap; }
+
+// text truncation
+.u-text-truncate    {
+    @include text-truncate();
+
+    @include bem-m('sm') { max-width: 72px; }
+}
+
+// text transform
+.u-text-lowercase   { text-transform: lowercase; }
+.u-text-uppercase   { text-transform: uppercase; }
+.u-text-capitalize  { text-transform: capitalize; }
+.u-text-none        { text-transform: none; }
+
+// text adjustments
+.u-text-small {
+    @include font-size(12);
+    line-height: 1.5;
+}
+
+
+/*
+ * images
+ *
+ ************************************************************/
+
+.u-img-responsive { width: 100%; }
+
+.u-img-rounded { border-radius: 50%; }
+
+.u-img-max-width { max-width: 100%; }
+
+
+/*
+ * list element layout
+ *
+ ************************************************************/
+
+// removes default list treatment
+.u-list-unstyled {
+    margin-top: 0;
+    margin-right: 0;
+    margin-left: 0;
+    padding: 0;
+    list-style: none;
+}
+
+// turns default list items into horizontal list
+.u-list-inline {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    > li {
+        display: inline-block;
+        margin: 0;
+    }
+}
+
+.u-list-margin-hug {
+
+    > li { margin: 0; }
+}
+
+
+/*
+ * icons
+ *
+ ************************************************************/
+
+.u-icon { display: inline-block; }
+
+.u-icon-left { margin-right: 8px; }
+.u-icon-right { margin-left: 8px; }
+.u-icon-up { margin-top: -2px; }
+
+// prevent icon after text from wrapping on RWD
+// usage: Text Sample<span class="u-icon-nowrap">&nbsp;<svg/></span>
+.u-icon-nowrap {
+    white-space: nowrap;
+
+    svg { margin-top: -4px; }
+}
+
+// image replacement for hiding text on icons
+.u-icon-ir {
+    display: inline-block;
+    width: 0;
+    overflow: hidden;
+    text-indent: -9999px;
+}
+
+
+/*
+ * flexbox alignment
+ *
+ ************************************************************/
+
+.u-d-flex { display: flex; }
+
+.u-d-flex-sm {
+
+    @media (min-width: $screen-sm-min) { display: flex; }
+}
+
+.u-d-flex-md {
+
+    @media (min-width: $screen-md-min) { display: flex; }
+}
+
+.u-d-flex-lg {
+
+    @media (min-width: $screen-lg-min) { display: flex; }
+}
+
+.u-flex-wrap {
+
+    &-wrap { flex-wrap: wrap; }
+    &-nowrap { flex-wrap: nowrap; }
+    &-wrap-reverse { flex-wrap: wrap-reverse; }
+}
+
+.u-align-flex-end { align-items: flex-end; }
+
+.u-align-self {
+    // sass-lint:disable-block no-important
+
+    &-center { align-self: center !important; }
+    &-start { align-self: flex-start !important; }
+    &-end { align-self: flex-end !important; }
+}
+
+/*
+ * colors
+ *
+ ************************************************************/
+
+.u-background-color {
+
+    &-utility-selected { background-color: color(utility, selected); }
+}
+
+.u-color {
+
+    @include bem-m('error') { color: color(utility, error) !important; } // sass-lint:disable-block no-important
+}

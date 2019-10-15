@@ -1,0 +1,106 @@
+@import '../../../../theme/variable';
+
+.dashboard__import-data-wrapper {
+  padding-bottom: 52px;
+  .import-data_inner-container {
+    max-width: 950px;
+  }
+  .import-data__template-vesel {
+    max-width: 350px;
+    margin: 0 auto;
+    h3.template_title {
+      color: $title-color;
+    }
+
+    &.form-item--error {
+      .template_title {
+        color: $alert-text;
+      }
+      .import-data__upload-widget {
+        border-color: $alert-text;
+      }
+    }
+    h4 {
+      color: $default-text;
+      font-family: "montserratregular", sans-serif;
+      line-height: 1.38;
+    }
+    .form-item__error-message {
+      margin-top: -20px;
+    }
+  }
+  .import-data__upload-widget {
+    border: 1px solid $border-color-light;
+    color: #00609c;
+    font-size: 0.875rem;
+    display: flex;
+    flex-direction: column;      
+    justify-content: center;
+    align-items: center;    
+    height: 150px;
+    .upload-widget_file-details {
+      position: relative;
+      height: 32px;
+      width: 21px;
+      &:after {
+        bottom: 1px;
+        color: #fff;
+        content: ''; // attr(alt);
+        font-size: 8px;
+        line-height: normal;
+        left: 0;
+        position: absolute;
+        text-align: center;
+        width: 100%;
+      }
+    }
+    p.primary-text {
+      word-break: break-word;
+      text-align: center;
+      padding: 0 10px;
+    }
+  }
+  .btn {
+    min-width: 185px;
+  }
+}
+
+.page-footer {
+  box-shadow: 2px 0 4px 0 rgba(0, 0, 0, 0.16);
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1024px) and (orientation: portrait) {
+  .dashboard__import-data-wrapper {
+    .import-data_inner-container {
+      .col-md-6 {
+        flex: 0 0 100%;
+        margin-bottom: 24px;
+        max-width: 100%;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 767px) and (min-width: 320px) {
+  .dashboard__import-data-wrapper {
+    .import-data__upload-widget {
+      border: solid 1px #e8e2e2;
+      border-radius: 2px;
+      flex-direction: row;
+      height: auto;
+      margin: 16px auto 0 !important;
+      padding: 5px;
+      width: fit-content;
+      &.uploaded-file {
+        display: flex !important;
+      }
+      .upload-widget_file-details {
+        height: 21px;
+        width: 14px;
+      }
+      .file-name-text {
+        font-size: 12px;
+      }
+    }
+  }
+}

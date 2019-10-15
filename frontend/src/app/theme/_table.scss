@@ -1,0 +1,120 @@
+.table-cell-description {
+    position: absolute;
+    top: -1px;
+    left: calc(50% - 2px);
+    border: 1px solid #a3a7aa;
+    width: calc(50% + 2px);
+    height: calc(100% + 1px);
+    background-color: #d1e3f8;
+  }
+  
+  .table-cell-description__content {
+    padding: 20px;
+    width: 100%;
+    height: 100%;
+    overflow: scroll;
+    > :last-child {
+      margin-bottom: 0;
+    }
+  }
+  
+  .table-cell-description {
+    &::after, &::before {
+      position: absolute;
+      top: calc(50% - 25px);
+      right: 100%;
+      border-style: solid;
+      content: "";
+    }
+    &::after {
+      margin-top: -10px;
+      border-width: 10px;
+      border-color: transparent #d1e3f8 transparent transparent;
+    }
+    &::before {
+      margin-top: -12px;
+      border-width: 12px;
+      border-color: transparent #a3a7aa transparent transparent;
+    }
+  }
+  
+  .collapsible-table__action-column {
+    width: 150px;
+  }
+  
+  .collapsible-table__row-group {
+    .icon-plus__bar--vertical {
+      -webkit-transition: opacity .25s;
+      transition: opacity 0.25s;
+    }
+    &.active .icon-plus__bar--vertical {
+      opacity: 0;
+    }
+    .data-cell {
+      border-bottom: 0;
+      vertical-align: middle;
+    }
+    &:nth-child(even) tr {
+      &:nth-child(odd) td {
+        background-color: #fff;
+      }
+      &:nth-child(even) td {
+        background-color: #f4f4f4;
+      }
+    }
+    .data-cell {
+      padding: 6px 12px;
+      max-height: 40px;
+      opacity: 1;
+    }
+  }
+  
+  .collapsible-table__table-content {
+    .data-cell {
+      border-width: 0;
+      padding: 0;
+      -webkit-transition: border-width .25s;
+      transition: border-width 0.25s;
+    }
+    .data-cell__sub-content, .data-cell .table-action-wrapper {
+      -webkit-box-sizing: border-box;
+      box-sizing: border-box;
+      padding: 0 12px;
+      max-height: 0;
+      overflow: hidden;
+      opacity: 0;
+      -webkit-transition: max-height .25s,padding .25s,opacity .25s;
+      transition: max-height 0.25s, padding 0.25s, opacity 0.25s;
+    }
+    &.active {
+      .data-cell {
+        border: 1px solid #a3a7aa;
+        border-bottom: 0;
+        border-left: 0;
+      }
+      .data-cell__sub-content, .data-cell .table-action-wrapper {
+        padding: 6px 12px;
+        max-height: 40px;
+        opacity: 1;
+      }
+    }
+    .data-cell:first-child div {
+      padding-left: 36px;
+    }
+  }
+  
+  .collapsible-table__toggle-icon {
+    width: 14px;
+    height: 14px;
+    cursor: pointer;
+    color: #0064d6;
+  }
+  
+  .collapsible-table__table-button {
+    margin-right: 7px;
+  }
+  
+  .collapsible-table__file-icon {
+    margin-right: 7px;
+    fill: #003970;
+  }

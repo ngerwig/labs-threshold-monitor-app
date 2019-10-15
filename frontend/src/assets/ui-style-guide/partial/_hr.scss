@@ -1,0 +1,63 @@
+/*
+ * content HR
+ * only available within the WYSIWYG class assigned to WYSIWYG regions
+ * expands the default HR in _base
+ *
+ ********************************************************************************/
+
+
+.hr-rules {
+    margin: 25px 0;
+
+    @include bem-e('rule-row') {
+        display: flex;
+        justify-content: space-between;
+        padding: 5px 0;
+    }
+
+    @include bem-e('rule') {
+        display: block;
+        border-radius: 3px;
+        height: 3px;
+        background: color(primary);
+
+        @include bem-m('transparent') { background: none; }
+
+        /* Row 1 */
+        @include bem-m('one') { width: 89%; } /* transparent */
+
+        @include bem-m('two') {
+            width: 6%;
+            background: linear-gradient(90deg, rgb(120,164,79) 0%, rgb(133,176,72) 100%);
+        }
+
+        @include bem-m('three') { width: 2%; } /* transparent */
+
+        @include bem-m('four') {
+            width: 1%;
+            background: linear-gradient(90deg, rgb(140,182,70) 0%, rgb(146,186,74) 100%);
+        }
+
+        @include bem-m('five') { width: 2%; } /* transparent */
+
+        /* Row 2 */
+        @include bem-m('six') {
+            width: 83%;
+            background: linear-gradient(90deg, rgb(14,124,205) 0%, rgb(103,150,88) 100%);
+        }
+
+        @include bem-m('seven') { width: 2%; } /* transparent */
+
+        @include bem-m('eight') {
+            width: 6%;
+            background: linear-gradient(90deg, rgb(109,155,85) 0%, rgb(128,171,83) 100%);
+        }
+
+        @include bem-m('nine') { width: 2%; } /* transparent */
+
+        @include bem-m('ten') {
+            width: 7%;
+            background: linear-gradient(90deg, rgb(131,175,75) 0%, rgb(148,190,65) 100%);
+        }
+    }
+}

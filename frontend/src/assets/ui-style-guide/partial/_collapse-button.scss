@@ -1,0 +1,90 @@
+/*
+ * collapse button
+ *
+ ********************************************************************************/
+
+/*
+ * nav collapse and expand button
+ *
+ ************************************************************/
+
+.collapse-btn {
+    z-index: 1;
+    position: absolute;
+    bottom: 0;
+    border-top: 1px solid color(neutral, darker);
+    border-right: 1px solid color(neutral, darker);
+    padding: ($grid-vertical-padding / 2) 25px;
+    width: 100%;
+    overflow: hidden;
+    background-color: color(secondary, dark);
+    text-align: left;
+    white-space: nowrap;
+
+    @include bem-e('container') {
+        max-width: 300px;
+        transition: max-width $transition-duration;
+    }
+
+    @include bem-m('block') {
+        position: relative;
+        border: 1px solid $border-color;
+    }
+
+    &:hover { cursor: pointer; }
+
+    &:focus,
+    &:hover {
+
+        .collapse-btn__icon svg { border: 2px solid color(default, light); }
+    }
+
+    @include bem-e('icon') {
+        display: inline-block;
+        transition: transform $transition-duration, margin-left $transition-duration;
+
+        svg {
+            border-radius: 50%;
+            border: 2px solid color(secondary, base);
+            fill: color(default, light);
+            transition: border $transition-duration;
+        }
+
+        @include bem-m('right') { transform: rotate(-180deg); }
+    }
+
+    @include bem-e('label') {
+        @include font-size(12);
+        @include line-height(12, 18);
+
+        margin-left: 10px;
+        width: 0;
+        font-family: $brand-font-medium;
+        color: color(default, light);
+        transition: margin-left $transition-duration, width $transition-duration, opacity $transition-duration;
+    }
+}
+
+/*
+ * collapsed nav state
+ *
+ ****************************************/
+
+.is-collapsed {
+
+    &.collapse-btn__container { max-width: 81px; }
+
+    .collapse-btn {
+
+        @include bem-e('icon')  {
+            transform: rotate(-180deg);
+
+            @include bem-m('right') { transform: rotate(0deg); }
+        }
+
+        @include bem-e('label') {
+            margin-left: 0;
+            opacity: 0;
+        }
+    }
+}

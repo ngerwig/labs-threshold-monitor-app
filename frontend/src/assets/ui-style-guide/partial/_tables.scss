@@ -1,0 +1,499 @@
+/*
+ * basic table element styling
+ *
+ ************************************************************/
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+    font-family: $data-font;
+
+    // using @extend in case a class can't be manually attached <caption>
+    // `position: relative` fixes issue with table borders
+    caption {
+        @extend .u-sr-only;
+
+        position: relative;
+    }
+
+    tr { background-color: color(default, light); }
+
+    th,
+    td {
+        border: 1px solid $border-color;
+        padding: 9px 12px;
+        vertical-align: top;
+        text-align: left;
+        white-space: nowrap;
+
+        &:first-child { border-left: 0; }
+
+        &:last-child { border-right: 0; }
+    }
+
+    th {
+        @include font-size(13);
+
+        background-color: color(neutral, lightest) !important; // sass-lint:disable-block no-important
+        font-family: $data-font-sb;
+        color: color(secondary, darker);
+
+        // separation between sort and filter icons when column is small enough to truncate text
+        &.header-cell-sortable .header-cell-label { padding-right: 10px; }
+
+        .cell-label-container {
+            position: relative;
+            padding-right: 12px;
+
+            &.header-cell-sorted-none .header-cell-sort-icons {
+                opacity: 0;
+                visibility: hidden;
+
+                .header-icon { margin: 1px 0; }
+            }
+
+            &.header-cell-sorted-asc .sort-descending-icon { display: none; }
+
+            &.header-cell-sorted-desc .sort-ascending-icon { display: none; }
+        }
+
+        .header-cell-menu-button {
+            position: absolute;
+            top: 0;
+            right: 0;
+            display: flex;
+            align-items: center;
+            height: 100%;
+        }
+
+        .header-cell-label {
+            display: flex;
+            align-items: center;
+        }
+
+        .header-icon {
+            cursor: pointer;
+            line-height: 0;
+
+            .icon {
+                display: inline-block;
+                background-color: transparent;
+                background-repeat: no-repeat;
+                background-position: center;
+                transition: opacity $transition-duration, visibility $transition-duration;
+            }
+        }
+
+        .header-cell-sort-icons {
+            display: flex;
+            flex-direction: column-reverse;
+            align-items: center;
+            margin-left: 10px;
+            transition: opacity $transition-duration, visibility $transition-duration;
+        }
+
+        .icon-menu {
+            width: 12px;
+            height: 12px;
+            background-image: url('/assets/images/svg/i-menu.svg');
+            background-size: 12px 12px;
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .icon-asc,
+        .icon-desc {
+            width: 12px;
+            height: 6px;
+            background-size: cover;
+        }
+
+        .icon-asc { background-image: url('/assets/images/svg/i-small-down-brand-secondary.svg'); }
+
+        .icon-desc { background-image: url('/assets/images/svg/i-small-up-brand-secondary.svg'); }
+
+        &:hover {
+
+            .header-cell-sorted-none .header-cell-sort-icons,
+            .icon-menu {
+                opacity: 1;
+                visibility: visible;
+            }
+        }
+    }
+
+    td { @include font-size(12); }
+
+    thead {
+
+        tr:last-child th,
+        tr:last-child td { border-top: 0; }
+
+        th {
+            padding-top: 12px;
+            padding-bottom: 12px;
+        }
+    }
+
+    tbody {
+
+        tr:last-child th,
+        tr:last-child td { border-bottom: 0; }
+
+        tr:nth-child(odd) th,
+        tr:nth-child(odd) td { background-color: #f4f4f4; }
+    }
+
+    tfoot {
+
+        tr:last-child th,
+        tr:last-child td { border-bottom: 0; }
+    }
+}
+
+/*
+ * tabular data
+ *
+ ********************************************************************************/
+
+.summary-data-table {
+
+    // allows for horizontal overflow scrolling on small screens
+    @include bem-e('container') {
+        margin: 0 0 1em;
+        border: 1px solid $border-color;
+        padding-top: 1px;
+        width: 100%;
+        overflow-x: hidden;
+
+        th,
+        td {
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        & > table { table-layout: fixed; }
+
+        // &::-webkit-scrollbar {
+        //     width: 14px;
+        //     height: 14px;
+        // }
+
+        // // iOS device scrollbar display
+        // &::-webkit-scrollbar {
+        //     width: 0;
+        //     height: 0;
+        //     appearance: none;
+        // }
+
+        &::-webkit-scrollbar-thumb {
+            border-radius: 8px;
+            border: 3px solid color(default, light);
+            background-color: rgba(color(default, dark), .3);
+        }
+
+        @include bem-m('no-truncate') {
+            overflow-x: auto;
+
+            // Force Scroll bars on Chrome
+            &::-webkit-scrollbar {
+                width: 7px;
+                -webkit-appearance: none;
+            }
+
+            &::-webkit-scrollbar-thumb {
+                box-shadow: 0 0 1px rgba(color(default, light), .5);
+                background-color: rgba(color(default, dark), .5);
+            }
+
+            th,
+            td { overflow: visible; }
+
+            & > table { table-layout: auto; }
+        }
+
+        @include bem-m('light-border') {
+
+            & > table { border: 1px solid color(neutral, lighter); }
+        }
+
+        @include bem-m('nested') {
+            position: relative;
+            margin-bottom: 0;
+            border: 1px solid color(neutral, light);
+            overflow-x: auto;
+
+            // Force Scroll bars on Chrome
+            &::-webkit-scrollbar {
+                width: 7px;
+                -webkit-appearance: none;
+            }
+
+            &::-webkit-scrollbar-thumb {
+                box-shadow: 0 0 1px rgba(color(default, light), .5);
+                background-color: rgba(color(default, dark), .5);
+            }
+
+            table {
+                border: 0;
+                table-layout: auto;
+
+                tr {
+                    overflow: visible;
+                    text-overflow: clip;
+                    white-space: normal;
+                }
+            }
+        }
+
+        @include bem-m('minimal') {
+
+            table {
+
+                thead,
+                tbody {
+
+                    tr th,
+                    tr td { border: 0; }
+                }
+
+                thead {
+
+                    th { padding-bottom: 10px; }
+                }
+            }
+        }
+
+        @include bem-m('condensed') {
+
+            table {
+
+                th,
+                td { padding: 6px 10px; }
+
+                th { @include font-size(12); }
+            }
+        }
+
+        @include bem-m('hover') {
+
+            table {
+
+                tbody {
+
+                    tr:hover {
+
+                        td,
+                        th {
+                            background-color: color(neutral, lighter);
+                            cursor: pointer;
+                        }
+                    }
+                }
+            }
+        }
+
+        @include bem-m('cell-description') {
+            position: relative;
+
+            > * {
+                float: left;
+                width: 50%;
+            }
+        }
+
+        // show the Generate File button when its row is hovered
+        tr:hover .table-action-wrapper .btn { opacity: 1; }
+    }
+
+    @include bem-e('row') {
+
+        @include bem-m('error') {
+            // override border styling for hovered and zebre-striped rows
+            border: 1px double color(utility, error) !important; // sass-lint:disable-line no-important
+
+            // override background styling for hovered and zebre-striped rows
+            td,
+            th { background-color: color(utility, error-light) !important; } // sass-lint:disable-line no-important
+        }
+
+        @include bem-m('warning') {
+            // override border styling for hovered and zebre-striped rows
+            border: 1px double color(utility, warning) !important; // sass-lint:disable-line no-important
+
+            // override background styling for hovered and zebre-striped rows
+            td,
+            th { background-color: color(utility, warning-light) !important; } // sass-lint:disable-line no-important
+        }
+    }
+
+    @include bem-e('cell') {
+
+        @include bem-m('action') {
+            padding-top: 5px;
+            padding-bottom: 5px;
+        }
+
+        @include bem-m('no-flyout') {
+
+            // actions cells with no flyout show the Generate File button at all times
+            .table-action-wrapper .btn { opacity: 1; }
+        }
+
+        @include bem-m('error') {
+            // override border and background styling for hovered and zebra-striped row cells
+            border: 1px double color(utility, error) !important; // sass-lint:disable-line no-important
+            background-color: color(utility, error-light) !important; // sass-lint:disable-line no-important
+        }
+
+        @include bem-m('warning') {
+            // override border and background styling for hovered and zebra-striped row cells
+            border: 1px double color(utility, warning) !important; // sass-lint:disable-line no-important
+            background-color: color(utility, warning-light) !important; // sass-lint:disable-line no-important
+        }
+    }
+
+    @include bem-e('cell-text') {
+        position: relative;
+        display: inline-block;
+        max-width: 100%;
+        overflow: hidden;
+        vertical-align: top;
+        text-overflow: ellipsis;
+    }
+
+    @include bem-e('cell-icon') {
+        position: relative;
+        display: inline-block;
+
+        svg {
+            position: relative;
+            top: -1px;
+            display: inline-block;
+            width: 14px;
+            height: 14px;
+        }
+
+        @include bem-m('error') {
+
+            svg { fill: color(utility, error); }
+        }
+
+        @include bem-m('warning') {
+
+            svg { fill: color(utility, warning); }
+        }
+    }
+}
+
+.table-action-wrapper {
+    display: flex;
+    justify-content: flex-end;
+
+    // hide the Generate File button by default
+    .btn {
+        opacity: 0;
+        transition: opacity $transition-duration, box-shadow $transition-duration, border-color $transition-duration, background-color $transition-duration, color $transition-duration;
+    }
+}
+
+.table-flyout {
+    position: relative;
+
+    @include bem-e('btn') {
+        width: 27px;
+        height: 27px;
+        cursor: pointer;
+
+        &.is-open {
+
+            .table-flyout__icon { fill: color(neutral); }
+        }
+    }
+
+    @include bem-e('icon') { fill: color(secondary); }
+}
+
+/*
+ * table pagination
+ *
+ ********************************************************************************/
+
+.table-pagination {
+    margin-top: 20px;
+
+    @media (min-width: $screen-lg-min) {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    @include bem-e('per-page') {
+        display: flex;
+        align-items: center;
+
+        select {
+            margin-left: 18px;
+            width: auto;
+            color: color(neutral, darker);
+        }
+    }
+
+    @include bem-e('results-count') {
+        @include font-size(14);
+
+        white-space: nowrap;
+        color: color(neutral, darker);
+    }
+
+    @include bem-e('navigation') {
+        margin-top: 20px;
+
+        @media (min-width: $screen-lg-min) { margin-top: 0; }
+    }
+}
+
+/*
+ * table cell description
+ *
+ ********************************************************************************/
+
+.table-cell-description {
+    position: absolute;
+    top: -1px;
+    left: calc(50% - 2px);
+    border: 1px solid color(neutral, light);
+    width: calc(50% + 2px);
+    height: calc(100% + 1px);
+    background-color: color(utility, selected);
+
+    @include bem-e('content') {
+        padding: 20px;
+        width: 100%;
+        height: 100%;
+        overflow: scroll;
+
+        > *:last-child { margin-bottom: 0; }
+    }
+
+    &::before,
+    &::after {
+        position: absolute;
+        top: calc(50% - 25px);
+        right: 100%;
+        border-style: solid;
+        content: '';
+    }
+
+    &::after {
+        margin-top: -10px;
+        border-width: 10px;
+        border-color: transparent color(utility, selected) transparent transparent;
+    }
+
+    &::before {
+        margin-top: -12px;
+        border-width: 12px;
+        border-color: transparent color(neutral, light) transparent transparent;
+    }
+}

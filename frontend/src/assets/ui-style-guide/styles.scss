@@ -1,0 +1,88 @@
+/*
+ * Vertex Inc - Website - Full Site CSS Build
+ *
+ ********************************************************************************/
+
+/*
+ * global
+ *
+ ************************************************************/
+
+ @import 'global/functions';
+ @import 'global/variables';
+ @import 'global/mixins';
+ @import 'global/base';
+ @import 'global/fonts';
+ 
+ /*
+  * vendor
+  *
+  ************************************************************/
+ 
+ // browser
+ @import 'vendor/normalize-7.0.0';
+ 
+ // grid
+ @import 'vendor/bootstrap/bootstrap';
+ 
+ // features
+ @import 'vendor/cookie-consent-3.0.4';
+ @import 'vendor/chosen-1.8.3';
+ @import 'vendor/modaal-0.3.1';
+ // @import 'vendor/ag-grid-17.1.1';
+ 
+ 
+ /*
+  * partial
+  *
+  ************************************************************/
+ 
+ // elements
+ @import 'partial/utility';
+ @import 'partial/grid';
+ @import 'partial/splash';
+ @import 'partial/typography';
+ @import 'partial/iconography'; // gulp generated asset
+ @import 'partial/buttons';
+ @import 'partial/forms';
+ @import 'partial/lists';
+ @import 'partial/tables';
+ @import 'partial/print';
+ @import 'partial/tooltip';
+ @import 'partial/loading-indicator';
+ @import 'partial/input-group';
+ 
+ // components
+ @import 'partial/accordion';
+ @import 'partial/back-link';
+ @import 'partial/badge';
+ @import 'partial/breadcrumb';
+ @import 'partial/cookie-consent-custom';
+ @import 'partial/datepicker';
+ @import 'partial/datetimepicker';
+ @import 'partial/drilldown-menu';
+ @import 'partial/flyout';
+ @import 'partial/hr';
+ @import 'partial/logo';
+ @import 'partial/modal-custom';
+ @import 'partial/notification';
+ @import 'partial/overlay';
+ @import 'partial/pagination';
+ @import 'partial/search-flyout';
+ @import 'partial/tabs';
+ @import 'partial/toggle';
+ @import 'partial/treeview';
+ @import 'partial/type-ahead-select';
+ @import 'partial/collapse-button';
+ @import 'partial/right-panel';
+ @import 'partial/section-validation';
+ 
+ // sections
+ @import 'partial/global-footer';
+ @import 'partial/global-header';
+ @import 'partial/global-navigation';
+ 
+ // properties
+ @import 'partial/drawer';
+ @import 'partial/ag-grid';
+ 

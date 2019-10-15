@@ -1,0 +1,65 @@
+/*
+ * lists
+ * the .wysiwyg class is used to flag a basic content region and apply basic content styles
+ *
+ ********************************************************************************/
+
+
+/*
+ * base list treatment
+ *
+ ************************************************************/
+
+.wysiwyg ul,
+.list--circle-bullets {
+    position: relative;
+    list-style-type: none;
+
+    > li {
+        position: relative;
+
+        // custom UL bullet
+        &::before {
+            position: absolute;
+            top: 8px;
+            left: -18px;
+            border-radius: 50%;
+            border: 2px solid color(neutral, base);
+            width: 7px;
+            height: 7px;
+            content: '';
+        }
+    }
+}
+
+
+/*
+ * 2-col link list
+ *
+ ************************************************************/
+
+.list--2-col {
+    margin-bottom: 0;
+
+    @media (min-width: 580px) {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    @include bem-m('header') {
+        flex-direction: column;
+        max-height: 200px;
+    }
+
+    li {
+        margin-top: 0;
+        margin-bottom: 16px;
+
+        &:last-child { margin-bottom: 0; }
+
+        @media (min-width: 580px) {
+            padding-right: 40px;
+            width: 50%;
+        }
+    }
+}

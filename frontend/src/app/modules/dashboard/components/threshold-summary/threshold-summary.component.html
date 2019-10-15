@@ -1,0 +1,273 @@
+<div class="threshold-summary__header-container">
+  <div class="container-fluid">
+    <div class="row align-items-center py-2 sm-align-items-start">
+      <div class="col-12 col-md col-sm filter-status threshold-summary__status-update">
+        <span *ngIf="taxationData && taxationData.fileName" class="d-block d-sm-inline-block d-md-inline-block">Uploaded
+          file : {{taxationData && taxationData.fileName ? taxationData.fileName : ''}}</span>
+        <span class="d-block d-sm-inline-block d-md-inline-block">Last update :
+          {{taxationData && taxationData.lastUpdatedOn ? taxationData.lastUpdatedOn : ''}}</span>
+        <span class="d-block d-sm-inline-block d-md-inline-block font-s14 font-normal">[ Refer<a href="javascript:;"
+            class="u-link--primary u-line font-medium ml-2" (click)='navigateToPage(RouteConfig.STATE_GUIDES)' aria-label="Refer state guides">State
+            Guides</a> ]</span>
+      </div>
+      <div class="col text-right data-status-wrap threshold-summary__action-items--desktop">
+        <button class="btn btn--secondary"
+          (click)="navigateToPage(RouteConfig.DBRD.DASHBOARD+'/'+RouteConfig.DBRD.IMPORT_DATA)" aria-label="upload your updated taxation data">UPLOAD FILE</button>
+        <button class="btn btn--secondary mx-2" (click)="navigateToEditTaxationData()" aria-label="Edit the existing taxation data">EDIT DATA</button>
+        <div class="btn-group btn-group--dropdown flyout__container flyout__container--btn-dropdown"
+          data-save-dropdown="button-container" [ngClass]="{'is-open':isExportListOpen}">
+          <button id="export-btn" class="btn btn--secondary btn--radius" (click)="exportDropDown($event)"
+            [attr.aria-expanded]="isExportListOpen" aria-label="export your taxation data">
+            EXPORT
+            <svg class="u-icon-i-chevron-down-nofill-dims">
+              <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#i-chevron-down-nofill"></use>
+            </svg>
+          </button>
+          <div class="flyout__panel" *ngIf="isExportListOpen" id="export-list" (keydown.esc)="closeExportMenu()">
+            <ul class="u-list-unstyled flyout__list" role="listbox">
+              <li class="flyout__item" (click)="openModal()" (keydown.enter)="openModal()" (keydown.space)="openModal()" vtxAccessibilityArrow
+                tabindex="0" role="option"><a class="flyout__link" aria-label="export data">DATA</a></li>
+              <!-- <li class="flyout__item"><a (click)="pdfGeneration()" class="flyout__link">REPORT</a></li> -->
+              <li class="flyout__item" (click)="printPdf()" (keyDown.enter)="printPdf()" (keydown.space)="printPdf()"
+                vtxAccessibilityArrow tabindex="0" role="option"><a class="flyout__link" aria-label="export REPORT">REPORT</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div
+        class="col flyout__container flyout__container--drilldown btn--actions threshold-summary__action-items--mobile"
+        data-drilldown="toggle-container" [ngClass]="{'is-open': isMobileMenuOpen}">
+        <button class="btn btn--secondary-outline btn--sm" data-drilldown="toggle" (click)="mobileMenu($event)">
+          <svg class="u-icon-i-action-menu-dims">
+            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#i-action-menu"></use>
+          </svg>
+        </button>
+        <div class="flyout__panel drilldown-menu__container">
+          <div class="flyout__content">
+            <div class="drilldown-menu__list-container overflow__hidden">
+              <div class="drilldown-menu__list">
+                <div class="drilldown-menu__item">
+                  <div class="custom__cb"
+                    (click)="navigateToPage(RouteConfig.DBRD.DASHBOARD+'/'+RouteConfig.DBRD.IMPORT_DATA)">UPLOAD FILE
+                  </div>
+                </div>
+                <div class="drilldown-menu__item">
+                  <div class="custom__cb" (click)="navigateToEditTaxationData()">EDIT DATA</div>
+                </div>
+                <div class="drilldown-menu__item" (click)="openModal()">
+                  <div class="custom__cb">EXPORT DATA</div>
+                </div>
+                <div class="drilldown-menu__item" (click)="printPdf()">
+                  <div class="custom__cb">EXPORT REPORT</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="threshold-tab threshold-data-container" [ngClass]="thresholdRegulationsStatus ? 'tab-is-open' : ' '">
+  <div class="tabs__container d-flex">
+    <div class="tab-list-wrap-md p-2">
+      <div class="col mr-5 filter-threshold-status">
+        <label class="w-100">Filter by Threshold Status</label>
+        <div class="flyout__container flyout__container--drilldown w-100" data-drilldown="toggle-container"
+          [ngClass]="isThresholdDropDownOpen ? 'is-open' : ' '">
+          <button class="btn btn--tertiary w-100 text-left status-button" data-drilldown="toggle"
+            (click)="filterByThresholdDropDown($event)" aria-describedby="selected-state-count">
+
+            {{getFilteredStatesMsg()}}
+            <svg class="u-icon-i-chevron-down-nofill-dims float-right">
+              <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#i-chevron-down-nofill"></use>
+            </svg>
+          </button>
+          <div class="flyout__panel drilldown-menu__container w-100">
+            <div class="flyout__content">
+              <div class="drilldown-menu__list-container overflow-y__hidden">
+                <div class="drilldown-menu__list">
+                  <div class="drilldown-menu__item" (click)="filterStatesByTransactionStatus('all')"
+                    [ngClass]="{'is-selected':isFilterApplied('all')}">
+                    <div class="custom__cb">
+                      <label for="styleguide_cb1_2">
+                        <span class="custom__cb__label-text" id="selected-state-count">
+                          All Threshold Status - {{totalStatesCount}} State(s)
+                        </span>
+                      </label>
+                    </div>
+                  </div>
+                  <div class="drilldown-menu__item" (click)="filterStatesByTransactionStatus('THRESHOLD_CROSSED')"
+                    [ngClass]="{'is-selected':isFilterApplied('THRESHOLD_CROSSED')}">
+                    <div class="custom__cb">
+                      <img class="icon-status-corssed" [src]="images['THRESHOLD_CROSSED']">
+                      <label for="styleguide_cb1_3"><span class="custom__cb__label-text">Threshold Crossed
+                          {{thresholdStatusCount('THRESHOLD_CROSSED')}}</span></label>
+                    </div>
+                  </div>
+                  <div class="drilldown-menu__item" (click)="filterStatesByTransactionStatus('THRESHOLD_NEARING')"
+                    [ngClass]="{'is-selected':isFilterApplied('THRESHOLD_NEARING')}">
+                    <div class="custom__cb">
+                      <img class="icon-status-nearing" [src]="images['THRESHOLD_NEARING']">
+                      <label for="styleguide_cb1_4"><span class="custom__cb__label-text">Threshold Nearing
+                          {{thresholdStatusCount('THRESHOLD_NEARING')}}</span></label>
+                    </div>
+                  </div>
+                  <div class="drilldown-menu__item" (click)="filterStatesByTransactionStatus('THRESHOLD_SAFE')"
+                    [ngClass]="{'is-selected':isFilterApplied('THRESHOLD_SAFE')}">
+                    <div class="custom__cb">
+                      <img class="icon-status-safe" [src]="images['THRESHOLD_SAFE']">
+                      <label for="styleguide_cb1_5"><span class="custom__cb__label-text">Threshold Safe
+                          {{thresholdStatusCount('THRESHOLD_SAFE')}}</span></label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col mr-5 mt-3 filter-threshold-status">
+        <label class="w-100">Filter by State(s)</label>
+        <div class="flyout__container flyout__container--drilldown w-100" data-drilldown="toggle-container"
+          [ngClass]="isStatesDropDownOpen ? 'is-open' : ' '">
+          <button class="btn btn--tertiary w-100 text-left status-button" data-drilldown="toggle"
+            (click)="filterByStatesDropDown($event)">
+            {{currentSelectedStateTaxData ? currentSelectedStateTaxData.stateName : ''}}
+            <svg class="u-icon-i-chevron-down-nofill-dims float-right">
+              <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#i-chevron-down-nofill"></use>
+            </svg>
+          </button>
+          <div class="flyout__panel drilldown-menu__container w-100">
+            <div class="flyout__content">
+              <div class="drilldown-menu__list-container">
+                <div *ngIf="!false; then statesDropDown "></div>
+                <ng-template #statesDropDown>
+                  <div class="drilldown-menu__list">
+                    <div class="drilldown-menu__item" [id]='i'
+                      *ngFor="let stateTaxData of selectedFilteredStatesArray; let i=index"
+                      (click)="selectStateFromDropDown(stateTaxData)" [ngClass]="isStateFocused(stateTaxData)">
+                      <div class="custom__cb">
+                        <label class="w-100"><span
+                            class="custom__cb__label-text">{{stateTaxData && stateTaxData.state ?stateTaxData.state.stateName:''}}
+                            <span *ngIf="stateTaxData.thresholdStatus ==='NOT_AVAILABLE'"
+                              class="d-inline-block float-right label-icon">NA</span>
+                            <span *ngIf="stateTaxData.thresholdStatus !=='NOT_AVAILABLE'"
+                              class="d-inline-block float-right label-icon">
+                              <img _ngcontent-hpg-c3="" class="icon-status-corssed"
+                                [src]="getThresholdStatusImageSrc(stateTaxData.thresholdStatus)">
+                            </span>
+                          </span>
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </ng-template>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="container-fluid dashboard-summary__wrapper" id="desktop-filter-by-states">
+  <div class="threshold-summary__map-container" role="region" aria-label="filter">
+    <div class="row align-items-start py-2">
+      <div class="col mr-5 threshold-summary__state-filter">
+        <label class="w-100" for="filterState" id="filter-state-lbl">Filter by State(s)</label>
+        <div class="flyout__container flyout__container--drilldown w-100" data-drilldown="toggle-container"
+          [ngClass]="isStatesDropDownDesktopOpen ? 'is-open' : ' '" (click)="filterByStatesdropDownDesktop($event)">
+          <button class="btn btn--tertiary w-100 text-left filter-button" #filterButton data-drilldown="toggle" aria-describedby="filter-state-lbl">
+            {{getSelectedStatesCount('dropdown')}} State(s)
+            <svg class="u-icon-i-chevron-down-nofill-dims float-right">
+              <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#i-chevron-down-nofill"></use>
+            </svg>
+          </button>
+          <div class="flyout__panel drilldown-menu__container w-100" (keydown.esc)="a11yCloseSelectFilter($event, filterButton)"
+            [ngClass]="!isStatesDropDownDesktopOpen ? 'hide' : ' '">
+            <div class="flyout__header drilldown-menu__header">
+              <span class="flyout__label">Select States</span>
+              <button class="flyout__btn-close" data-drilldown="close">
+                  <span class="u-sr-only">Close Current Drilldown Menu</span>
+                  <svg class="u-icon-i-close-dims">
+                      <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#i-close"></use>
+                  </svg>
+              </button>
+            </div>
+            <div class="flyout__content">
+              <div class="drilldown-menu__item drilldown-menu__item--header" tabindex="0"
+                [attr.aria-checked]="isSelectAll" (keydown)="a11ySelectAllCheckBox($event)">
+                <div class="custom__cb">
+                  <input type="checkbox" tabindex='-1' id="styleguide_cb_all1_0" name="drilldown_cb0" (change)="selectAllStates()"
+                    [checked]="isSelectAll"><label for="styleguide_cb_all1_0" class="w-100"><span
+                      class="custom__cb__label-text m-0">Select All</span></label>
+                </div>
+              </div>
+              <div class="drilldown-menu__list-container">
+                <div class="drilldown-menu__list" role="listbox">
+                  <div class="drilldown-menu__item ally-list-item" vtxAccessibilityArrow tabindex="0" role="option"
+                    (keydown)="a11ySelectStateCheckBox($event, stateData)" [attr.aria-checked]="stateData.checked"
+                    *ngFor="let stateData of selectedStatesArray; let i= index">
+                    <div class="custom__cb">
+                      <input type="checkbox" tabindex='-1' id="checkBox_{{i}}" (change)="selectStatesFromDropDown(stateData, $event)"
+                        class="single-cb_1" [checked]='stateData.checked'><label for="checkBox_{{i}}"><span
+                          class="custom__cb__label-text">{{stateData && stateData.state?stateData.state.stateName:''}}</span></label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col ipad__portrait" id='desktop-filter-by-threshold-status'>
+        <label class="w-100" id="thresold-status-filter">Filter by Threshold Status</label>
+        <div class="btn-group" role="tablist">
+          <button role="tab" class="btn btn--tertiary m-0 d-inline-flex align-items-center filter-button all-states"
+            (click)="filterStatesByTransactionStatus('all')" [ngClass]="{'active':isFilterApplied('all')}" role="tab"
+            [attr.aria-selected]="isFilterApplied('all')" aria-describedby="thresold-status-filter">All</button>
+          <button role="tab" class="btn btn--tertiary m-0 d-inline-flex align-items-center filter-button"
+            (click)="filterStatesByTransactionStatus('THRESHOLD_CROSSED')"
+            [ngClass]="{'active':isFilterApplied('THRESHOLD_CROSSED')}">
+            <img [src]="images['THRESHOLD_CROSSED']" class="mr-2" [attr.aria-selected]="isFilterApplied('THRESHOLD_CROSSED')"/>
+            Threshold Crossed
+          </button>
+          <button role="tab" class="btn btn--tertiary m-0 d-inline-flex align-items-center filter-button"
+            (click)="filterStatesByTransactionStatus('THRESHOLD_NEARING')"
+            [ngClass]="{'active':isFilterApplied('THRESHOLD_NEARING')}" [attr.aria-selected]="isFilterApplied('THRESHOLD_NEARING')">
+            <img [src]="images['THRESHOLD_NEARING']" class="mr-2" />
+            Threshold Nearing
+          </button>
+          <button role="tab" class="btn btn--tertiary d-inline-flex align-items-center filter-button"
+            (click)="filterStatesByTransactionStatus('THRESHOLD_SAFE')"
+            [ngClass]="{'active':isFilterApplied('THRESHOLD_SAFE')}" [attr.aria-selected]="isFilterApplied('THRESHOLD_SAFE')">
+            <img [src]="images['THRESHOLD_SAFE']" class="mr-2" />
+            Threshold Safe
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="row no-margin padding--t25 threshold-summary__map" role="region" aria-label="map and graph">
+      <div class="col threshold-summary__map-widget">
+        <vtx-us-states-map (updateCurrentState)="updateGraphForCurrentState($event)"></vtx-us-states-map>
+      </div>
+      <div class="col threshold-summary__map-data-widget">
+        <vtx-state-graph></vtx-state-graph>
+      </div>
+    </div>
+  </div>
+  <vtx-summary-data-table (updateCurrentState)="updateGraphForCurrentState($event)"
+    [getSelectedStatesCount]='getSelectedStatesCount()'></vtx-summary-data-table>
+
+  <div class="innerpage__footer text-center">
+    <p class="no-margin--bottom">Copyright &copy; 2019 Vertex, Inc All rights reserved.</p>
+  </div>
+</div>
+<vtx-export-to-pdf></vtx-export-to-pdf>
+<vtx-pdf-creator [importDataProp]="taxationData"></vtx-pdf-creator>

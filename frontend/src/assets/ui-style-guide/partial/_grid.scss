@@ -1,0 +1,176 @@
+/*
+ * site container and grid elements
+ *
+ * full grid layout adapted from Bootstrap
+ * grid variables located at: /styles/global/_variables
+ * grid definitions located at: /styles/vendor/bootstrap
+ *
+ ********************************************************************************/
+
+.site-container { overflow: hidden; }
+
+.site-content {
+    position: absolute;
+    top: 72px;
+    bottom: 0;
+    width: 100%;
+}
+
+// setting max-width and centering for Bootstrap fluid grid container
+.container-fluid {
+    padding-right: 0;
+    padding-left: 0;
+}
+
+// fluid container horizontal rule
+.container-fluid--w-rule-top {
+    border-top: 1px solid $border-color;
+
+    // counterract the padding of .content__inner when a direct descendant
+    .content__inner > & {
+        margin-right: -26px;
+        margin-left: -26px;
+        padding-right: 26px;
+        padding-left: 26px;
+    }
+}
+
+.container-fluid--w-rule-bottom {
+    border-bottom: 1px solid $border-color;
+
+    // counterract the padding of .content__inner when a direct descendant
+    .content__inner > & {
+        margin-right: -26px;
+        margin-left: -26px;
+        padding-right: 26px;
+        padding-left: 26px;
+    }
+}
+
+// custom bootstrap row and chidlren columns
+.row {
+
+    @include bem-m('compact') {
+        margin-right: floor((-$grid-gutter-width / 3));
+        margin-left:  ceil((-$grid-gutter-width / 3));
+
+        @include make-grid-compact-columns(); // sass-lint:disable-line mixins-before-declarations
+    }
+}
+
+.content {
+
+    @include bem-e('wrapper') {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        min-height: 100%;
+    }
+
+    @include bem-e('row') {
+        display: flex;
+        flex-direction: row;
+        flex-grow: 1;
+    }
+
+    @include bem-e('container') {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        margin-left: 314px;
+        border-top: 1px solid color(neutral, light);
+        width: calc(100% - 314px);
+        overflow-y: auto;
+        background-color: color(neutral, lightest);
+        transition: margin-left ($transition-duration * 2), width ($transition-duration * 2);
+
+        @media (max-width: $screen-sm-max) {
+            margin-left: 0;
+            width: 100%;
+        }
+    }
+
+    @include bem-e('inner') {
+        flex: 1;
+        margin: $base-margin-bottom * 1.25;
+        padding: $grid-vertical-padding $grid-horizontal-padding;
+        background-color: color(default, light);
+    }
+}
+
+.is-collapsed + .content__container {
+    /* max-width of collapsed global navigation */
+    margin-left: 74px;
+    width: calc(100% - 74px);
+
+    @media (max-width: $screen-sm-max) {
+        margin-left: 0;
+        width: 100%;
+    }
+}
+
+// grid row rules
+.row--w-rule-top { border-top: 1px solid $border-color; }
+.row--w-rule-bottom { border-bottom: 1px solid $border-color; }
+
+// grid row padding
+// varaibles sourced in
+.pad-top {
+    padding-top: $grid-vertical-padding;
+
+    @include bem-m('sm') { padding-top: $grid-vertical-padding / 2; }
+
+    @include bem-m('lg') { padding-top: $grid-vertical-padding * 2; }
+}
+
+.pad-bottom {
+    padding-bottom: $grid-vertical-padding;
+
+    @include bem-m('sm') { padding-bottom: $grid-vertical-padding / 2; }
+
+    @include bem-m('lg') { padding-bottom: $grid-vertical-padding * 2; }
+}
+
+.pad-right {
+    padding-right: $grid-vertical-padding;
+
+    @include bem-m('sm') { padding-right: $grid-horizontal-padding / 2; }
+
+    @include bem-m('lg') { padding-right: $grid-horizontal-padding * 2; }
+}
+
+.pad-left {
+    padding-left: $grid-horizontal-padding;
+
+    @include bem-m('sm') { padding-left: $grid-horizontal-padding / 2; }
+
+    @include bem-m('lg') { padding-left: $grid-horizontal-padding * 2; }
+}
+
+
+/*
+ * grid layouts - development highlighting
+ *
+ ****************************************************************************/
+
+.is-development {
+
+    .container-content {
+        margin-top: 2px;
+        margin-bottom: 2px;
+
+        .row {
+            margin-top: 2px;
+            margin-bottom: 2px;
+            background-color: transparent;
+        }
+
+        div {
+            @include font-size(12);
+
+            border: 2px solid color(default, light);
+            padding: 2px 6px;
+            background-color: color(neutral,lightest);
+        }
+    }
+}

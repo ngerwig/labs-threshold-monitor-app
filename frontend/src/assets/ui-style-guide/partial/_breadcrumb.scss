@@ -1,0 +1,49 @@
+/*
+ * breadcrumb list
+ *
+ ********************************************************************************/
+
+.breadcrumb {
+
+    @include bem-e('list') { display: inline-block; }
+
+    @include bem-e ('icon') {
+        display: inline-block;
+        margin-top: -4px;
+        margin-right: 8px;
+        max-width: 24px;
+        max-height: 24px;
+    }
+
+    @include bem-e('item') {
+        @extend .u-text-uppercase;
+        @include font-size(12);
+
+        line-height: 1;
+
+        // create a breadcrumb arrow after LIs
+        &::after {
+            display: inline-block;
+            margin: 0 1px 0 4px;
+            width: 16px;
+            height: 16px;
+            background: url('/assets/images/svg/i-arrow-right.svg') no-repeat center center;
+            vertical-align: top;
+            content: '';
+        }
+
+        // hide the breadcrumb arrow on the last item
+        &:last-child {
+
+            &::after { display: none; }
+        }
+    }
+
+    @include bem-e('link') {
+        //border-bottom-color: rgba($white, .5) !important;
+        //color: $white !important;
+
+        &:focus,
+        &:hover { /* border-bottom-color: rgba($white, 1); */ }
+    }
+}

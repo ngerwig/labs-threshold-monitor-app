@@ -1,0 +1,35 @@
+/*
+ * brand logo
+ *
+ ********************************************************************************/
+
+.site-logo {
+    display: inline-block;
+
+    a {
+        transition: opacity $transition-duration;
+
+        &:focus,
+        &:hover { opacity: .75; }
+    }
+
+    img,
+    svg {
+        width: 100%;
+        height: auto; /* make sure SVG box is sized properly */
+        transition: fill $transition-duration;
+    }
+
+    // header-specific logo
+    @include bem-m('header') {
+        max-width: 135px;
+
+        svg { fill: $text-color; }
+    }
+
+    // footer-specific logo
+    @include bem-m('footer') {
+        margin-bottom: 25px;
+        max-width: 170px;
+    }
+}

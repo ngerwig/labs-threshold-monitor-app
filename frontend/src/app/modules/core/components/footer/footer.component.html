@@ -1,0 +1,11 @@
+<div class="vtx-footer-wrapper" role="region" aria-label="footer">
+  <div class="container-fluid py-2">
+    <div class="row">
+      <div class="col-12">
+        <button id="footer-proceed-btn" class="btn btn--primary" *ngIf="modeNoProceedButton" (click)="onProcced()">PROCEED</button>
+        <button id="footer-save-btn" class="btn btn--secondary ml-2" *ngIf="modeNoSaveButton" (click)="onSave()">SAVE</button>
+        <button id="footer-cancel-btn" class="btn btn--tertiary ml-2" (click)="onCancel()">CANCEL</button>
+      </div>
+    </div>
+  </div>
+</div>

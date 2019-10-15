@@ -1,0 +1,141 @@
+{
+    "MSG_AUTH_VERTEX_BANNER_MSG_TITLE": "We've got you covered.",
+    "MSG_AUTH_VERTEX_BANNER_MSG_DESC": "Sign in to Vertex’s Threshold Monitor to see the state-wise tax liabilities of your business.",
+    
+    "MSG_SIGN_IN_INCORRECT_EMAIL_ID": "Incorrect email address, Please try again.",
+    "MSG_SIGN_IN_INCORRECT_PASSWORD": "Incorrect password, Please try again.",
+
+    "MSG_SIGN_IN_VERIFY_ACCNT_TITLE": "Please verify your account",
+    "MSG_SIGN_IN_VERIFY_ACCNT_DESC_A": "We sent an email with a verification link to ",
+    "MSG_SIGN_IN_VERIFY_ACCNT_DESC_B":" The verification link expires in 24 hours.",
+    "MSG_SIGN_IN_EMAIL_NOT_VERIFIED_DESC_A" : "We sent an email with a link to verify your email to",
+    "MSG_SIGN_IN_EMAIL_NOT_VERIFIED_DESC_B" : ". Select the link in the email to verify your account. The verification link expires in 24 hours.",
+    "MSG_SIGN_IN_ACCOUNT_VERIFIED": "Your account has been verified",
+    "MSG_SIGN_IN_PASS_RESET_SUCCESS": "Your password has been successfully reset",
+    "MSG_SIGN_IN_INVALID_LINK": "Your link is invalid. Please check for the latest link",
+    "MSG_SIGN_IN_SESSION_EXP": "Your session is expired",
+    "MSG_SIGN_IN_ACCOUNT_ALREADY_VERIFIED": "Your account is already verified",
+    "MSG_SIGN_IN_INCORRECT_EMAIL_PASS": "Incorrect email or password, please try again",
+
+    "MSG_FORGOT_PASS_INCORRECT_EMAIL": "Incorrect email address, please try again.",
+    "MSG_FORGOT_PASS_INCORRECT_NOTREG_EMAIL": "The email you entered is not registered or is incorrect.",
+    "MSG_FORGOT_PASS_REQ_FAILED": "Request failed, please try again.",
+
+    "MSG_COMMON_MAIL_NOT_RECEIVED_TITLE": "Didn’t receive the mail?",
+    "MSG_VERIFY_ACCNT_MAIL_NOT_RECEIVED_DESC_1": "Sometimes, the email may go to your notifications or bulk folder.",
+    "MSG_VERIFY_ACCNT_MAIL_NOT_RECEIVED_DESC_2":"To find the email search for 'Verify your Vertex Threshold Monitor Account' in your inbox'",
+
+    "MSG_PROFILE_DEACTIVATE_MESSAGE": "Are you sure you want to deactivate your account? Your profile and access to data will be disabled until you activate your account again.",
+    "MSG_PROFILE_RESET_EMAIL_MESSAGE": "Are you sure you want to update your email address? Please click okay to proceed and check your email to verify.",
+    "MSG_PROFILE_EMAIL_NOTIFICATION1": "Your profile has been updated with the email address entered. A verification link has been sent to your inbox. Please check your inbox to verify. Email change is disallowed until confirmed.",
+    "MSG_PROFILE_EMAIL_NOTIFICATION2": "Your profile was updated with the email address entered. A verification link was sent to your inbox.Please check your inbox to verify. Email change is disallowed until confirmed.",
+
+    "MSG_IMPORT_DATA_DRAG_AND_DROP_TEXT": "Drag and Drop here",
+    "MSG_IMPORT_DATA_UPLOAD_FILE": "Please upload the file",
+
+    "MSG_COMMON_TAXATION_DATA_NOTIFICATION_ERR_FIX": "All errors must be fixed before continuing to the next step.",
+    
+    "MSG_SIGN_UP_PASSWORD_HINT":"Use 8 or more characters with a mix of letters, numbers & symbols",
+
+    "MSG_RESET_PWD_VERIFICATION_INFO_1_A" :"We sent an email with a link to reset your password to",
+    "MSG_RESET_PWD_VERIFICATION_INFO_1_B":". The reset link expires in 24 hours.",
+    "MSG_RESET_PWD_VERIFICATION_INFO_3":"To find the email search for 'Reset your Vertex Threshold Monitor Account Password' in your inbox",
+    "MSG_STATE_REGISTERED_TOOLTIP":"For those state(s) in which your business is registered, tax calculation is independent of any threshold value",  
+
+    "MSG_COMMON_EMAIL_REQUIRED": "Email is required.",
+    "MSG_COMMON_NAME_REQUIRED": "Name is required.",
+    "MSG_COMMON_PWD_REQUIRED": "Password is required.",
+    "MSG_COMMON_CONFIRM_PWD_REQUIRED": "Confirm password is required.",
+    "MSG_COMMON_LINK_EXPIRED_DESC":"This verification message has expired. To receive a new verification link, click Resend.",
+    "MSG_COMMON_PWD_REQUIREMENT": "Passwords must be at least 8 characters, and contain at least one of each of the following: an uppercase letter, a lowercase letter, a number, and a special character (e.g., !@#$%^&*).",
+    "MSG_CURRENT_AND_OLD_PWD_SAME": "Current and New passwords can’t be the same",
+
+    "MSG_IMPORT_DATA_DOWNLOAD_TEMPLATE_NOTIFICATION": "Please select the file format for the import template.",
+    "MSG_IMPORT_DATA_UPLOAD_FILE_NOTIFICATION": "The import file must be in the format of the Vertex template. You can download the Vertex template or create your own file (in .csv, .xls or .xlsx format) with the same columns and data format as the Vertex template.",
+   
+    "MSG_DASHBOARD_REGISTERED_STATES_NOTIFICATION": "Select all states where your company has a physical presence or is already registered to withhold sales tax. If your company has a physical location in a state, you are required to withhold tax in this state despite the threshold, so Wayfair regulations do not apply.",
+    
+    "MSG_GTSTRTED_NOTIFICATION_FRSTHLF": "Select the process to import your Taxation Data. The ",
+    "MSG_GTSTRTED_NOTIFICATION_SCONDHLF": " also provides detail about the state threshold guidelines that you may find to be helpful.",
+    "MSG_COMMON_WISCONSIN_NOTIFICATION":"For Wisconsin, the current/previous year measurement period is based on your taxable year for federal income tax purpose. Vertex supports Wisconsin threshold measurement for calender federal income tax filers only. We do not currently support Wisconsin threshold measurement for fiscal year federal income tax filers.",
+    
+    
+    "HEADER_ADD_TAXATION_DATA": "Add your Taxation Data",
+    
+    "HEADER_EDIT_TAXATION_DATA": "Edit your Taxation Data",
+    "HEADER_LINK_EXPIRED" : "Link Expired",
+    "HEADER_ALREADY_HAVE_AN_ACCNT":"Already have an account?",
+    "HEADER_REGISTERED_STATES": "State(s) in which Your Business Has a Physical Presence",
+    "HEADER_GTSTRTED": "Get started",
+    "HEADER_IMPORT_DATA": "Get started by importing your taxation data.",
+    "HEADER_IMPORT_DATA_DOWNLOAD_TEMPLATE": "Download a file template",
+    "HEADER_IMPORT_DATA_UPLOAD_FILE": "Upload your filled in file",
+
+    "HEADER_SET_PWD":"Set Password",
+    "HEADER_RESET_PWD":"Reset Password",
+
+    "HEADER_FORGOT_PASSWORD": "Forgot Password",
+
+    
+    "LABEL_AXATION_DATA_HEADER_ADD": "Add your Taxation Data",
+    "LABEL_AXATION_DATA_HEADER_SUMMARY": "Data Summary : ",
+    "LABEL_AXATION_DATA_HEADER_EDIT": "Edit your Taxation Data",
+    "LABEL_SIGN_IN": "Sign in",
+    "LABEL_SIGN_UP": "Sign up",
+    "LABEL_COMMON_RESEND_VERIFICATION_LINK": "Resend verification link",
+    "LABEL_RESEND":"Resend",
+    "LABEL_YOUR_NAME":"Your Name",
+    "LABEL_YOUR_EMAIL":"Your Email",
+    "LABEL_PASSWORD":"Password",
+    "LABEL_CONFIRM_PASSWORD":"Confirm Password",
+    "LABEL_SIGN_UP_BUTTON": "Sign up",
+    "LABEL_SIGN_IN_FORGOT_PASS": "Forgot Password",
+    "LABEL_SIGN_IN_DONT_HAV_ACCNT": "Don't have an account yet? ",
+    "LABEL_COMMON_RESEND_VERIFICATION_LINK_BUTTON": "Resend verification link",
+    "LABEL_IMPORT_DATA_DOWNLOAD_TEMPLATE_BUTTON": "DOWNLOAD TEMPLATE",
+    "LABEL_PROFILE_THRESHOLD_NEARING": "Threshold Nearing",
+    "LABEL_IMPORT_DATA_UPLOAD_FILE_BUTTON": "UpLOAD FILE",
+    "LABEL_GTSTRTED_IMPORT_DATA_FRSTHLF": "Import your",
+    "LABEL_GTSTRTED_IMPORT_DATA_SCONDHLF": " taxation data",
+    "LABEL_GTSTRTED_ADD_DATA_MANUALLY_FRSTHLF": "Add your taxation ",
+    "LABEL_GTSTRTED_ADD_DATA_MANUALLY_SCONDHLF": " data manually",
+    "LABEL_COMMON_CPY_RIGHT_FRSTHLF": "Copyright ",
+    "LABEL_COMMON_CPY_RIGHT_SCONDHLF": " 2019 Vertex, Inc All rights reserved.",
+    "LABEL_IMPORT_DATA_CONTACT_TEXT_FRSTHLF": "Did not find the data format you ",
+    "LABEL_IMPORT_DATA_CONTACT_TEXT_SCONDHLF": " are looking for? ",
+    "LABEL_COMMON_CONTACT_US": "Contact Us",
+    "LABEL_COMMON_STATE_GUIDES": " State Guides",
+    "LABEL_FORGOT_PASS_NEXT_BTN": "Next",
+    "LABEL_FORGOT_PASS_EMAIL_TXT": "Your Email",
+    "LABEL_FORGOT_PASS_SIGN_IN_LINK": "Sign in",
+    "LABEL_FORGOT_PASS_RETURN_SIGNIN_TXT": "Return to",
+    
+    
+    
+    "ERR_SIGN_IN_EMAIL_NOT_VERIFIED": "EMAIL_NOT_VERIFIED",
+    "ERR_SIGN_IN_REGISTERED_BUT_EMAIL_NOT_VERIFIED": "REGISTERED_BUT_EMAIL_NOT_VERIFIED",
+    "ERR_USERNAME_NOT_EXIST": "USERNAME_NOT_EXIST",
+    "ERR_COMMON_EMAIL_ALREADY_EXIST": "EMAIL_ALREADY_EXIST",
+    "ERR_PASSWORD_NOT_FOUND": "PASSWORD_NOT_FOUND",
+    "ERR_INVALID_EMAIL_PATTERN": "INVALID_EMAIL_PATTERN",
+    "ERR_INVALID_PASSWORD_PATTERN": "INVALID_PASSWORD_PATTERN",
+    "ERR_USERNAME_NOT_FOUND": "USERNAME_NOT_FOUND",
+    "ERR_EMAIL_NOT_FOUND": "EMAIL_NOT_FOUND",
+    "ERR_INVALID_USER_CREDENTIALS": "INVALID_USER_CREDENTIALS",
+    "ERR_PROFILE_PASSWORD_NOT_MATCHES": "PASSWORD_NOT_MATCHES",
+    "ERR_USER_ALREADY_LOGGED_IN": "USER_ALREADY_LOGGED_IN",
+    "ERR_PASSWORD_UPDATION_SUCCESSFUL": "PASSWORD_UPDATION_SUCCESSFUL",
+    "ERR_PASSWORD_UPDATION_UNSUCCESSFUL": "PASSWORD_UPDATION_UNSUCCESSFUL",
+    "ERR_AUTH_TOKEN_EXPIRED": "AUTH_TOKEN_EXPIRED",
+    "ERR_AUTH_TOKEN_NOT_AVAILABLE": "AUTH_TOKEN_NOT_AVAILABLE",
+    "ERR_INVALID_TOKEN": "INVALID_TOKEN",
+    "ERR_REFRESH_TOKEN_EXPIRED": "REFRESH_TOKEN_EXPIRED",
+    "ERR_REFRESH_TOKEN_NOT_AVAILABLE": "REFRESH_TOKEN_NOT_AVAILABLE",
+    "ERR_INVALID_REQUEST_PARAMS": "INVALID_REQUEST_PARAMS",
+    "ERR_SERVER_ERROR": "SERVER_ERROR",
+    "ERR_IMPORT_DATA_UPLOAD_FILE": "Please upload the file",
+
+    "ARIA_LABEL_PROFILE":""
+
+
+}

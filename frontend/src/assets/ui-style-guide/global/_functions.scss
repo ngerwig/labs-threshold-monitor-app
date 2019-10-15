@@ -1,0 +1,43 @@
+/*
+ * functions for parsing variable values from SCSS Maps
+ *
+ ********************************************************************************/
+
+// grab color from SCSS Map
+@function color($key, $tone: 'base') {
+    @if map-has-key($colors, $key) {
+        @return map-get(map-get($colors, $key), $tone);
+    } @else {
+        @warn 'The "#{$key}" in $colors doesn\'t exist.'; // sass-lint:disable-line no-warn
+        @return null;
+    }
+}
+
+
+// grab z-index from SCSS Map
+@function z-index($key) {
+    @if map-has-key($z-indexes, $key) {
+        @return map-get($z-indexes, $key);
+    } @else {
+        @warn 'The "#{$key}" in $z-indexes doesn\'t exist.'; // sass-lint:disable-line no-warn
+        @return null;
+    }
+}
+
+// standalone breakpoint value
+@function breakpoint($key) {
+    @if map-has-key($breakpoints, $key) {
+        @return #{map-get($breakpoints, $key)}px;
+    } @else {
+        @warn 'The "#{$key}" in $breakpoints doesn\'t exist.'; // sass-lint:disable-line no-warn
+        @return null;
+    }
+}
+
+// generate random number within range
+@function random-num($min, $max) {
+    $rand: random();
+    $random-number: $min + floor($rand * (($max - $min) + 1));
+
+    @return $random-number;
+}

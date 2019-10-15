@@ -1,0 +1,36 @@
+@import './variable';
+
+.notification__container {
+  .notification__inner {
+    border: 1px solid $border-color;
+    border-left: 0;
+    color: $default-text;
+    font-size: 0.75rem;
+    padding: 8px 20px 8px 10px;
+    p {
+      line-height: 1.25;
+    }
+    .notification_order-list {
+      line-height: 1.5;
+      padding: 0 0 0 10px;
+      width: calc(100% - 15px);
+      li:last-child {
+        margin-top: 0 !important;
+      }
+    }
+  }
+  .notification__btn-close {
+    height: 20px;
+    top: 5px;
+    right: 5px;
+    width: 20px;
+    svg {
+      width: 10px;
+    }
+  }
+  &.notification__container--success {
+    .notification__icon {
+      background-color: $success-state-notify;
+    }
+  }
+}

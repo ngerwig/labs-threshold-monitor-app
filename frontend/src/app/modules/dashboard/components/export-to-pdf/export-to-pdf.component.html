@@ -1,0 +1,480 @@
+<div id="pdfReport" class="pdf-report__modal-wrapper">
+    <!--style="overflow: hidden; height: 0;"-->
+    <div style="overflow: hidden; height: 0;" id="pdf1" class=" pdf__wrapper">
+
+
+        <style>
+            /* Styles go here */
+
+            .page-header,
+            .page-header-space {
+                display1: none;
+                height: 50px;
+            }
+
+            .page-footer,
+            .page-footer-space {
+                display: none;
+                height: 50px;
+
+            }
+
+            .page-footer {
+                display: none;
+                position: fixed;
+                bottom: 0;
+                width: 100%;
+                z-index: 2;
+                /* border-top: 1px solid black; */
+                /* for demo */
+                /* background: yellow; */
+                /* for demo */
+            }
+
+            .page-header {
+                display1: none;
+                position: fixed;
+                top: 0mm;
+                width: 100%;
+                z-index: 2;
+                border-bottom: 1px solid #d2d2d2;
+                /* for demo */
+                background: #fff;
+                /* for demo */
+            }
+
+            .page {
+                page-break-after: always;
+            }
+
+            @page {
+                margin: 2mm;
+            }
+
+            @media screen {
+                .page-screen {
+                    width: 1000px;
+                    margin: 10px;
+                    border: 1px solid #d2d2d2;
+                    text-align: center;
+                }
+            }
+
+            table th,
+            table td {
+                border: 0px;
+                padding: 0px;
+                vertical-align: top;
+                text-align: center;
+                white-space: normal;
+            }
+
+            .cover-page-wrap {
+                width: 100% !important;
+                text-align: left;
+
+            }
+
+            .stategraph__values-wrapper {
+                width: 355px !important;
+            }
+
+            @media print {
+                .page-header {
+                    display: none !important;
+                }
+                thead {
+                    display: table-header-group;
+                }
+
+                tfoot {
+                    display: table-footer-group;
+                }
+
+                button {
+                    display: none;
+                }
+
+                body {
+                    margin: 0;
+                }
+            }
+        </style>
+
+
+        <div class="page-header" style="text-align: center">
+            <div class="screen-only modal-footer justify-content-start report__header">
+                <div class="">
+                    <button type="submit" id="print123" class="btn btn--primary" onclick="window.print()">Print</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="page-footer">
+            I'm The Footer
+        </div>
+
+        <table>
+
+            <thead>
+                <tr>
+                    <td>
+                        <!--place holder for the fixed-position header-->
+                        <div class="page-header-space"></div>
+                    </td>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr>
+                    <td align="middle">
+                        <!--*** CONTENT GOES HERE ***-->
+
+
+
+                        <div class="page-screen">
+                            <div id="coverPage1" class="cover-page-wrap homepage">
+                                <div class="homepage__content-wrapper cover-page-box">
+                                    <div class="homepage__content">
+                                        <img alt="logo" class="homepage__content-img"
+                                            [src]="baseUrl+'/assets/images/logo-vertex-inc-header.svg'" />
+                                        <h1 class="homepage__title">State Threshold<br />Report</h1>
+                                        <div class="homepage_subtext">Calculation Date -
+                                            {{taxationData?.lastUpdatedOn | date:'MMM dd yyyy'}}
+                                        </div>
+                                        <a class="pdf_p"
+                                            href="//www.thresholdmonitor.vertex.com">www.thresholdmonitor.vertex.com</a>
+                                    </div>
+                                </div>
+                                <div class="ribbon-container">
+                                    <div class="ribbon-container_border-bottom-left"></div>
+                                    <div class="ribbon-container_border-right-bottom"></div>
+                                    <div class="ribbon-container_border-bottom-right"></div>
+                                    <div class="ribbon-container_border-right-top"></div>
+                                </div>
+                                <div class="homepage__bottom_content-wrapper">
+                                    <p class="homepage__email">{{userName}} | {{emailId}}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="page-screen">
+                            <div id="disclaimer1" #disclaimer class="cover-page-wrap disclaimer">
+                                <div class="inner-page__content">
+                                    <h2 class="inner-page__title">Disclaimer</h2>
+                                    <p>
+                                        The Vertex Threshold Monitor assists business who may be impacted by the June
+                                        2018 South Dakota
+                                        vs.
+                                        Wayfair Supreme Court decision and subsequent sales tax law changes across
+                                        various states in the
+                                        United States. As a result of this decision, many states have instituted
+                                        economic nexus rules
+                                        that
+                                        require businesses to collected and remit sales tax in the event that they have
+                                        sold goods or
+                                        services to residents of the state in question, even if the business does not
+                                        have a physical
+                                        presence in the state. This tool is focused on economic nexus rules only, and
+                                        does not provide
+                                        any
+                                        guidance as it relates to physical presence, business relationships, or other
+                                        activities.
+                                    </p>
+                                    &nbsp;
+                                    &nbsp;
+                                    <p>
+                                        ALL MATERIALS ARE PROVIDED "AS IS" AND WITHOUT ANY WARRANTIES OF ANY KIND,
+                                        EXPRESS OR IMPLIED,
+                                        INCLUDING BUT NOT LIMITED TO WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+                                        PARTICULAR PURPOSE, OR
+                                        NON-INFRINGEMENT OF INTELLECTUAL PROPERTY. VERTEX SPECIFICALLY DISCLAIMS ANY
+                                        REPRESENTATIONS OR
+                                        WARRANTIES THAT ANY GOVERNMENTAL INFORMATION (INCLUDING, BUT NOT IMITED TO,
+                                        INFORMATION
+                                        REGARDING
+                                        TAX RATES OR THE APPLICABILITY OF CERTAIN TAXES) ARE ACCURATE, CURRENT, OR
+                                        APPLICABLE TO YOU OR
+                                        YOUR
+                                        BUSINESS.
+                                    </p>
+                                    <p>
+                                        &nbsp;
+                                        &nbsp;
+                                        Further, Vertex does not warrant the accuracy or completeness of any of the
+                                        Materials. The
+                                        Materials
+                                        and related graphics published within this application may include technical
+                                        inaccuracies or
+                                        typographical errors. Vertex may change any of the Materials at any time without
+                                        notice. The
+                                        materials may be out of date, and Vertex makes no commitment to update the
+                                        Materials.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="page-screen">
+                            <div id="summary" class="cover-page-wrap">
+                                <div class="inner-page__content">
+                                    <h2 class="inner-page__title">Summary</h2>
+                                    <p class="summary-container">Here is the threshold distribution summary of your
+                                        taxation data that
+                                        you
+                                        last calculated on (Insert Date of last update). Information is shown based on
+                                        the Threshold
+                                        Status
+                                        for each of the state.</p>
+                                    <div
+                                        class="summary-report-label-container d-flex align-items-center justify-content-end">
+                                    </div>
+                                    <div class="row threshould-calc-wrap no-margin">
+                                        <div class="col-6 threshould-calc-list">
+                                            <div class="threshould-calc-total">
+                                                <span
+                                                    class="d-inline-block threshould-calc-numb">{{taxationData?.taxData?.length}}</span>
+                                                Number of states in which <br />
+                                                <span> Threshold was calculated</span>
+                                            </div>
+                                            <div class="my-2 ml-3">
+                                                <span
+                                                    class="threshould-type-status-count d-inline-flex align-items-center justify-content-center threshould-crossed-count">{{thresholdCount['THRESHOLD_CROSSED']}}</span>
+                                                Threshold crossed
+                                            </div>
+                                            <div class="my-2 ml-3">
+                                                <span
+                                                    class="threshould-type-status-count d-inline-flex align-items-center justify-content-center threshould-nearing-count">{{thresholdCount['THRESHOLD_NEARING'] ? thresholdCount['THRESHOLD_NEARING'] : '0'}}</span>
+                                                Threshold nearing
+                                            </div>
+                                            <div class="my-2 ml-3">
+                                                <span
+                                                    class="threshould-type-status-count d-inline-flex align-items-center justify-content-center threshould-safe-count">{{thresholdCount['THRESHOLD_SAFE'] ? thresholdCount['THRESHOLD_SAFE'] : '0'}}</span>
+                                                Threshold safe
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div>Threshold Distribution in percentage</div>
+                                            <div class="pie-chart__container">
+                                                <canvas id="threshold-pie-chart-canvas-1" baseChart
+                                                    [datasets]="barChartData" [labels]="barChartLabels"
+                                                    [options]="barChartOptions" [plugins]="barChartPlugins"
+                                                    [chartType]="barChartType" [colors]="pieChartColors">
+                                                </canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="states-map-pdf">
+                                        <vtx-us-states-map></vtx-us-states-map>
+                                    </div>
+
+                                    <div class="map__detail-description">
+                                        <p class="map__desctiption">Map depicts threshold for all the states where your
+                                            business is
+                                            running.
+                                            Each of the threshold statutes are estimated based on the thresholds per
+                                            sales value and
+                                            number
+                                            of transactions for each individual state.</p>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="page-screen">
+                            <div id="reg-states" class="cover-page-wrap">
+                                <div class="inner-page__content">
+                                    <div class="custom__cb-group--horizontal flex-wrap">
+                                        <h2 class="inner-page__title">
+                                            State(s) in which your business has a physical presence
+                                        </h2>
+                                        <div class="my-2 reg-states-subtitle">
+                                            For the state(s) in which your business has a business presence, tax
+                                            calculation is
+                                            independent
+                                            of any
+                                            threshold value. So for those states, there is no Threshold data calculated
+                                            in this report.
+                                        </div>
+                                        <div style="margin-bottom: 25px;text-align: left;font-size: 10px; font-weight: 600; width: calc(33.3% - 10px);"
+                                            class="custom__cb reg-states-checkbox" *ngFor="let state of allStates">
+                                            <input type="checkbox" [attr.checked]="typecheck(state.stateCode)"
+                                                id={{state.stateCode}} name={{state.stateName}}
+                                                value={{state.stateCode}}><label for={{state.stateCode}}><span
+                                                    class="custom__cb__label-text"
+                                                    style="color: #403e3e; font-size: 10px">{{state.stateName}}</span></label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="page-screen" *ngFor="let data of taxationData?.taxData; let i = index;">
+                            <div class="state-details cover-page-wrap info-page__wrapper1">
+                                <div class="inner-page__content info-page__main-container1">
+                                    <span class="state-count-numb">State {{i+1}} of
+                                        {{taxationData?.taxData?.length}}</span>
+                                    <div class="align-items-center d-flex justify-content-between state-count-status-wrap"
+                                        style="display: flex; justify-content: space-between">
+                                        <h2 class="inner-page__title d-inline-flex">{{data.state?.stateName}}</h2>
+                                        <div *ngIf="data?.thresholdStatus === 'THRESHOLD_CROSSED'"
+                                            class="state-count-status state-count-status-crossed">Threshold Crossed
+                                        </div>
+                                        <div *ngIf="data?.thresholdStatus === 'THRESHOLD_NEARING'"
+                                            class="state-count-status state-count-status-nearing">Threshold Nearing
+                                        </div>
+                                        <div *ngIf="data?.thresholdStatus === 'THRESHOLD_SAFE'"
+                                            class="state-count-status state-count-status-safe">Threshold Safe</div>
+                                        <div *ngIf="data?.thresholdStatus === 'NOT_AVAILABLE'"
+                                            class="state-count-status">NA</div>
+                                    </div>
+                                    <div class="d-flex py-3 state-count-report">
+                                        <div class="w-25">
+                                            <div class="state-count-report-label">Period</div>
+                                            <div class="state-count-report-value">
+                                                {{data.taxationPeriod?.startMonth | date: 'MMM yyyy'}}
+                                                -
+                                                {{data.taxationPeriod?.endMonth | date: 'MMM yyyy'}}</div>
+                                        </div>
+                                        <div class="w-25">
+                                            <div class="state-count-report-label">Sales value</div>
+                                            <div class="state-count-report-value">
+                                                {{formatSales(data.totalUserSalesValue, '$')}}</div>
+                                        </div>
+                                        <div class="w-50">
+                                            <div class="state-count-report-label">Transactions</div>
+                                            <div class="state-count-report-value">
+                                                {{data?.salesTransaction?.transactionRequired ? formatSales(data.totalUserTransactionsValue) : 'NA'}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="threshold_stategraph--details-vessel py-4">
+
+                                        <div class="stategraph__values-wrapper no-border"
+                                            *ngIf="data?.salesTransaction?.salesRequired">
+                                            <div class="stategraph__max-value">
+                                                <div class="max-value__label"
+                                                    [ngStyle]="{'left':setGraphValues(data?.totalUserSalesValue, data?.salesTransaction?.thresholdSales).thresholdIndicatorLabelPosition}">
+                                                    <div class="">Threshold</div>
+                                                    <div class="">
+                                                        {{formatSales(data?.salesTransaction?.thresholdSales,'$')}}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="stategraph__values-graph">
+                                                <div class="stategraph__yAxis-indicator"
+                                                    [ngStyle]="{'left':setGraphValues(data?.totalUserSalesValue, data?.salesTransaction?.thresholdSales).yAxisPosition}">
+                                                </div>
+                                                <div class="stategraph__values-container"
+                                                    [ngClass]="{'values--full':setGraphValues(data?.totalUserSalesValue, data?.salesTransaction?.thresholdSales).limitCrossed}">
+                                                    <div class="stategraph__sales-bar"
+                                                        [ngStyle]="{'width':setGraphValues(data?.totalUserSalesValue, data?.salesTransaction?.thresholdSales).graphBarWidth}">
+                                                    </div>
+                                                    <span
+                                                        class="stategraph__sales-value">{{formatSales(data?.totalUserSalesValue,'$')}}</span>
+                                                </div>
+                                                <div class="stategraph__threshold-indicator"
+                                                    [ngStyle]="{'left':setGraphValues(data?.totalUserSalesValue, data?.salesTransaction?.thresholdSales).thresholdIndicatorPosition}">
+                                                </div>
+                                            </div>
+                                            <p class="stategraph__graph-label font-medium text-center">Sales Value Plot
+                                            </p>
+                                        </div>
+
+
+
+                                        <div class="stategraph__values-wrapper"
+                                            *ngIf="data?.salesTransaction?.transactionRequired">
+                                            <div class="stategraph__max-value">
+                                                <div class="max-value__label"
+                                                    [ngStyle]="{'left':setGraphValues(data?.totalUserTransactionsValue, data?.salesTransaction?.thresholdTransactions).thresholdIndicatorLabelPosition}">
+                                                    <div class="">Threshold</div>
+                                                    <div class="">
+                                                        {{formatSales(data?.salesTransaction?.thresholdTransactions)     }}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="stategraph__values-graph">
+                                                <div class="stategraph__yAxis-indicator"
+                                                    [ngStyle]="{'left':setGraphValues(data?.totalUserTransactionsValue, data?.salesTransaction?.thresholdTransactions).yAxisPosition}">
+                                                </div>
+                                                <div class="stategraph__values-container"
+                                                    [ngClass]="{'values--full':setGraphValues(data?.totalUserTransactionsValue, data?.salesTransaction?.thresholdTransactions).limitCrossed}">
+                                                    <div class="stategraph__sales-bar"
+                                                        [ngStyle]="{'width':setGraphValues(data?.totalUserTransactionsValue, data?.salesTransaction?.thresholdTransactions).graphBarWidth}">
+                                                    </div>
+                                                    <span
+                                                        class="stategraph__sales-value">{{formatSales(data?.totalUserTransactionsValue)}}</span>
+                                                </div>
+                                                <div class="stategraph__threshold-indicator"
+                                                    [ngStyle]="{'left':setGraphValues(data?.totalUserTransactionsValue, data?.salesTransaction?.thresholdTransactions).thresholdIndicatorPosition}">
+                                                </div>
+                                            </div>
+                                            <p class="stategraph__graph-label font-medium text-center">Transaction Value
+                                                Plot</p>
+                                        </div>
+                                    </div>
+                                    <div class="state-count-content pt-2">
+                                        <h4 class="my-3 state-count-title">Remote Seller Nexus Rules</h4>
+                                        <div class="state-count-subtitle">
+                                            <div class="my-1">
+                                                <b style="font-weight: 600;">Effective date:
+                                                </b>{{data?.effectiveDate | date: 'M/d/yyyy'}}</div>
+                                            <div class="my-1">
+                                                <b style="font-weight: 600;">Measurement period:
+                                                </b>{{data?.thresholdMeasurementRuleName}}
+                                            </div>
+                                            <div class="my-1">
+                                                <b style="font-weight: 600;">Thresholds Triggering Collection
+                                                    Obligation:</b>
+                                                {{data?.shortInfo}}
+                                            </div>
+                                        </div>
+                                        <div class="mt-4">
+                                            <span class="stategraph__anchor"
+                                                [innerHTML]="data?.longInfo"></span><br /><br />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="page-screen">
+                            <div id="endPage" class="cover-page-wrap">
+                                <div class="inner-page__content">
+                                    <img class="w-100 cityMap-image" [src]="baseUrl+'/assets/images/city-map.png'"
+                                        alt="" />
+                                    <div class="citymap-content text-center">
+                                        <h6 class="citymap-content-title">Threshold Calculation Date -
+                                            {{taxationData?.lastUpdatedOn | date:'MMM dd yyyy'}}</h6>
+                                        <a href="www.thresholdmonitor.vertex.com"
+                                            class="link-color">www.thresholdmonitor.vertex.com</a>
+                                        <div class="horizontal-line"></div>
+                                        <div>
+                                            For assistance with registration to file state taxes,<br />
+                                            contact Vertex at the link below.
+                                        </div>
+                                        <a href="https://www.vertexinc.com/"
+                                            class="link-color">https://www.vertexinc.com/</a>
+                                        <div>Contact Number: (844) 321-3346</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </td>
+                </tr>
+            </tbody>
+
+            <tfoot>
+                <tr>
+                    <td>
+                        <!--place holder for the fixed-position footer-->
+                        <div class="page-footer-space"></div>
+                    </td>
+                </tr>
+            </tfoot>
+
+        </table>
+    </div>
+</div>
+<!-- <div class="pdf-report__modal-overlay"></div> -->

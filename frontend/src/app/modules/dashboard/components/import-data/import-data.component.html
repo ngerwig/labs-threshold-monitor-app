@@ -1,0 +1,87 @@
+<div class="container-fluid dashboard__import-data-wrapper py-5 px-lg-0">
+  <div class="container import-data_inner-container">
+    <h1 class="text-center mt-0 mb-2" aria-hidden="true">{{consts.HEADER_IMPORT_DATA}}</h1>
+    <h1 class="text-center mt-0 mb-2 u-sr-only" id="import-data-title" tabindex="-1" [attr.aria-label] = "consts.HEADER_IMPORT_DATA">{{consts.HEADER_IMPORT_DATA}}</h1>
+    <p class="font-s14 gray-text ml-2 text-center">[Refer <a class="u-link--primary u-line font-medium" href="javascript:;" (click)="goToStateGuide()">{{consts.LABEL_COMMON_STATE_GUIDES}}</a> ]</p>
+    <div class="row my-4">
+      <div class="col-lg-6 col-md-6 col-12 mb-4 mb-md-0">
+        <div class="import-data__template-vesel pb-4 pd-md-0">
+          <h3 class="mt-4 text-center template_title d-flex align-items-center justify-content-center">
+            {{consts.HEADER_IMPORT_DATA_DOWNLOAD_TEMPLATE}}
+            <button id="imp-notification-icon" class="btn-text btn--info-notify" [disabled]="disableInfoIconDownload" (click)="showNotificationDownload()" aria-label="download file info" [attr.aria-hidden]="disableInfoIconDownload">
+              <svg class="u-icon-i-information-dims">
+                  <use xlink:href="#i-information"></use>
+              </svg>
+            </button>
+          </h3>
+         
+          <vtx-notification (showNotification)="infoIconFunctionDownload($event)" [showMessage]="showNotificationBoxDownload"  [notificationMessageId]="'download-notification'" [attr.aria-hidden]="!disableInfoIconDownload">
+            <ol class="mr-1 notification_order-list" type="1" id="download-notification">
+              <li>{{consts.MSG_IMPORT_DATA_DOWNLOAD_TEMPLATE_NOTIFICATION}}</li>
+            </ol>
+          </vtx-notification>
+         
+          <form [formGroup]="templateForm">
+            <div class="text-center pt-4">
+              <div class="form-item my-4">
+                <div class="custom__rb-group--horizontal align-items-center justify-content-center">
+                  <div class="custom__rb mr-4">
+                    <input type="radio" id="styleguide_rb2_1" formControlName="fileType" value="CSV" checked><label
+                      for="styleguide_rb2_1">.csv</label>
+                  </div>
+                  <div class="custom__rb mr-4">
+                    <input type="radio" id="styleguide2_rb2_2" formControlName="fileType" value="XLS"><label
+                      for="styleguide2_rb2_2">.xls</label>
+                  </div>
+                  <div class="custom__rb mr-4">
+                    <input type="radio" id="styleguide3_rb2_3" formControlName="fileType" value="XLSX"><label
+                      for="styleguide3_rb2_3">.xlsx</label>
+                  </div>
+                </div>
+                <!-- <p class="form-item__error-message">This field is required.</p> -->
+              </div>
+              <button class="btn btn--secondary my-4" (click)="downloadFile()">{{consts.LABEL_IMPORT_DATA_DOWNLOAD_TEMPLATE_BUTTON}}</button>
+              <h4 class="">{{consts.LABEL_IMPORT_DATA_CONTACT_TEXT_FRSTHLF}}<br />{{consts.LABEL_IMPORT_DATA_CONTACT_TEXT_SCONDHLF}}<a class="u-link--default u-line" href="javascript:;"
+                  (click)="navigateToContactUs()" attr.aria-label="{{consts.LABEL_IMPORT_DATA_CONTACT_TEXT_FRSTHLF}} {{consts.LABEL_COMMON_CONTACT_US}}">{{consts.LABEL_COMMON_CONTACT_US}}</a></h4>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-6 col-12">
+        <div class="import-data__template-vesel" [ngClass]="{'form-item--error' : noFileChosen}">
+          <h3 class="mt-4 text-center template_title d-flex align-items-center justify-content-center">
+            {{consts.HEADER_IMPORT_DATA_UPLOAD_FILE}}
+            <button id="upload-info" class="btn-text btn--info-notify" [disabled]="disableInfoIconUpload" (click)="showNotificationUpload()" aria-label="upload file info" [attr.aria-hidden]="disableInfoIconUpload">
+              <svg class="u-icon-i-information-dims">
+                <use xlink:href="#i-information"></use>
+              </svg>
+            </button>
+          </h3>
+        
+          <vtx-notification (showNotification)="infoIconFunctionUpload($event)" [showMessage]="showNotificationBoxUpload" [notificationMessageId]="'upload-notification'">
+            <ol class="mr-1 notification_order-list" type="1" id="upload-notification">
+              <li>{{consts.MSG_IMPORT_DATA_UPLOAD_FILE_NOTIFICATION}}</li>
+            </ol>
+          </vtx-notification>
+          <div class="import-data__upload-widget mt-5"
+           [ngClass]="{'uploaded-file': displayFileIcon}"
+           (drop)="dropHandler($event)"
+            (dragover)="dragOverHandler($event)" >
+            <span *ngIf="displayFileIcon" class="d-inline-block upload-widget_file-details" alt="xls"><img
+                src="assets/images/i-file.svg" alt="file" class="w-100" /></span>
+            <p class="primary-text font-s14 no-margin file-name-text">{{dragAndDropText}}</p>
+          </div>
+          <div class="import-data__Or-text d-block my-3 blue-text text-center"> Or </div>
+          <div class="import-data__upload-button text-center">
+            <label role="button" tabindex="0" for="files" class="btn btn--secondary">{{consts.LABEL_IMPORT_DATA_UPLOAD_FILE_BUTTON}}</label>
+            <input id="files" style="visibility:hidden;" type="file" accept=".csv,.xls,.xlsx"
+              (change)="chooseFile($event)">
+            <p class="form-item__error-message" *ngIf="noFileChosen">{{consts.MSG_IMPORT_DATA_UPLOAD_FILE}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<vtx-footer (proceedHandler)="onProceed()" (cancelHandler)="navigateToAddTaxationData()" [modeNoSaveButton]="false"></vtx-footer>

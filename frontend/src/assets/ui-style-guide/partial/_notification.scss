@@ -1,0 +1,107 @@
+/*
+ * notification banner and status variants
+ *
+ ********************************************************************************/
+
+.notification {
+
+    @include bem-e('container') {
+        position: relative;
+        display: flex;
+        flex-wrap: wrap;
+        box-shadow: $box-shadow-default;
+        background-color: color(default, light);
+
+        & + & { margin-top: $base-margin-bottom; }
+
+        @include bem-m('alert') {
+
+            .notification__icon,
+            .notification__progress-bar { background-color: $error-color; }
+        }
+
+        @include bem-m('information') {
+
+            .notification__icon,
+            .notification__progress-bar { background-color: $info-color; }
+        }
+
+        @include bem-m('success') {
+
+            .notification__icon,
+            .notification__progress-bar { background-color: $success-color; }
+        }
+
+        @include bem-m('warning') {
+
+            .notification__icon,
+            .notification__progress-bar { background-color: $warning-color; }
+        }
+
+        /*
+         * timed notifications with progress bar
+         *
+         ************************************************************/
+
+        @include bem-m('timed') {
+
+            .notification__inner { padding: 22px; }
+        }
+    }
+
+    @include bem-e('inner') {
+        border: 1px solid color(neutral, lighter);
+        border-left: 0;
+        padding: 18px 50px 18px 18px; // right padding is width of close button
+        width: calc(100% - 28px); /* subtract width of icon panels to prevent overlap */
+
+        *:first-child { margin-top: 0; }
+        *:last-child { margin-bottom: 0; }
+    }
+
+    @include bem-e('icon') {
+        display: inline-flex;
+        flex: 0 0 28px;
+        align-items: center;
+        justify-content: center;
+        box-shadow: $box-shadow-default;
+
+        svg { fill: color(default, light); }
+    }
+
+    @include bem-e('btn-close') {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 50px; // click/tap target larger than small X icon
+        height: 50px; // click/tap target larger than small X icon
+
+        &:hover { cursor: pointer; }
+
+        &:focus,
+        &:hover {
+
+            svg { opacity: .5; }
+        }
+
+        svg {
+            fill: color(neutral, dark);
+            transition: opacity $transition-duration;
+        }
+    }
+
+    @include bem-e('progress-bar-container') {
+        position: relative;
+        top: -13px;
+        left: 50px;
+        margin-bottom: -10px;
+        width: calc(100% - 100px); /* subtract width of close icons and padding  */
+        height: 3px;
+        background-color: color(neutral, light);
+    }
+
+    @include bem-e('progress-bar') {
+        position: absolute;
+        height: 3px;
+    }
+}

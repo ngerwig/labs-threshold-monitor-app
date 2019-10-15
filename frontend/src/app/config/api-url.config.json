@@ -1,0 +1,43 @@
+{
+    "URLS": {
+        "COMMON":{
+            "ALL_STATES": "/userInfo/all-states"
+        },
+        "USER_LOGIN": {
+            "SIGNIN": "/login",
+            "SIGNUP": "/register",
+            "VERIFY_EMAIL": "/threshold/verifyEmail",
+            "LOGOUT": "/threshold/logout",
+            "RESET_PASSWORD": "/reset-password",
+            "AFTER_RESET_PASSWORD": "/threshold/resetPwd",
+            "RESEND_LINK": "/threshold/resendVerificationLink",
+            "FORGOT_PASSWORD": "/forgot-password"
+        },
+        "USER_LOGOUT": {
+            "LOGOUT": "/log-out"
+        },
+        "PROFILE": {
+            "USERNAME": "/userprofileupdate/username",
+            "EMAIL": "/userprofileupdate/useremail",
+            "PASSWORD": "/userprofileupdate/password",
+            "NOTIFICATION": "/userprofileupdate/usernotificationsettings",
+            "REGISTERED_STATES": "/userprofileupdate/registeredstates",
+            "GET_REGISTERED_STATES": "/userInfo/registered-states",
+            "DEACTIVATE": "/userprofileupdate/deactivateAccount"
+        },
+        "DASHBOARD": {
+            "TAXATION_SUMMARY": "/dashboard",
+            "SAVE_TAXATION_DATA":"/dashboard/saveTaxationData",
+            "CANCEL_TAXATION_DATA":"/dashboard/cancelAll",
+            "REGISTERED_STATES_TEMP": "/dashboard/saveRegisteredStateData",
+            "GET_REGISTERED_STATES_TEMP": "/dashboard/getRegisteredStateData",
+            "CANCEL_REGISTERED_STATES_TEMP": "/dashboard/cancelAll",
+            "COMPLETE_IMPORT": "/dashboard/import",
+            "GET_COMPLETE_IMPORT_REGISTERED_STATES": "/registered-states",
+            "POST_UPLOAD_FILE_NAME": "/fileInfo/upload"
+        },
+        "REPORT": {
+            "PDF_REPORT": "/fileInfo/report"
+        }
+    }
+}

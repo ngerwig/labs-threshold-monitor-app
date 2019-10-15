@@ -1,0 +1,82 @@
+/*
+ * detail drawer for providing additional content/editing options
+ *
+ ********************************************************************************/
+
+.drawer {
+
+    @include bem-e('container') {
+        z-index: z-index(modal);
+        position: fixed;
+        top: 0;
+        right: 0;
+        border-left: 1px solid $border-color;
+        width: 33%;
+        min-width: 360px;
+        height: 100%;
+        overflow-y: auto;
+        background-color: #f1f1f1;
+        transform: translateX(100%);
+        transition: transform $transition-duration;
+
+        &.is-slid { transform: translateX(0); }
+
+        @include bem-m('double-wide') {
+            width: 55%;
+            min-width: 576px;
+        }
+
+        @include bem-m('double-drawer') {
+
+            &.is-layer-1 { transform: translateX(-60%); }
+
+            &.is-layer-2 { z-index: z-index(modal) + 2; }
+        }
+    }
+
+    @include bem-e('inner') { }
+
+    @include bem-e('content') {
+        padding: $grid-vertical-padding $grid-horizontal-padding;
+        overflow-y: auto;
+
+        .row { margin-right: -13px; }
+    }
+
+    @include bem-e('heading') { font-family: $brand-font-medium; }
+
+    @include bem-e('btn-close') {
+        top: 25px;
+        right: 22px;
+    }
+
+    @include bem-e('text-btn') {
+
+        svg {
+            margin: -2px 3px 0 0;
+            fill: $link-color;
+        }
+
+        @include bem-m('add') {
+            position: absolute;
+            right: ($grid-gutter-width / 2);
+        }
+
+        @include bem-m('back') {
+            @include font-size(12);
+
+            margin: $grid-vertical-padding $grid-horizontal-padding 0;
+            cursor: pointer;
+            font-family: $brand-font;
+            color: $link-color;
+
+            span { text-decoration: underline; }
+
+            &:focus,
+            &:hover {
+
+                span { text-decoration: none; }
+            }
+        }
+    }
+}

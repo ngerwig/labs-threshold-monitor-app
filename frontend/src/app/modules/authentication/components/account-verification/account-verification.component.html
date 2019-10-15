@@ -1,0 +1,31 @@
+<div class="reset-password-container" *ngIf="!expired">
+    <h3 class="u-margin-bottom--md u-margin-hug--top" *ngIf="!emailNotVerified">{{consts.MSG_SIGN_IN_VERIFY_ACCNT_TITLE}} </h3>
+    <h3 class="u-sr-only" id="acc-ver-header" [attr.aria-label]="consts.MSG_SIGN_IN_VERIFY_ACCNT_TITLE" tabindex="-1">{{consts.MSG_SIGN_IN_VERIFY_ACCNT_TITLE}} </h3>
+    <span *ngIf="!emailNotVerified">
+        {{consts.MSG_SIGN_IN_VERIFY_ACCNT_DESC_A}} {{emailAddress}}{{consts.MSG_SIGN_IN_VERIFY_ACCNT_DESC_B}}
+    </span>
+    <span *ngIf="emailNotVerified">
+        {{consts.MSG_SIGN_IN_EMAIL_NOT_VERIFIED_DESC_A}} {{emailAddress}}{{consts.MSG_SIGN_IN_EMAIL_NOT_VERIFIED_DESC_B}}
+    </span>
+    <hr>
+    <h3 class="u-margin-bottom--md u-margin-hug--top">{{consts.MSG_COMMON_MAIL_NOT_RECEIVED_TITLE}} </h3>
+    {{consts.MSG_VERIFY_ACCNT_MAIL_NOT_RECEIVED_DESC_1}}
+    <br><br>
+    {{consts.MSG_VERIFY_ACCNT_MAIL_NOT_RECEIVED_DESC_2}}
+    <br><br>
+    <div class="form-item">
+        <button class="btn-txt font-s16 no-padding--left" (click)="resendAccntVerificationLink()">{{consts.LABEL_COMMON_RESEND_VERIFICATION_LINK}}</button><br />
+        Return to <button class="btn-txt font-s16 no-padding--left" (click)="signIn()">{{consts.LABEL_SIGN_IN}}</button>
+    </div>
+</div>
+
+<div class="reset-password-container" *ngIf="expired">
+    <h3 class="u-margin-bottom--md u-margin-hug--top">{{consts.HEADER_LINK_EXPIRED}}</h3>
+    <h3 class="u-sr-only" tabindex="-1" id="acc-ver-header">{{consts.HEADER_LINK_EXPIRED}}</h3>
+    <span class="u-margin-bottom--md u-margin-hug--top">{{consts.MSG_SIGN_IN_VERIFY_ACCNT_TITLE}} </span>
+   {{consts.MSG_COMMON_LINK_EXPIRED_DESC}}
+    <br><br>
+    <div class="form-item">
+        <button class="btn btn--primary u-margin-bottom--md" (click)="resendAccntVerificationLink()"> Resend </button>
+    </div>
+</div>

@@ -1,0 +1,98 @@
+/*
+ * pagination control
+ *
+ ********************************************************************************/
+
+.pagination {
+
+    @include bem-e('container') { display: inline-block; }
+
+    @include bem-e('list') {
+        @include font-size(0);
+
+        margin: 0 16px;
+    }
+
+    @include bem-e('item') {
+        border: 1px solid color(neutral, light);
+        border-left: 0;
+        background-color: color(default, light);
+
+        &:first-child { border-left: 1px solid color(neutral, light); }
+
+        // only apply hover/focus when link is present
+        a:focus,
+        a:hover,
+        .is-active {
+            background-color: color(neutral, lighter);
+            text-decoration: none;
+        }
+    }
+
+    @include bem-e('link') {
+        @include font-size(12);
+
+        display: block;
+        padding: 0 20px;
+        text-align: center;
+        text-decoration: none;
+        line-height: 36px;
+        color: $link-color;
+        transition: background-color $transition-duration;
+
+        // pagination button
+        @include bem-m('btn') {
+            border: 1px solid color(neutral, light);
+            min-width: 36px;
+            height: 36px;
+            background-color: color(default, light);
+
+            @media (min-width: $screen-sm-min) { min-width: 105px; }
+
+            &:focus,
+            &:hover {
+                background-color: color(neutral, lighter);
+                cursor: pointer;
+                text-decoration: none;
+            }
+
+            &.is-disabled {
+                background-color: color(neutral, lighter);
+                cursor: default;
+                color: color(neutral);
+
+                .pagination__icon { fill: color(neutral); }
+            }
+        }
+
+        // text
+        @include bem-m('text') {
+            padding: 0 10px;
+            min-width: 36px;
+            height: 34px;
+
+            &.is-active { color: color(neutral); }
+        }
+
+        @include bem-m('text-ellipsis') { color: $text-color; }
+    }
+
+    @include bem-e('label') {
+
+        @media (max-width: $screen-xs-max) { display: none; }
+    }
+
+    @include bem-e('icon') {
+        fill: color(secondary);
+        vertical-align: middle;
+        transition: fill $transition-duration;
+
+        @media (max-width: $screen-xs-max) { margin: 0; }
+
+        @media (min-width: $screen-sm-min) { display: none; }
+
+        @include bem-m('prev') { }
+
+        @include bem-m('next') { transform: rotate(180deg); }
+    }
+}

@@ -1,0 +1,93 @@
+/*
+ * right panel
+ *
+ ********************************************************************************/
+
+.right-panel {
+
+    &__container,
+    &__container--fixed {
+        width: 400px;
+        max-width: 400px;
+        transition: max-width ($transition-duration * 2);
+    }
+
+    @include bem-e('container') {
+        position: relative;
+        margin-top: 30px;
+        background-color: color(neutral, lightest);
+
+        @include bem-m('block') { height: 400px; }
+
+        @include bem-m('fixed') {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            border-left: 1px solid $border-color;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .collapse-btn {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-top: 1px solid $border-color;
+            border-right: 0;
+            border-bottom: 1px solid $border-color;
+            background-color: color(default, light);
+
+            &:focus,
+            &:hover {
+
+                .collapse-btn__icon svg { border: 2px solid rgba(color(secondary, base), .35); }
+            }
+
+            @include bem-e('icon') {
+
+                svg { fill: color(secondary, base); }
+            }
+
+            @include bem-e('label') {
+                margin-left: 0;
+                color: color(neutral, darker);
+            }
+        }
+    }
+
+    @include bem-e('content') {
+        position: relative;
+        height: calc(100% - 52px); // full height minus collapse button height
+
+        @include bem-e('inner') {
+            padding: $base-margin-bottom * 1.25; // matches margin of .content__inner
+            width: 100%;
+            height: 100%;
+            overflow-y: scroll;
+            transition: opacity ($transition-duration * 2);
+
+            @include bem-m('block') {
+                position: absolute;
+                top: 0;
+                left: 0;
+            }
+
+            .tabular-data__container { margin-bottom: 0; }
+        }
+    }
+}
+
+/*
+ * collapsed state
+ *
+ ****************************************/
+
+.is-collapsed {
+
+    &.right-panel__container,
+    &.right-panel__container .right-panel__container--fixed { max-width: 77px; }
+
+    &.right-panel__container .right-panel__content__inner { opacity: 0; }
+}

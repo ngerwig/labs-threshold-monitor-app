@@ -1,0 +1,21 @@
+<div class="modal-header no-padding--bottom">
+    <h4 class="modal-title" id="modal-header">Select Data Format to Export</h4>
+</div>
+<div class="modal-body">
+    <div class="custom__rb-group--horizontal align-items-center justify-content-start">
+        <div class="custom__rb mr-4">
+            <input type="radio" id="styleguide_rb2_1" #csv name="fileType" (change)=getFileType($event.target.value) value=".csv"
+                checked=true [attr.aria-selected]="csv.checked"><label for="styleguide_rb2_1" aria-label="Select Data Format to Export .csv">.csv</label>
+        </div>
+        <div class="custom__rb mr-4">
+            <input type="radio" id="styleguide2_rb2_2" #xls [attr.aria-selected]="xls.checked" name="fileType" (change)=getFileType($event.target.value) value=".xls"><label for="styleguide2_rb2_2">.xls</label>
+        </div>
+        <div class="custom__rb mr-4">
+            <input type="radio" id="styleguide3_rb2_3" #xlsx [attr.aria-selected]="xlsx.checked" name="fileType" (change)=getFileType($event.target.value) value=".xlsx"><label for="styleguide3_rb2_3">.xlsx</label>
+        </div>
+    </div>
+</div>
+<div class="modal-footer justify-content-start">
+    <button type="submit" class="btn btn--primary" (click)="export()">Export</button>
+    <button type="button" class="btn btn--tertiary" (click)="cancelExport()">Cancel</button>
+</div>

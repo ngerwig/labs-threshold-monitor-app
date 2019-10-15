@@ -1,0 +1,73 @@
+/*
+ * loading indicator
+ *
+ ********************************************************************************/
+
+ .loading-indicator {
+    z-index: z-index(overlay);
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+
+    &::before {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(color(default, light), .85);
+        pointer-events: unset;
+        content: '';
+    }
+
+    @include bem-e('content') { position: relative; }
+
+    svg {
+        width: 100px;
+        height: 100px;
+    }
+
+    @include bem-e('message') {
+        @include font-size($base-font-size);
+
+        display: block;
+        margin-top: .5rem;
+        font-family: $data-font-i;
+    }
+
+    @include bem-m('table-row') {
+        flex-direction: row;
+        justify-content: flex-start;
+        padding-left: 15px;
+
+        svg {
+            margin-right: 8px;
+            width: 25px;
+            height: 25px;
+        }
+
+        .loading-indicator__message {
+            @include font-size(12);
+
+            display: inline-block;
+            margin-top: 0;
+        }
+    }
+
+    @include bem-m('table') { background-color: transparent; }
+}
+
+.is-loading {
+
+    @include bem-m('region') {
+        position: relative;
+        min-height: 400px;
+    }
+}

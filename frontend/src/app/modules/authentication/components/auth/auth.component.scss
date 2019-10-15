@@ -1,0 +1,36 @@
+@import '../../../../theme/variable';
+
+.homepage--inner-wrapper {
+  min-height: calc(100vh - 130px);
+  position: relative;
+  padding: 0;
+  .homepage__login-wrapper {
+    text-align: right;
+  }
+}
+.banner-message__title {
+  color: #fcf4f4;
+  font-family: 'montserratbold';
+  font-size: 2.86rem;
+  line-height: 1.2;
+  margin-top: 82px;
+  margin-bottom: 14px;
+}
+.banner-message__description {
+  color: #fcf4f4;
+  font-size: 22px;
+  line-height: 2rem;
+}
+
+.homepage__login-vessel {
+  display: inline-block;
+  background-color: #fff;
+  // min-height: 410px;
+  margin-top: 56px;
+  padding: 32px;
+  width: 448px;
+}
+
+.footer--inner-page  {
+  color: $white;
+}

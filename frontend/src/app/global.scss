@@ -1,0 +1,315 @@
+@import '../app/theme/variable';
+@import '../app/theme/buttons';
+@import '../app/theme/padding-margin';
+@import '../app/theme/border';
+@import '../app/theme/toggle-switch';
+@import '../app/theme/notification';
+@import '../app/theme/tooltip';
+@import '../app/theme/forms';
+@import '../app/theme/nav-toggle-button';
+@import '../app/theme/date-picker';
+
+
+
+
+html,
+body {
+  //font-family:montserratregular;
+  height: 100%;
+}
+
+body {
+  position: relative;
+}
+
+/* text-align class */
+.text-left {
+  text-align: left;
+}
+.text-right {
+  text-align: right;
+}
+.text-center {
+  text-align: center;
+}
+.hide {
+  display: none !important;
+}
+.d-flex-middle {
+  align-items: center;
+}
+.flex-wrap {
+  flex-wrap: wrap;
+}
+.no-cursor {
+  cursor: default;
+}
+a {
+  cursor: pointer;
+}
+.u-link--primary {
+  color: $btn-secondary;
+  &.u-line {
+    text-decoration: underline;
+  }
+}
+.u-link--secondary,
+.u-link {
+  color: $title-color;
+  &.u-line {
+    text-decoration: underline;
+  }
+  &.c-pointer {
+    cursor: pointer;
+  }
+}
+.title-link {
+  font-size: 1.125rem;
+  font-family: "montserratregular", sans-serif;
+  line-height: 1.5;
+  color: $title-color;
+  cursor: pointer;
+}
+.u-link--default,
+.u-link--default:hover {
+  color: $default-text;
+  text-decoration: underline;
+}
+svg.l-size {
+  height: 16px;
+  margin-bottom: 7px;
+  width: 16px;
+}
+a.btn-txt {
+  text-decoration: underline;
+  &:hover {
+    color: $default-text;
+    text-decoration: underline;
+  }
+}
+
+/* font-size class */
+.font {
+  &-s12 {
+    font-size: 12px;
+  }
+  &-s14 {
+    font-size: 14px;
+  }
+  &-s16 {
+    font-size: 16px;
+  }
+  &-s18 {
+    font-size: 18px;
+  }
+  &-medium {
+    font-family: "montserratmedium", sans-serif;
+  }
+  &-normal {
+    font-family: "montserratregular", sans-serif;
+  }
+}
+
+/* text color class */
+.gray-text {
+  color: $default-text;
+}
+.blue-text {
+  color: $title-color;
+}
+.primary-text {
+  color: $btn-secondary;
+}
+
+/* border class */
+.u-border--top {
+  border-top: 1px solid $border-color;
+}
+.u-border--bottom {
+  border-bottom: 1px solid $border-color;
+}
+
+.homepage__login-vessel,
+.profile_setttings {
+  .btn-txt:focus {
+    text-decoration: underline;
+  }
+  .form-item {
+    position: relative;
+    margin-bottom: 28px;
+    .form-item__error-message {
+      position: absolute;
+      top: 68px;
+      left: 0;
+      margin: 0;
+    }
+    &.new-password {
+      .form-item__error-message {
+        top: 111px;
+      }
+    }
+    &.additional-info {
+      margin-bottom: 10px !important;
+      .form-item__error-message {
+        position: relative;
+        top: 0;
+        left: 0;
+        margin: 0;
+      }
+    }
+  }
+}
+.profile_setttings {
+  .form-item {
+    &.new-password {
+      .form-item__error-message {
+        top: 68px;
+      }
+      &.additional-info {
+        .form-item__error-message {
+          top: 2px;
+        }
+      }
+    }
+  }
+}
+
+.form-item__error-message {
+  display: none;
+}
+.form-item--error {
+  .form-item__error-message {
+    display: block;
+    font-size: 12px;
+    line-height: 1.125rem;
+  }
+}
+.form-item__info-message {
+  line-height: 1.125rem;
+  margin: 0 0 0.5rem; 
+}
+.drilldown-menu__container {
+  .drilldown-menu__item {
+    &:focus {
+      outline-offset: -2px !important;
+    }
+    &.drilldown-menu__item--header:focus {
+      outline-offset: -2px !important;
+    }
+  }
+}
+
+.form-item {
+  &.form-item--verify {
+    label {
+      width: 100%
+    }
+    input {
+      display: inline-block;
+      width: calc(100% - 30px);
+    }
+    svg {
+      margin-left: 10px;
+    }
+  }
+}
+
+.container-fluid {
+  padding: 0 13px;
+  max-width: 1440px;
+}
+
+.custom__cb-group--horizontal {
+  .custom__cb {
+    margin-bottom: 25px;
+    text-align: left;
+    width: calc(20% - 10px);
+    label {
+      color: $default-text;
+      font-size: 14px;
+      font-weight: 600;
+    }
+  }
+}
+
+.innerpage-full-height {
+  position: relative;
+  padding-bottom: 60px;
+  min-height: calc(100vh - 108px);
+  height: 100%;
+}
+.innerpage__footer {
+  color: $dark-gray;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  p {
+    font-size: 0.875rem;
+  }
+}
+.pdf-report-modalOpen {
+  overflow: hidden;
+}
+.pdf-report-modalOpen .pdf-report__modal-wrapper {
+  display: block !important;
+}
+.pdf-report-modalOpen .pdf-report__modal-overlay {
+  display: block;
+  background-color: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  z-index: 5;
+  height: 100%;
+  width: 100%;
+}
+.normal_line-height {
+  line-height: 1.125rem !important;
+}
+.overflow__hidden {
+  overflow: hidden !important;
+}
+
+// Below code only for printing the checkbox in paper from export report
+.custom__cb{
+  input {
+    &[checked="true"] + label {
+        &::after {
+            opacity: 1 !important;
+        }
+    }
+    &[checked="false"] + label {
+      &::after {
+          opacity: 0 !important;
+      }
+  }
+  }
+}
+
+
+/*** APP element Focus ***/
+
+/* button{
+  &.btn.focus, &.btn:focus, a:focus {
+    outline: 0 !important;
+    box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25) !important;
+  }
+}
+
+a:focus {
+  outline: 0 !important;
+  box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25) !important;
+}
+
+
+.custom__cb input:focus + label::before{
+  outline: 0;
+  border-color: #0064d6;
+  box-shadow: none !important;
+} */
+*:focus, .custom__cb input:focus + label::before{
+  outline: 2px dotted #0064d6 !important;
+  outline-offset:1px !important;
+  box-shadow: none !important;
+}

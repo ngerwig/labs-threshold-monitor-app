@@ -1,0 +1,26 @@
+.loading-wrapper {
+  background-color: rgba(255, 255, 255, 0.65);
+  display: flex;
+  height: 100%;
+  position: fixed;
+  justify-content: center;
+  top: 0;
+  left: 0;
+  align-items: center;
+  z-index: 25;
+  width: 100%;
+}
+.loading-container {
+  position: relative;
+}
+.loading-container svg {
+  height: 75px;
+  width: 75px;
+}
+.loading-container__message {
+  display: block;
+  font-size: 1rem;
+  font-family: open_sansitalic, sans-serif;
+  // font-family: "montserratmedium_italic", sans-serif;
+  margin-top: 10px;
+}

@@ -1,0 +1,18 @@
+<div class="notification__container notification__container--information" [ngClass]="{'hide': !showMessage}" *ngIf="showMessage"> 
+  <div class="notification__icon">
+    <svg class="u-icon-i-information-dims" aria-hidden="true" role="presentation">
+      <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#i-information"></use>
+    </svg>
+    <span class="u-sr-only" id="notify">Notification Information</span>
+  </div>
+  <div id="notification-wrapper" class="notification__inner">
+      <ng-content></ng-content>
+  </div>
+  <button id="hide-btn" class="notification__btn-close" (click)="closeNotification($event)" [attr.aria-describedby]="notificationMessageId">
+    <svg class="u-icon-i-close-dims" aria-hidden="true" role="presentation">
+      <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#i-close"></use>
+    </svg>
+    <span class="u-sr-only">Hide Notification</span>
+  </button>
+ 
+</div>

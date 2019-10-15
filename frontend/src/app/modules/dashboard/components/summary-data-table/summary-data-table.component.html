@@ -1,0 +1,233 @@
+<div class="mt-4 table-bordered threshold-data-wrap" role="region" aria-label="threshold data">
+    <div class="row align-items-center p-2 threshold-data-header">
+        <div class="col threshold-data-label" id="threshold-data-label">Threshold Data : {{getSelectedStatesCount}} State(s)</div>
+        <div class="col btn-group text-center threshold-data-status">
+            <button class="btn btn--tertiary m-0 data-status-button" [ngClass]="thresholdDataStatus ? 'active' : ' '"
+                (click)="filterThresholdData($event)" aria-describedby="threshold-data-label" aria-label="Data table view" [attr.aria-selected]="thresholdDataStatus">DATA</button>
+            <button class="btn btn--tertiary data-status-button" (click)="filterThresholdRegulations($event)"
+                [ngClass]="thresholdRegulationsStatus ? 'active' : ' '" aria-label="Regulations list view" [attr.aria-selected]="thresholdRegulationsStatus">REGULATIONS</button>
+        </div>
+    </div>
+    <div class="threshold-data-body">
+
+        <div class="threshold-tab threshold-regulations-container"
+            [ngClass]="thresholdDataStatus ? 'tab-is-open' : ' '">
+            <div class="tabular-data__container">
+                <table class="threshold-data-container">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th scope="col">State Name</th>
+                            <th scope="col">Month(s)</th>
+                            <th scope="col">Sales Value</th>
+                            <th scope="col">Transactions</th>
+                            <th scope="col">Status</th>
+                            <th scope="col" class="collapsible-table__action-column"></th>
+                        </tr>
+                    </thead>
+                    <div *ngIf="isSelectedArrayEmpty; then NoData else statesTabularData"></div>
+                    <ng-template #statesTabularData>
+                        <tbody class="collapsible-table__row-group" data-collapsible-table="row-group" #tempRefOne
+                        [id]='i'
+                        *ngFor="let stateTaxData of selectedStatesArray; let i=index"
+                        (click)="selectState(stateTaxData ? stateTaxData.state.stateCode : null)"
+                        [ngClass]="isStateFocused(stateTaxData ? stateTaxData.state.stateCode : null)">
+                        <tr>
+                            <td class="data-cell">
+                                <button *ngIf="(stateTaxData && stateTaxData.periodWiseValues.length>1)" aria-expanded="false" class="collapsible-table__table-button" data-collapsible-table="toggle"
+                                    (click)="expendTable($event, tempRefOne)">
+                                    <span class="u-sr-only">Toggle File History</span>
+                                    <svg class="u-icon-plus-dims collapsible-table__toggle-icon">
+                                        <rect class="icon-plus__bar--vertical" x="7" fill="currentColor" width="2"
+                                            height="14"></rect>
+                                        <rect x="5.75"
+                                            transform="matrix(-1.836970e-16 1 -1 -1.836970e-16 15 1.776357e-15)"
+                                            fill="currentColor" width="2" height="14"></rect>
+                                    </svg>
+                                </button>
+                            </td>
+                            <td class="data-cell">
+                                <span>{{stateTaxData.state.stateName}}</span>
+                            </td>
+                            <td class="data-cell selected-months" data="Month(s)">
+                                <div class="data-cell__sub-content">
+                                    {{getTaxationPeriod(stateTaxData.taxationPeriod.startMonth,stateTaxData.taxationPeriod.endMonth)}}</div>
+                            </td>
+                            <td class="data-cell" data="SALES VALUE">
+                                <div class="data-cell__sub-content">{{formatSales(stateTaxData.totalUserSalesValue,'$')}}
+                                </div>
+                            </td>
+                            <td class="data-cell" data="Transactions">
+                                    <div class="align-items-center d-flex" *ngIf='stateTaxData.ruleData && !stateTaxData.ruleData.salesTransaction.transactionRequired'>
+                                            <span aria-label="not applicable">NA</span>
+                                            <vtx-tooltip toolTipType='info' [toolTipMessage]="Information"></vtx-tooltip>
+                                                <ng-template #Information>
+                                                  <p id="trn-msg-info">Transactions data is not required for this state</p>
+                                                </ng-template>
+                                        </div>
+                                <div class="data-cell__sub-content" *ngIf='stateTaxData.ruleData && stateTaxData.ruleData.salesTransaction.transactionRequired'>{{formatSales(stateTaxData.totalUserTransactionsValue)}}</div>
+                            </td>
+                            <td class="data-cell" *ngIf="stateTaxData.thresholdStatus !== 'NOT_AVAILABLE'" >
+                                    <div class="data-cell__sub-content">
+                                        <img class="status-type-icon icon-status-corssed"
+                                            [alt]="stateTaxData.thresholdStatus" [src]="getThresholdStatusImageSrc(stateTaxData.thresholdStatus)" />
+                                    </div>
+                                    <button
+                                        class="b-none status-type-button mt-1" [ngClass]="getThresholdClass(stateTaxData.thresholdStatus)">{{formatThresholdStatus(stateTaxData.thresholdStatus)}}</button>
+                                </td>
+                            <td class="data-cell column__mobile-view" *ngIf="stateTaxData.thresholdStatus === 'NOT_AVAILABLE'">
+                                    <div class="data-cell__sub-content align-items-center d-flex"> NA 
+                                     <!--    <vtx-tooltip toolTipType='info' [toolTipMessage]=""> </vtx-tooltip> -->
+                                        <vtx-tooltip toolTipType='info' [toolTipMessage]="Information"></vtx-tooltip>
+                                        <ng-template #Information>
+                                          <p id="msg-info">{{constants.MSG_STATE_REGISTERED_TOOLTIP}}</p>
+                                        </ng-template>
+                                    </div>
+                                </td>
+                            <td class="data-cell column__mobile-view">
+                                <div class="data-cell__sub-content" *ngIf="stateTaxData.thresholdStatus !== 'NOT_AVAILABLE'">
+                                    <a class="register btn btn--primary m-0" href="https://www.vertexinc.com/" target="blank">REGISTER</a>
+                                </div>
+                            </td>
+                        </tr>
+                        <div *ngIf="(stateTaxData && stateTaxData.periodWiseValues.length>1); then periodWiseValues">
+                        </div>
+                        <ng-template #periodWiseValues>
+                            <tr class="collapsible-table__table-content" data-collapsible-table="content"
+                                *ngFor="let periodWiseData of stateTaxData.periodWiseValues; let j=index" aria-hidden="true">
+                                <td class="data-cell">
+                                    <div class="data-cell__sub-content"></div>
+                                </td>
+                                <td class="data-cell">
+                                    <div class="data-cell__sub-content">{{stateTaxData.state.stateName}}</div>
+                                </td>
+                                <td class="data-cell" data="Month(s)">
+                                    <div class="data-cell__sub-content">{{formatDate(periodWiseData.taxMonth)}}</div>
+                                </td>
+                                <td class="data-cell" data="SALES VALUE">
+                                    <div class="data-cell__sub-content">{{formatSales(periodWiseData.salesValue,'$')}}</div>
+                                </td>
+                                <td class="data-cell" data="Transactions">
+                                    <div class="data-cell__sub-content">{{formatSales(periodWiseData.transactionsValue)}}</div>
+                                </td>
+                                <td class="data-cell">
+                                    <div class="data-cell__sub-content"></div>
+                                </td>
+                                <td class="data-cell">
+                                    <div class="data-cell__sub-content"></div>
+                                </td>
+    
+                            </tr>
+                        </ng-template>
+                    </tbody>
+                    </ng-template>
+                    <ng-template #NoData>
+                        <tbody class="no-data-row__table-message">
+                            <tr>
+                                <td colspan="7">
+                                    <div class="flex-column w-100 p-4 pl-5 text-left rounded d-flex no-data__mobile-view">
+                                            <h3 class="mt-1 mb-2 u-link--primary">No Data to View</h3>
+                                            <p class="font-s12 m-0">To view threshold data, select one or more states</p>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </ng-template>
+                    
+                </table>
+            </div>
+        </div>
+        <div class="threshold-tab threshold-data-container"
+            [ngClass]="thresholdRegulationsStatus ? 'tab-is-open' : ' '">
+            <div *ngIf="isSelectedArrayEmpty; then NoRegulationsData else statesRegulationsData"></div>
+            <ng-template  #statesRegulationsData>
+            <div class="tabs__container d-flex" >
+                <div class="tabs__tab-list-container tab-list-wrap">
+                    <ul class="tabs__tab-list d-flex flex-column threshold-state-lists" role="tablist">
+                        <li class="tabs__tab-list-item" *ngFor="let stateTaxData of selectedStatesArray; let i=index" [tabIndex]="i==0 ? 0 : -1" role="tab" aria-selected="true"  vtxAccessibilityArrow (click)="selectState(stateTaxData.state.stateCode)">
+                            <button type="button" tabindex="-1" class="tabs__tab-link"  aria-controls="rounding-rules"
+                                  [ngClass]="isStateFocused(stateTaxData ? stateTaxData.state.stateCode : null)">{{stateTaxData.state.stateName}}
+                                <span *ngIf="stateTaxData.thresholdStatus !== 'NOT_AVAILABLE'"
+                                    class="d-inline-block float-right label-icon">
+                                    <img _ngcontent-hpg-c3=""
+                                        class="icon-status-{{stateTaxData.thresholdStatus.toLowerCase()}}"
+                                        src="../../../../../assets/images/svg/{{stateTaxData.thresholdStatus.toLowerCase()}}.svg" ></span>
+                                <span *ngIf="stateTaxData.thresholdStatus === 'NOT_AVAILABLE'"
+                                class="d-inline-flex float-right label-icon align-items-center">
+                                    <span>
+                                        NA
+                                    </span> 
+                                <svg class="u-icon-i-information-dims ml-2">
+                                    <use xlink:href="#i-information"></use>
+                                </svg></span>
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+                <div class="tabs__panel m-0 p-2 w-100 is-active" id="rounding-rules"
+                    aria-labelledby="tab-rounding-rules" role="tabpanel">
+                    <div class="row m-0 tab-panel-header align-items-center header__mobile-view">
+                        <div class="col">
+                            <label class="m-0">State</label>
+                            <div class="align-items-center d-flex panel-header_value">{{currentSelectedState && currentSelectedState.stateName ? currentSelectedState.stateName : " "}}</div>
+                        </div>
+                        <div class="col">
+                            <label class="m-0">Sales Value</label>
+                            <div class="align-items-center d-flex panel-header_value">{{currentSelectedState && currentSelectedState.actualSales ?formatSales(currentSelectedState.actualSales,'$'):" "}}</div>
+                        </div>
+                        <div class="col">
+                            <label class="m-0">Transactions</label>
+                                <div class="panel-header_value align-items-center d-flex" *ngIf="currentSelectedState?.isTransactionOptional">&nbsp; NA 
+                                    <vtx-tooltip toolTipType='info' [toolTipMessage]="Information"></vtx-tooltip>
+                                </div>
+                                <ng-template #Information>
+                                    <p id="trn-msg-info">Transactions data is not required for this state</p>
+                                </ng-template>
+                            <div class="panel-header_value" *ngIf="!currentSelectedState?.isTransactionOptional">&nbsp;{{currentSelectedState && currentSelectedState.actualTransaction ? formatSales(currentSelectedState.actualTransaction) : " " }}</div>
+                        </div>
+                        <div class="col-12 col-md-4 col-lg-4 h-100 p-0 align-items-center d-flex justify-content-between panel-header__button-col">
+                            <span class="d-inline-flex align-items-center" *ngIf=" currentSelectedState &&currentSelectedState.thresholdStatus !== 'NOT_AVAILABLE'">
+                                <span class="d-inline-block b-none status-type-button mr-1" [ngClass]="getThresholdClass(currentSelectedState.thresholdStatus)">{{formatThresholdStatus(currentSelectedState && currentSelectedState.thresholdStatus ?currentSelectedState.thresholdStatus: null)}}</span>
+                            </span>
+                            <span class="d-inline-flex align-items-center" *ngIf=" currentSelectedState &&currentSelectedState.thresholdStatus === 'NOT_AVAILABLE'">
+                                <span class="d-inline-block mr-1" aria-label="not applicable"> NA </span>
+                                <vtx-tooltip toolTipType='info' [toolTipMessage]="Information"></vtx-tooltip>
+                                <ng-template #Information>
+                                    <p id="msg-info">{{constants.MSG_STATE_REGISTERED_TOOLTIP}}</p>
+                                </ng-template>
+                            </span>
+                            <a class="register btn btn--primary m-0" href="https://www.vertexinc.com/" target="blank" *ngIf="currentSelectedState?.thresholdStatus !== 'NOT_AVAILABLE'">REGISTER</a>
+                        </div>
+                    </div>
+                    <div class="tab-panel-body px-3">
+                        <h6 class="my-2">Remote Seller Nexus Rules</h6>
+                        <div class="mb-3 panel-data-status">
+                            <div>Effective date : {{formatEffectiveDate(currentSelectedState && currentSelectedState.ruleData ? currentSelectedState.ruleData.effectiveDate : "")}}</div>
+                            <div>Threshold Measurement Period : {{currentSelectedState && currentSelectedState.ruleData ? currentSelectedState.ruleData.thresholdMeasurementRuleName : ""}} 
+                                <button id="summery-notification-info" class="btn-text btn--info-notify" [disabled]="disableInfoIcon" (click)="showNotification()" *ngIf = "currentSelectedState?.stateCode == 'WI'"  aria-label="show notification" [attr.aria-hidden]="disableInfoIcon">
+                                    <svg class="u-icon-i-information-dims">
+                                      <use xlink:href="#i-information"></use>
+                                    </svg>
+                                </button>
+                            </div>
+                            <vtx-notification (showNotification)="infoIconFunction($event)" [showMessage]="showNotificationBox" *ngIf = "currentSelectedState?.stateCode == 'WI'" [notificationMessageId]="'wiscosin-notification'">
+                                <span id="wiscosin-notification">{{constants.MSG_COMMON_WISCONSIN_NOTIFICATION}}</span>
+                            </vtx-notification>
+                            <div [innerHTML]= "formatShortInfo(currentSelectedState && currentSelectedState.ruleData ? currentSelectedState.ruleData.shortInfo : '')"></div>
+                        </div>
+                        <div class="regulation-info-message" [innerHTML]="currentSelectedState && currentSelectedState.ruleData ? currentSelectedState.ruleData.longInfo : ''">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </ng-template>
+            <ng-template #NoRegulationsData>
+                <div class="flex-column w-100 p-4 pl-5 text-left rounded d-flex">
+                    <h3 class="mt-1 mb-2 u-link--primary">No Data to View</h3>
+                    <p class="font-s12 m-0">To view threshold data, select one or more states</p>
+                </div>
+            </ng-template>
+        </div> 
+      
+    </div>
+</div>

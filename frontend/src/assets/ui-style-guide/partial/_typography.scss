@@ -1,0 +1,159 @@
+/*
+ * typography elements
+ *
+ ********************************************************************************/
+
+
+/*
+ * global typographic treatment
+ *
+ ************************************************************/
+
+html,
+body {
+    // default typeface setup
+    @include line-height(16, 24);
+    @include font-size($base-font-size);
+
+    font-family: $base-font;
+    color: $text-color;
+
+    // make everything look a little nicer in webkit
+    -webkit-font-smoothing: antialiased;
+
+    @media
+        only screen and (-webkit-min-device-pixel-ratio: 1.25),
+        only screen and ( min-device-pixel-ratio: 1.25),
+        only screen and ( min-resolution: 200dpi),
+        only screen and ( min-resolution: 1.25dppx) { -webkit-font-smoothing: subpixel-antialiased; }
+}
+
+/*
+ * headers
+ *
+ ************************************************************/
+
+// sass-lint:disable single-line-per-selector
+h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h6 {
+    margin-bottom: $base-vertical-margin;
+    font-weight: normal;
+    color: color(secondary, darker);
+}
+
+h1,
+.h1 {
+    @include line-height(30, 36);
+    @include font-size(30);
+
+    font-family: $brand-font-medium;
+}
+
+h2,
+.h2 {
+    @include line-height(24, 30);
+    @include font-size(24);
+
+    font-family: $brand-font-medium;
+}
+
+h3,
+.h3 {
+    @include line-height(18, 22);
+    @include font-size(18);
+}
+
+h4,
+.h4 {
+    @include line-height(16, 18);
+    @include font-size(16);
+
+    font-family: $brand-font-medium;
+}
+
+h5,
+.h5 {
+    @include line-height(10, 14);
+    @include font-size(10);
+
+    text-transform: uppercase;
+    color: color(neutral);
+}
+
+h6,
+.h6 { }
+
+// leading paragraph text
+.h-lead {  }
+
+
+/*
+ * basic typographic elements
+ *
+ ************************************************************/
+ .collapsable-table__details p.long-info { font-size: 14px !important; }
+ .regulation-info-message p { font-size: 14px !important; }
+ @media (max-width:767px){
+    .collapsable-table__details p.long-info {
+        font-size: 12px !important;
+    }
+    .regulation-info-message p { font-size: 12px !important; }
+}
+address,
+p,
+ul,
+ol {
+    @include line-height(12, 22);
+    @include font-size(12);
+}
+
+ul,
+ol {
+    padding-left: 18px;
+
+    li { margin-top: 16px; }
+}
+
+ul { list-style-type: circle; }
+
+// blockquote
+blockquote { }
+
+// basic text link
+a {
+    color: $link-color; /* default color */
+
+    &:focus,
+    &:hover { text-decoration: none; }
+
+    &.external-link::after {
+        display: inline-block;
+        margin-left: 4px;
+        width: 13px;
+        height: 13px;
+        overflow: hidden;
+        background: url('/assets/images/svg/i-external-link.svg') no-repeat center;
+        background-size: 100%;
+        text-indent: 13px;
+        white-space: nowrap;
+        content: '(external link)';
+    }
+
+    @media (max-width: $screen-xs-max) {
+        word-break: break-word;
+        word-wrap: break-word;
+        hyphens: auto;
+        overflow-wrap: break-word;
+    }
+}
+
+// address
+address { font-style: normal; }
+
+
+/*
+ * code snippet
+ *
+ ************************************************************/
+
+code { vertical-align: bottom; }

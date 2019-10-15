@@ -1,0 +1,208 @@
+/*
+ * header
+ *
+ ********************************************************************************/
+
+.site-header {
+    position: absolute;
+    display: flex;
+    padding: ($grid-vertical-padding / 2) $grid-horizontal-padding;
+    width: 100%;
+    min-height: 72px;
+    background-color: color(default, light);
+
+    @include bem-e('utility') {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+    }
+
+    @include bem-e('logo') {
+        display: inline-block;
+
+        @media (max-width: $screen-sm-max) { margin-left: 50px; }
+    }
+
+    @include bem-e('right') {
+        text-align: right;
+
+        @media (max-width: $screen-sm-max) { display: none; }
+     }
+}
+
+
+/*
+ * user info
+ *
+ ************************************************************/
+
+.user-info {
+
+    @include bem-e('container') {
+        @include font-size(12);
+
+        display: inline-block;
+        vertical-align: middle;
+        line-height: 1.25;
+    }
+}
+
+/*
+ * application brand name
+ *
+ ************************************************************/
+
+.app-name {
+
+    @include bem-e('container') {
+        display: inline-block;
+        margin-left: 15px;
+        border-left: 1px solid $border-color;
+        padding-left: 15px;
+    }
+
+    @include bem-e('text') {
+        @include font-size(15);
+
+        position: relative;
+        top: 2px;
+        line-height: 28px;
+        color: color(neutral);
+    }
+}
+
+
+/*
+ * utility navigation
+ *
+ ************************************************************/
+
+.utility-nav {
+
+    @include bem-e('container') {
+        display: inline-block;
+        margin: 0 10px 0 0;
+        border-right: 1px solid $border-color;
+    }
+
+    @include bem-e('list') {
+        margin: 0;
+        padding: 0;
+        list-style-type: none;
+        line-height: 28px;
+    }
+
+    @include bem-e('item') {
+        margin-top: 0;
+
+        @media (min-width: $screen-md-min) {
+            display: inline-block;
+            margin-right: 20px;
+        }
+    }
+
+    @include bem-e('link') {
+        @include font-size(12);
+
+        display: block;
+        padding: 10px 15px;
+        color: color(neutral, dark);
+
+        @media (min-width: $screen-md-min) {
+            @include font-size(12);
+
+            display: inline;
+            padding: 0;
+        }
+    }
+}
+
+
+/*
+ * utility buttons
+ *
+ ************************************************************/
+
+.utility-control {
+
+    @include bem-e('container') {
+        display: inline-block;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+
+    @include bem-e('item') {
+        display: inline-block;
+        margin: 0 0 0 -5px; /* remove inline-block spacing */
+
+        @media (min-width: $screen-md-min) { position: relative; }
+
+        &:first-child { margin-left: 0; }
+    }
+
+    @include bem-e('btn') {
+        @include font-size(12);
+
+        padding: 0 10px;
+        line-height: 40px;
+        font-family: $brand-font;
+        color: $text-color;
+        transition: opacity $transition-duration;
+
+        @media (min-width: $screen-sm-min) {
+            padding-right: 10px;
+            padding-left: 10px;
+        }
+
+        &:hover { cursor: pointer; }
+
+        &:focus,
+        &:hover {
+
+            .utility-control__icon { fill: color(secondary, dark); }
+        }
+    }
+
+    @include bem-e('icon') {
+        fill: color(neutral);
+        transition: fill $transition-duration;
+
+        @media (max-width: $screen-sm-max) {
+            width: 21px;
+            height: 21px;
+        }
+
+        @include bem-m('secondary') { fill: color(secondary); }
+    }
+
+    @include bem-e('label') { }
+
+    @include bem-e('badge') {
+        position: absolute;
+        top: 7%;
+        right: 50%;
+    }
+}
+
+
+/*
+ * utility flyout - modifier of `_flyout
+ *
+ ************************************************************/
+
+.flyout {
+
+    @include bem-e('container') {
+
+        @include bem-m('utility') {
+
+            &:focus,
+            &:hover {
+
+                .utility-control__icon { fill: color(secondary); }
+            }
+        }
+    }
+}

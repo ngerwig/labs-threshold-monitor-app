@@ -1,0 +1,49 @@
+@import '../../../../theme/variable';
+
+.dashboard__wrapper {
+  background-image: url(../../../../../assets/images/left-bg_importdata.svg),
+                    url(../../../../../assets/images/right-bg_importdata.svg);
+  background-repeat: no-repeat;
+  /*background-position: 0 bottom, right bottom;*/
+  background-position: 0 bottom, 100% bottom;
+  background-size: 200px;
+  min-height: calc(100vh - 88px);
+  padding-bottom: 60px;
+  .dashboard__container {
+    max-width: 730px;
+    .dashboard__widget {
+      border: 1px solid $border-color-light;
+      cursor: pointer;
+      color: #00609c;
+      display: flex;
+      flex-direction: column;      
+      justify-content: center;
+      align-items: center;
+      height: 214px;
+      margin: 0 auto;
+      max-width: 360px;
+      h4 {
+        color: $btn-secondary;
+        line-height: 1.38;
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1024px) and (orientation: portrait) {
+  .dashboard__wrapper {
+    height: calc(100vh - 70px) !important;
+  }
+  .dashboard__container {
+    .col-md-6 {
+      flex: 0 0 100%;
+      max-width: 100%;
+      margin-bottom: 24px !important;
+    }
+  }
+}
+@media only screen and (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
+  .dashboard__container {
+    min-height: 600px;
+  }
+}

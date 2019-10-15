@@ -1,0 +1,14 @@
+<!-- <span id="modal-content" tabindex="-1" aria-live="assertive" class="u-sr-only">{{modalData.header}} {{modalData.modalContent}}</span> -->
+<div class="modal-header no-padding--bottom">
+  <h4 class="modal-title" id="header-content">{{modalData.header}}</h4>
+  <!-- <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+    <span aria-hidden="true">&times;</span>
+  </button> -->
+</div>
+<div class="modal-body" >
+  <div><p [innerHTML]="modalData.modalContent" id="main-content"></p></div>
+</div>
+<div class="modal-footer justify-content-start">
+  <button class="btn btn--primary" (click)="successHandler()" aria-describedby="header-content main-content">{{modalData.okText}}</button>
+  <button class="btn btn--tertiary" (click)="cancelHandler()" *ngIf="modalData.isCancelVisible">{{modalData.cancelText}}</button>
+</div>

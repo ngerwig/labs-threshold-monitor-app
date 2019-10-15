@@ -1,0 +1,50 @@
+<div class="signin-container">
+
+  <p id="user-notification" class="" *ngIf="isNotification" aria-live="assertive">
+    <svg class="u-icon-i-success-green-solid-fill-dims" *ngIf="isSuccessNotification">
+      <use xlink:href="#i-success-green-solid-fill"></use>
+    </svg> 
+    <svg class="u-icon-i-exclamation-red-solid-fill-dims" *ngIf="isFailureNotification">
+      <use xlink:href="#i-exclamation-red-solid-fill"></use>
+    </svg>
+    {{notificationMsg}}
+  </p>
+
+  <h3 class="u-margin-bottom--md u-margin-hug--top" aria-hidden="true">{{textConstsObj.LABEL_SIGN_IN}}</h3>
+  <h3 class="u-sr-only" tabindex="-1" id="sign-in-heading">{{textConstsObj.LABEL_SIGN_IN}}</h3>
+  <form [formGroup]='signInForm' autocomplete="off" (ngSubmit)="submitBtn.focus();validateUserDetails();">
+    <div class="form-item u-margin-bottom--sm"
+    [ngClass]="{'form-item--error':emailError}">
+      <label for="loginEmailID" id="email-lbl">{{textConstsObj.LABEL_YOUR_EMAIL}}</label>
+      <input type="email" id="loginEmailID" name="input-login-emailid" formControlName='userEmailId' #userEmailId
+        (keydown)="emailChanged()"
+        aria-describedby="email-lbl email-error-message incorrect-c-error-message" (blur)="verifyEmail()" />
+      <p id="email-error-message"
+        *ngIf="emailError"
+        class="form-item__error-message">{{emailErrorMessage}}</p>
+    </div>
+    <div class="form-item u-margin-bottom--md form-item--error pwd__show-input"
+      [ngClass]="{'form-item--error': pwdError}">
+      <label for="loginPassword" id="login-pwd-lbl">{{textConstsObj.LABEL_PASSWORD}}</label>
+      <input type="{{passtype}}" id="loginPassword" name="input-login-password" (blur)="verifyPassword()" formControlName='userPassword' #userPassword
+        (keydown)="passwordChanged()"
+        aria-describedby="login-pwd-lbl passowrd-error-message incorrect-pwd-error-message" />
+      <span class="btn-text btn__show-hide" (mousedown)="showPassword($event)" [ngClass]="{'is-toggled' : showPasswordInput}"></span>
+      <p id="passowrd-error-message"
+        *ngIf="pwdError"
+        class="form-item__error-message">{{pwdErrorMessage}}</p>
+    </div>
+    <div *ngIf="formError" class="form-item--error">
+      <p id="incorrect-email-pwd-error-message" class="form-item__error-message">{{textConstsObj.MSG_SIGN_IN_INCORRECT_EMAIL_PASS}}</p>
+    </div>
+    <!-- using mouse down to prevent double clicks to submit -->
+    <button type="submit" class="btn btn--primary u-margin-bottom--md u-margin-top--md" #submitBtn>{{textConstsObj.LABEL_SIGN_IN}}</button><br />
+  </form>
+  <div class="form-item no-margin">
+    <p>
+      <a href="javascript:void(0)" class="btn-txt font-s16 no-padding--left" (click)="forgotPassword()">{{textConstsObj.LABEL_SIGN_IN_FORGOT_PASS}}?</a>
+    </p>
+
+    <p class="font-s16 no-margin"><span aria-hidden="true">{{textConstsObj.LABEL_SIGN_IN_DONT_HAV_ACCNT}}</span><a href="javascript:void(0)" class="btn-txt font-s16" (click)='signUp()' attr.aria-label="{{textConstsObj.LABEL_SIGN_IN_DONT_HAV_ACCNT}} {{textConstsObj.LABEL_SIGN_UP_BUTTON}}">{{textConstsObj.LABEL_SIGN_UP_BUTTON}}</a> </p>
+  </div>
+</div>

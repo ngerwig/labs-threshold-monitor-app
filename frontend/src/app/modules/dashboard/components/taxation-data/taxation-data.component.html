@@ -1,0 +1,141 @@
+<div class="container-fluid taxation-data_wrapper" #taxationDataTemp>
+  <div class="row">
+    <div class="col-12">
+      <span id="tax-heading" [attr.aria-label]="taxationDataHeader" tabindex="-1" class="u-sr-only"></span>
+      <div class="d-flex align-items-center title-layer">
+        <h1 class="d-inline-flex align-items-center">
+          {{taxationDataHeader}} {{taxationData.length? (this.taxationData.length + ' ' + (this.taxationData.length === 1 ? 'Entry' : 'Entries')):''}}
+        </h1>
+        <span class="d-inline-flex mt-2 align-items-center">
+          <span class="font-s14 font-normal d-inline-block gray-text ml-2">[Refer <a href="javascript:;" class="u-link--primary u-line font-medium" (click)="goToStateGuide()" aria-label="Refer state guides"> State Guides</a> ]</span>
+          <button id="tax-data-info" class="btn-text btn--info-notify" [disabled]="disableInfoIcon" (click)="showNotification()"  aria-label="show notification" [attr.aria-hidden]="disableInfoIcon">
+            <svg class="u-icon-i-information-dims">
+              <use xlink:href="#i-information"></use>
+            </svg>
+          </button>
+        </span>
+      </div>
+    </div>
+  </div>
+  <div class="row mb-2">
+    <div class="col-12 col-md-7 col-lg-8">
+      <vtx-notification (showNotification)="infoIconFunction($event)" [showMessage]="showNotificationBox" [notificationMessageId]="'tax-data-notification'">
+        <ol class="mr-1 notification_order-list" type="1" id="tax-data-notification">
+          <li>{{constants.MSG_COMMON_TAXATION_DATA_NOTIFICATION_ERR_FIX}}</li>
+          <li>{{constants.MSG_COMMON_WISCONSIN_NOTIFICATION}}</li>
+        </ol>
+      </vtx-notification>
+    </div>
+
+    <div class="col-12 col-md-5 col-lg-4 mt-4 mt-md-0">
+      <div class="d-flex h-100 justify-content-end align-items-end"  #menuContainer>
+        <button class="btn btn--secondary btn--sm mr-2" title="Undo" [disabled]="!undoRedoButtons.showUndo" (click)="undoClick()">UNDO</button>
+        <button class="btn btn--secondary btn--sm mr-3" title="Redo"  [disabled]="!undoRedoButtons.showRedo" (click)="redoClick()">REDO</button>
+        <button class="btn btn--secondary btn--sm mr-2" title="Add More" (click)="addRow()">ADD MORE</button>
+        <div class="btn-group btn-group--dropdown btn--actions flyout__container flyout__container--btn-dropdown" data-save-dropdown="button-container" [ngClass]="{'is-open' : actionsToggle }">
+          <button class="btn btn--secondary-outline btn--sm" title="Actions" data-save-dropdown="button" (click)="onActionsCollapse($event)">
+            <svg class="u-icon-i-action-menu-dims">
+              <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#i-action-menu"></use>
+            </svg>
+          </button>
+          <div class="flyout__panel">
+            <ul class="u-list-unstyled flyout__list">
+              <li class="flyout__item" [ngClass]="{'in-active': isMergeDisabled}"><button class="flyout__link" (click)="mergeSelected($event)">Merge</button></li>
+              <li class="flyout__item" [ngClass]="{'in-active': isDeleteDisabled}"><button class="flyout__link" (click)="deleteSelected($event)">Delete</button></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <div class="tabular-data__container manual__entry manual__entry--mobile-view">
+        <table class="manual-table" vtxTableAccessiblity [menuContainer]=menuContainer aria-label="Press ALT-F10 for menu">
+          <caption>Descriptive Table Caption</caption>
+          <thead>
+            <tr>
+              <th scope="col">State Name</th>
+              <th scope="col">Month</th>
+              <th scope="col">Sales Value ($)</th>
+              <th scope="col">Transactions</th>
+              <th scope="col">Errors ({{totalErrorCount}})</th>
+            </tr>
+          </thead>
+          <tbody *ngIf="taxationData.length">
+            <tr [ngClass]="{'active' : tableToggle[i] }" *ngFor="let stateTaxationData of taxationData;  let i= index" id="{{stateTaxationData.rowId}}" tabindex="0" attr.aria-label="Row {{i+1}} Select State Georgia Month {{stateTaxationData.monthYear}} Sales Value {{sales.value}} Transactions {{transactions.value}} Error Count 2">
+              <td>                
+                <div class="form-item form-item--checkbox" >
+                  <button type="button" class="btn-text" (click)="onCollapse($event, i)">
+                    <svg class="u-icon-plus-dims collapsible-table__toggle-icon">
+                      <rect class="icon-plus__bar--vertical" x="7" fill="currentColor" width="2" height="14"></rect>
+                      <rect x="5.75" transform="matrix(-1.836970e-16 1 -1 -1.836970e-16 15 1.776357e-15)" fill="currentColor" width="2" height="14"></rect>
+                    </svg>
+                  </button>
+                  <div class="custom__cb">
+                    <input type="checkbox" id="checkBox_{{stateTaxationData.rowId}}" name="checkBox_{{stateTaxationData.rowId}}" (change)="checkBoxChanged(stateTaxationData)">
+                    <label for="checkBox_{{stateTaxationData.rowId}}"></label>
+                  </div>
+                </div>
+                <div class="form-item" [ngClass]="{'form-item--error': checkTaxationErrorPresent(stateTaxationData) && (stateTaxationData.errors.fieldErrors.stateRequiredError || stateTaxationData.errors.fieldErrors.inValidStateError)}">
+                  <label class="label">State</label>
+                  <select id="sample-select-01" name="sample-select-01" required [ngModel]="stateTaxationData.stateCode" (ngModelChange)="saveInputChangeForUndo($event, stateTaxationData,'stateCode');stateTaxationData.stateCode = $event" (change)="getSingleStateErrorAndCount(stateTaxationData, i );">
+                    <option value disabled="disabled" hidden="hidden" selected="selected">Select an Option</option>
+                    <option [ngValue]="state.stateCode" *ngFor="let state of stateList">{{state.stateName}}</option>
+                  </select>
+                </div>
+                <vtx-tooltip [errorCounts]="getErrorCount(stateTaxationData)" [toolTipMessage]="errorInfo" toolTipType='error' [toolTipFieldErrors]="stateTaxationData.errors ? stateTaxationData.errors : {}" *ngIf="getErrorCount(stateTaxationData)"></vtx-tooltip>
+              </td>
+              <td class="vtx-date-column">                
+                <div class="form-item vtx-date-picker" [ngClass]="{'form-item--error': checkTaxationErrorPresent(stateTaxationData) && (stateTaxationData.errors.fieldErrors.monthYearRequiredError || stateTaxationData.errors.fieldErrors.inValidDateError)}">
+                  <label class="label">Month</label>
+                  <!-- <input type="text" name="sample-input-01" [(ngModel)] = "stateTaxationData.monthYear" (blur)="getAllErrorForSingleState(stateTaxationData)" > -->
+                  <vtx-month-picker #month [monthYr]="stateTaxationData.monthYear" (onChange)="monthChanged($event, stateTaxationData, i);"></vtx-month-picker>
+                </div>
+              </td>
+              <td>
+                <div class="form-item" [ngClass]="{'form-item--error': checkTaxationErrorPresent(stateTaxationData) && (stateTaxationData.errors.fieldErrors.salesValueRequiredError || stateTaxationData.errors.fieldErrors.salesPatternError || stateTaxationData.errors.fieldErrors.zeroStateSalesValueError || stateTaxationData.errors.fieldErrors.salesBillionError)}">
+                  <label class="label">Sales Value</label>
+                  <input type="text" #sales name="sample-input-01" [ngModelOptions]="{updateOn: 'blur'}" [ngModel] = "stateTaxationData.salesValue" (ngModelChange)="saveInputChangeForUndo($event, stateTaxationData, 'salesValue');stateTaxationData.salesValue = $event" (blur)="getSingleStateErrorAndCount(stateTaxationData, i );" autocomplete="off" class="sales-value" required>
+                 <!--  <input type="text" currencyMask name="sample-input-01" [(ngModel)] = "stateTaxationData.salesValue" (blur)="getAllErrorForSingleState(stateTaxationData);" [options]="{ thousands: ',', precision: 0, nullable: true, allowZero: false}"> -->
+                </div>
+              </td>
+              <td class="vtx-inputinfo-column">
+                <div class="form-item form-item--info-container" [ngClass]="{'form-item--error': stateTaxationData.transactionRequired || checkTaxationErrorPresent(stateTaxationData) && (stateTaxationData.errors.fieldErrors.transactionsPatternError || stateTaxationData.errors.fieldErrors.zeroStateTransactionValueError || stateTaxationData.errors.fieldErrors.transactionsBillionError)}">
+                  <label class="label">Transactions</label>
+                  <input type="text" #transactions name="sample-input-01" [placeholder]="stateTaxationData.transactionTooltipRequired && !stateTaxationData.transactionsValue ? 'Optional' : ' '" [ngModelOptions]="{updateOn: 'blur'}" (ngModelChange)="saveInputChangeForUndo($event, stateTaxationData, 'transactionsValue')" [(ngModel)] = "stateTaxationData.transactionsValue"  (blur)="getSingleStateErrorAndCount(stateTaxationData, i )" autocomplete="off">
+                  <vtx-tooltip [toolTipMessage]="inputInfo" toolTipType='info' *ngIf="stateTaxationData.transactionTooltipRequired && !stateTaxationData.transactionsValue"></vtx-tooltip>
+                </div>
+              </td>
+              <td aria-hidden="false" class="tabular-data__column--icon"> 
+                <vtx-tooltip [errorCounts]="getErrorCount(stateTaxationData)" [toolTipMessage]="errorInfo" toolTipType='error' [toolTipFieldErrors]="stateTaxationData.errors ? stateTaxationData.errors : {}" *ngIf="getErrorCount(stateTaxationData)"></vtx-tooltip>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<vtx-footer (proceedHandler)="onProceedHandler()" (saveHandler)="onSaveHandler()" (cancelHandler)="onCancelHandler()"></vtx-footer>
+<span aria-live="assertive" class="u-sr-only"></span>
+<!--This html code for Error tooltip template-->
+<ng-template #errorInfo let-fieldErrors="fieldErrors">
+  <div id="tax-error-info">
+    <p class="font-medium" *ngIf="totalFieldCount">Field Error</p>
+    <ol>
+      <li *ngFor="let errorKey of fieldErrors.fieldErrors | keyvalue">{{errorKey.value}}</li>
+    <!--  <li>The Threshold Measurement Period requires data to be uploaded from previous and current calendar years. To continue. Upload data for current and previous years or directly add data on this page.</li> -->
+    </ol>
+    <p class="font-medium" *ngIf="fieldErrors.measurementError">Measurement Error</p>
+    <p class="font-medium">{{fieldErrors.measurementError}}</p>
+  </div>
+</ng-template>
+<ng-template #inputInfo>
+  <div msg-info>
+    <p class="font-medium">Optional field</p>
+    <p>This state doesn’t require the number of transactions to calculate threshold.</p>
+  </div>
+</ng-template>
+<div class="tooltip-overlay"></div>

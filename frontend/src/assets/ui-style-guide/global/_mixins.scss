@@ -1,0 +1,213 @@
+/*
+ * mixins
+ *
+ ********************************************************************************/
+
+
+/*
+ * define BEM naming conventions
+ *
+ ************************************************************/
+
+// Block Element
+// @param {String} $element - Element name
+@mixin element($element) {
+    &__#{$element} {
+        @content;
+    }
+}
+
+// Block Modifier
+// @param {String} $modifier - Modifier name
+@mixin modifier($modifier) {
+    &--#{$modifier} {
+        @content;
+    }
+}
+
+// @alias element
+@mixin bem-e($element) {
+    @include element($element) {
+        @content;
+    }
+}
+
+// @alias modifier
+@mixin bem-m($modifier) {
+    @include modifier($modifier) {
+        @content;
+    }
+}
+
+
+/*
+ * retina background image
+ *
+ ************************************************************/
+
+@mixin retina() {
+    @media only screen and (min-resolution: 2dppx) { @content; };
+}
+
+
+/*
+ * typography
+ *
+ ************************************************************/
+
+// font size - unitless - @include font-size(16)
+@mixin font-size($font-size: $base-font-size) {
+    $rem: ($font-size / $base-font-size);
+
+    font-size: $font-size * 1px;
+    font-size: #{$rem}rem; // sass-lint:disable-line no-duplicate-properties
+}
+
+// line height - unitless - @include line-height(16);
+// @mixin line-height($line-height: $base-line-height) {
+//     $rem: ($base-line-height / $line-height);
+//
+//     line-height: $line-height * 1.5;
+// }
+
+// unitless line height mixin
+@mixin line-height($font-size, $line-height: $font-size) {
+    line-height: ($line-height / $font-size);
+}
+
+// text truncate - requires inline-block or block for proper styling
+@mixin text-truncate() {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+
+/*
+ * vertical alignment of content in container
+ *
+ ************************************************************/
+
+@mixin vertical-align($position: relative) {
+    position: $position;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+
+/*
+ * custom bootstrap mixin for compact grid columns
+ *
+ ************************************************************/
+
+@mixin make-grid-compact-columns($i: 1, $list: '.col-xs-#{$i}, .col-sm-#{$i}, .col-md-#{$i}, .col-lg-#{$i}') {
+
+    @for $i from (1 + 1) through $grid-columns {
+        $list: '#{$list}, .col-xs-#{$i}, .col-sm-#{$i}, .col-md-#{$i}, .col-lg-#{$i}';
+    }
+
+    #{$list} {
+        position: relative;
+        // Inner gutter via padding
+        padding-right: floor(($grid-gutter-width / 3));
+        padding-left: ceil(($grid-gutter-width / 3));
+        // Prevent columns from collapsing when empty
+        min-height: 1px;
+    }
+}
+
+
+/*
+ * transitions
+ *
+ ************************************************************/
+
+// scale down
+@mixin scale-down($time: 1s) {
+    animation: scaleDown $time ease-out 1;
+}
+
+@keyframes scaleDown {
+    0% { transform: scale(1); }
+    50% { transform: scale(.95); }
+    100% { transform: scale(1); }
+}
+
+// scale up
+@mixin scale-up($time: 1s) {
+    animation: scaleUp $time ease-in-out 1;
+}
+
+@keyframes scaleUp {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+// fadein
+@mixin fade-in($time: 1s) {
+    animation: fadeIn $time ease-out 1;
+}
+
+@keyframes fadeIn {
+    0% { opacity: 0; }
+    to { opacity: 1; }
+}
+
+// fadeout
+@mixin fade-out($time: 1s) {
+    animation: fadeOut $time ease-out 1;
+}
+
+@keyframes fadeOut {
+    0% { opacity: 1; }
+    to { opacity: 0; }
+}
+
+// slide in down and fadein
+@mixin slide-in-down($time) { animation: slideInDown $time ease-in-out; }
+
+@keyframes slideInDown {
+    0% {
+        opacity: 0;
+        transform: translateY(-100px);
+    }
+    75% { transform: translateY(0); }
+    100% { opacity: 1; }
+}
+
+// slide in up and fadein
+@mixin slide-in-up($time) { animation: slideInUp $time ease-in-out; }
+
+@keyframes slideInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(100px);
+    }
+    75% { transform: translateY(0); }
+    100% { opacity: 1; }
+}
+
+// slide in from right and fadein
+@keyframes slideInRight {
+    0% {
+        opacity: 0;
+        transform: translateX(100px);
+    }
+    75% { transform: translateX(0); }
+    100% { opacity: 1; }
+}
+
+@mixin slide-in-right($time) { animation: slideInRight $time ease-out backwards; }
+
+// slide in form left and fadein
+@keyframes slideInLeft {
+    0% {
+        opacity: 0;
+        transform: translateX(-100px);
+    }
+    75% { transform: translateX(0); }
+    100% { opacity: 1; }
+}
+
+@mixin slide-in-left($time) { animation: slideInRight $time ease-out backwards; }

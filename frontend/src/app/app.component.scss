@@ -1,0 +1,25 @@
+@import '../app/theme/variable';
+
+.main-page-wrapper {
+  background: none;
+  background-size: cover;
+  background-position: 0 0;
+  background-repeat: no-repeat;
+  min-height: 100%;
+  padding-top: 88px;
+  overflow-x: hidden;
+  position: relative;
+  z-index: 1;
+  &.signin-bg {
+    background-image: url('../assets/images/home-bg.png');
+  }
+}
+
+@media (max-height:950px) {
+  .main-page-wrapper {
+    &.signin-bg {
+      height: 100%;
+      overflow-y: auto;
+    }
+  }
+}

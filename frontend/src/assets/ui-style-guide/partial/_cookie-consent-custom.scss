@@ -1,0 +1,55 @@
+/*
+ * customization of Cookie Consent plugin
+ * extends /vendor/_cookie-consent-3.0.0.scss
+ *
+ ********************************************************************************/
+
+.cc-window {
+    display: block;
+    background-color: color(neutral, dark);
+    color: #b5b5b5;
+
+    &.cc-banner { padding: ($grid-vertical-padding / 2) $grid-horizontal-padding; }
+}
+
+.cc-custom-content {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+}
+
+.cc-message {
+    @include font-size(13);
+
+    margin-bottom: 0 !important; // sass-lint:disable-line no-important
+    line-height: $base-line-height;
+}
+
+.cc-compliance {
+    display: inline-block;
+    padding-left: 14px;
+    text-align: right;
+
+    // .cc-window.cc-banner & { flex: 0; }
+}
+
+.cc-btn {
+    @extend .btn;
+    @extend .btn--secondary;
+
+    .cc-banner &:last-child { min-width: 120px; }
+}
+
+.cc-link,
+.cc-link:active,
+.cc-link:visited {
+    padding: 0;
+
+    &,
+    &:active,
+    &:visited { color: color(default, light); }
+
+    &:focus,
+    &:hover { text-decoration: underline; }
+}

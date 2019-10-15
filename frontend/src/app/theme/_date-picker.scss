@@ -1,0 +1,168 @@
+@import '../theme/variable';
+
+
+// Customize Date Picker Styles as per our UX
+.input-group {
+  .datepicker-button {  
+    background-image: url(/assets/images/svg/i-chevron-down-blue.svg);
+    background-color: transparent !important;
+    background-repeat: no-repeat;
+    background-size: 11px;
+    background-position: 94% 10px;
+    height: 34px;
+    position: absolute;
+    right: 1px;
+    top: 1px;
+    padding: 0;
+    min-width: auto;
+    width: calc(100% - 2px);
+    z-index: 1;
+    .arrow-up {
+      background-image: url(/assets/images/svg/i-chevron-up-blue.svg);
+    }
+  }
+}
+.datepicker-calendar {
+  z-index: 4 !important;
+  table.datepicker-grid {
+    thead,
+    tbody {
+      th, td {
+        color: #141414 !important;
+        height: 30px;
+        font-size: 0.875rem;
+        line-height: 30px;
+        &.month {
+          background-color: $white !important;
+          border-radius: 6px;
+          height: 60px;
+          line-height: 60px;
+          width: 60px;
+          &.selectable:hover,
+          &.selectable:focus {
+            background-color: rgba(0, 96, 156, 0.2) !important;
+          }
+        }
+        &.curMonth,
+        .curYear {
+          background-color: #00609c !important;
+          color: #fff !important;
+          &.selectable:hover,
+          &.selectable:focus {
+            background-color: #00609c !important;
+            color: #fff !important;
+          }
+        }
+        &.selectable:hover,
+        &.selectable:focus {
+          background-color: rgba(0, 96, 156, 0.2) !important;
+        }
+      }
+    }
+  }
+  .datepicker-month-wrap {
+    padding: 6px 10px !important;
+    height: 42px !important;
+    .datepicker-month {
+      color: #141414;
+      font-size: 1rem;
+      line-height: 1.25;
+      &:hover {
+        background-color: rgba(0, 96, 156, 0.2) !important;
+        border-color: transparent !important;
+      }
+    }
+    .datepicker-calendar .datepicker-month-prev,
+    .datepicker-calendar .datepicker-month-next,
+    .datepicker-month-prev,
+    .datepicker-month-next {
+      border: 2px solid #00609c;
+      border-radius: 50%;
+      background-image: url(/assets/images/svg/i-previous-month-blue.svg);
+      background-repeat: no-repeat;
+      background-size: 7px 10px;
+      background-position: 4px 4px;
+      height: 22px;
+      width: 22px;
+      &:hover {
+        background-color: transparent !important;
+        border: 2px solid #00609c !important;
+        border-radius: 50% !important;
+        margin-top: 3px !important;
+      }
+    }
+    .datepicker-calendar, .datepicker-month-next {
+      background-image: url(/assets/images/svg/i-next-month-blue.svg);
+      background-position: 7px 4px;
+    }
+    .datepicker-month {
+      &:after {
+        display: none !important;
+      }
+    }
+  }
+  &.default table.datepicker-grid td.year {
+    border-radius: 6px;
+    background-color: #fff;
+    line-height: 45px;
+  }
+  &.default table.datepicker-grid td.year {
+    background-color: #fff !important;
+  }
+  &.default table.datepicker-grid .year.selectable:hover,
+  &.default table.datepicker-grid .year.selectable:focus {
+    background-color: rgba(0, 96, 156, 0.2) !important;
+  }
+  &.default table.datepicker-grid td.curYear {
+    background-color: #00609c !important;
+    color: #fff !important;
+    &.selectable:hover,
+    &.year.selectable:focus {
+      background-color: #00609c !important;
+      color: #fff !important;
+    }
+  }
+}
+
+@media only screen and (min-width: 320px) and (max-width: 767px) and (orientation: portrait) {
+  .manual__entry table.manual-table > tbody > tr > td {
+    &.vtx-date-column .form-item.vtx-date-picker {
+      .datepicker-calendar {
+        min-width: 215px !important;
+      }
+      .datepicker-calendar table.datepicker-grid thead th.month,
+      .datepicker-calendar table.datepicker-grid thead td.month,
+      .datepicker-calendar table.datepicker-grid tbody th.month,
+      .datepicker-calendar table.datepicker-grid tbody td.month{
+        height: 50px;
+        line-height: 50px;
+        font-size: 12px;
+        width: 50px;
+      }
+      .datepicker-calendar.default table.datepicker-grid th {
+        font-size: 12px;
+      }
+      .datepicker-calendar table.datepicker-grid td.year {
+        line-height: 38px;
+        height: 38px;
+      }
+      .datepicker-calendar .datepicker-month-wrap .datepicker-month {
+        font-size: 0.875rem;
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1024px) {
+  .input-group {
+    .datepicker-button {
+      height: 32px;
+    }
+  }
+  .vtx-date-picker {
+    .d-show-month {
+      font-size: 0.75rem !important;
+      top: -28px !important;
+    }
+  }
+}

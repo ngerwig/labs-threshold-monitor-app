@@ -1,0 +1,49 @@
+@import './variable';
+
+/* Border styles */
+
+.no {
+  &-border {
+    border: 0 !important;
+  }
+
+  &-border {
+    &--top {
+      border-top: 0 !important;
+    }
+
+    &--right {
+      border-right: 0 !important;
+    }
+
+    &--bottom {
+      border-bottom: 0 !important;
+    }
+
+    &--left {
+      border-left: 0 !important;
+    }
+  }
+}
+
+.border {
+  &--top {
+    border-top: 1px solid $border-color;
+  }
+
+  &--right {
+    border-right: 1px solid $border-color;
+  }
+
+  &--bottom {
+    border-bottom: 1px solid $border-color;
+  }
+
+  &--left {
+    border-left: 1px solid $border-color;
+  }
+
+  &--all {
+    border: 1px solid $border-color;
+  }
+}

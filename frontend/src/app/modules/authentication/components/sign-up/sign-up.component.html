@@ -1,0 +1,49 @@
+<div class="signup-container">
+  <h3 class="u-margin-bottom--md u-margin-hug--top" aria-hidden="true">{{constants.LABEL_SIGN_UP}}</h3>
+  <h3 class="u-margin-bottom--md u-margin-hug--top u-sr-only" tabindex="-1" id="sign-up-heading">{{constants.LABEL_SIGN_UP}}</h3>
+  <form [formGroup]='signUpForm' autocomplete="off" (ngSubmit)="signupBtn.focus(); validateUserDetails()">
+    <div class="form-item u-margin-bottom--sm"
+      [ngClass]="{'form-item--error':nameError}">
+      <label for="yourName" id="name-lbl">{{constants.LABEL_YOUR_NAME}}</label>
+      <input type="text" id="yourName" name="input-your-name" formControlName='userName' #userName aria-describedby="name-lbl name-required-error-message" (blur)="verifyName()" (keydown)="nameChanged()" aria-describedby="name-error-message"/>
+      <p id="name-error-message"
+        *ngIf="nameError"
+        class="form-item__error-message">{{nameErrorMessage}}</p>
+    </div>
+    <div class="form-item u-margin-bottom--sm"
+      [ngClass]="{'form-item--error':emailError}">
+      <label for="loginEmailID" id="email-lbl">{{constants.LABEL_YOUR_EMAIL}}</label>
+      <input type="email" id="loginEmailID" name="input-login-emailid" formControlName='userEmailId' #userEmailId
+        aria-describedby="email-lbl email-error-message" (blur)=" invalidCreds = signUpForm.invalid && invalidCreds ? false:invalidCreds;" (blur)="verifyEmail()" (keydown)="emailChanged()" aria-describedby="emailError"/>
+      <p id="email-error-message"
+        *ngIf="emailError"
+        class="form-item__error-message">{{emailErrorMessage}}</p>
+    </div>
+    <div class="form-item u-margin-bottom--sm pwd__show-input new-password"
+      [ngClass]="{'form-item--error': passwordError}"><!--"additional-info"-->
+      <label for="signupPassword" id="pwdl-lbl">{{constants.LABEL_PASSWORD}}</label>
+      <p class="form-item__info-message" id="pwd-hint">{{constants.MSG_SIGN_UP_PASSWORD_HINT}}</p>
+      <input type="{{passtype}}" class="toggle-password" id="signupPassword" name="input-create-password" formControlName='userCreatePassword'
+        #userCreatePassword (blur)="verifyPassword()" (keydown)="passwordChanged()" (focus)="passwordError=false;" aria-describedby="pwdl-lbl pwd-hint create-password-required-error-message"/>
+      <span class="btn-text btn__show-hide " (mousedown)="showPassword($event);" [ngClass]="{'is-toggled' : showPasswordInput}"></span>
+      <p id="create-password-required-error-message"
+        *ngIf="passwordError"
+        class="form-item__error-message">{{passwordErrorMessage}}</p>
+    </div>
+    <div class="form-item form-item--error u-margin-bottom--md pwd__show-input"
+      [ngClass]="{'form-item--error': confirmPwdError}">
+      <label for="signUpConfirmPassword">{{constants.LABEL_CONFIRM_PASSWORD}}</label>
+      <input type="{{passtypeConfirm}}" id="signUpConfirmPassword" name="input-confirm-password" formControlName='userConfirmPassword'
+        #userConfirmPassword (blur)="verifyConfirmPassword()" (keydown)="confirmPwdChanged()"  aria-describedby="confirm-password-required-error-message"/>
+      <span class="btn-text btn__show-hide" (mousedown)="showPasswordConfirm($event)" [ngClass]="{'is-toggled' : showPasswordConfirmInput}"></span>
+      <p id="confirm-password-required-error-message"
+        *ngIf="confirmPwdError"
+        class="form-item__error-message">{{confirmPwdErrorMessage}}</p>
+    </div>
+    <button type="submit" class="btn btn--primary u-margin-bottom--md u-margin-top--md" #signupBtn>{{constants.LABEL_SIGN_UP.toUpperCase()}}</button><br />
+  </form>
+
+  <div class="form-item no-margin">
+      <span aria-hidden="true"> {{constants.HEADER_ALREADY_HAVE_AN_ACCNT}}</span> <a href="javascript:void(0)" class="btn-txt font-s16" (click)="signIn()">{{constants.LABEL_SIGN_IN}}</a>
+  </div>
+</div>

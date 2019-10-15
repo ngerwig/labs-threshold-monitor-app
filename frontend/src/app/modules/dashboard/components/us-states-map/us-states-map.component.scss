@@ -1,0 +1,91 @@
+.state{
+    fill: white;
+    stroke: rgba(0,0,0,0.54);
+    stroke-width: 0.8;
+    stroke-linejoin:round;
+    outline: none;
+    cursor: default;
+  }
+  .map-container{
+    // width: fit-content;
+    // padding: 30px;
+    // border: 1px solid black;
+    // margin: 10px;
+    position: relative;
+    height: 1px;
+    padding-bottom: 54%;
+    // left:30%;
+    // background: aliceblue;
+  }
+  .map{
+    height: 100%;;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    transition: all 1s ease-in-out;
+  }
+  .isSelected{
+    cursor: pointer !important;
+  }
+  .isFocused, .focusable:focus{
+    // fill: rgb(127, 193, 255);
+    // filter: url(#dropShadow);
+    .state-sales-tax-map__state{
+      stroke-width: 3;
+      stroke: #03458c;
+    }
+  }
+
+  .focusable{
+    .state-map-label {
+      .exterior-line-dc{
+        display: inline;
+        fill:none;
+        stroke-linecap:square
+      }
+    }
+  }
+  .exterior-line-dc{
+    display: none;
+  }
+  .state-map-label{
+  stroke: white;
+  fill: white;
+  }
+  .exterior-line{
+      fill:none;
+      stroke:white;
+      stroke-linecap:"square";
+  }
+  .threshold_safe, .threshold_nearing, .not_available, .threshold_crossed{
+    // cursor: pointer !important;
+    stroke: white;
+    stroke-width: 1px;
+    outline: none;
+      .exterior-line{
+          stroke: black;
+          stroke-width: 1;
+          stroke-linecap:"square";
+      }
+      .exterior{
+          stroke: black;
+          fill: black !important;
+      }
+  }
+  .threshold_nearing{
+    fill:url(#threshold_nearing);
+  }
+  .threshold_crossed{
+    fill:url(#threshold_crossed);
+  }
+  .threshold_safe{
+    fill: #008a00;
+  }
+  .not_available{
+    fill:#f0efef;
+    .state-map-label{
+      stroke: #141414;
+      fill:#141414 !important;
+    }
+  }

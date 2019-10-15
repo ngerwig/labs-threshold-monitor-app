@@ -1,0 +1,167 @@
+/*
+ * treeview component
+ *
+ ********************************************************************************/
+
+ /*
+ * treeview body, lists, and list items
+ *
+ **********************************************************************/
+
+ .treeview {
+    // all lists except top level hidden by default
+    ul ul { display: none; }
+
+    @include bem-e('list') {
+        margin: 0;
+
+        @include bem-m('has-expandable-children') { // in lists that have expandable children....
+
+            // margin if this list item has no children and therefore no toggle icon
+            > .treeview__list-item > .treeview__list-item-input .custom__cb { margin-left: 22px; }
+
+            // remove the margin if the list item has children since it will have a toggle icon
+            .treeview__list-item--has-children > .treeview__list-item-input > .custom__cb { margin-left: 4px; }
+        }
+    }
+
+    // padding for list items and utility elements within nested lists
+    [data-level='0'] {
+
+        .treeview-utility__controls,
+        .treeview__list-item-input { padding: 8px 15px; }
+    }
+
+    [data-level='1'] {
+
+        .treeview-utility__controls,
+        .treeview__list-item-input { padding: 8px 15px 8px 40px; }
+    }
+
+    [data-level='2'] {
+
+        .treeview-utility__controls,
+        .treeview__list-item-input { padding: 8px 15px 8px 65px; }
+    }
+
+    [data-level='3'] {
+
+        .treeview-utility__controls,
+        .treeview__list-item-input { padding: 8px 15px 8px 90px; }
+    }
+
+    [data-level='4'] {
+
+        .treeview-utility__controls,
+        .treeview__list-item-input { padding: 8px 15px 8px 115px; }
+    }
+
+    [data-level='5'] {
+
+        .treeview-utility__controls,
+        .treeview__list-item-input { padding: 10px 20px 10px 140px; }
+    }
+
+    [data-level='6'] {
+
+        .treeview-utility__controls,
+        .treeview__list-item-input { padding: 10px 20px 10px 165px; }
+    }
+
+    [data-level='7'] {
+
+        .treeview-utility__controls,
+        .treeview__list-item-input { padding: 10px 20px 10px 190px; }
+    }
+
+    [data-level='8'] {
+
+        .treeview-utility__controls,
+        .treeview__list-item-input { padding: 10px 20px 10px 215px; }
+    }
+
+    [data-level='9'] {
+
+        .treeview-utility__controls,
+        .treeview__list-item-input { padding: 10px 20px 10px 240px; }
+    }
+
+    @include bem-e('list-item') {
+        margin: 0;
+        border-top: 1px solid color(neutral, light);
+
+        @include bem-m('utility') {
+            border-top: 1px solid color(neutral);
+
+            & + .treeview__list-item { border-top: 1px solid color(neutral); }
+        }
+
+        &.is-expanded > .treeview__list-item-input .icon-plus__bar--vertical { opacity: 0; }
+
+        @include bem-m('has-stripe') {
+
+            > .treeview__list-item-input { background-color: #f4f4f4; }
+        }
+    }
+
+    @include bem-e('list-item-input') {
+        padding-left: 14px;
+        white-space: nowrap;
+
+        .custom__cb {
+            display: inline-block;
+
+            label { white-space: normal; }
+
+            // remove transition from checkboxes to avoid flash of checked checkbox
+            label::after { transition: none; }
+        }
+    }
+
+    @include bem-e('child-list-toggle') {
+        display: inline-block;
+        cursor: pointer;
+        appearance: none;
+    }
+
+    @include bem-e('child-list-toggle-icon') {
+        width: 14px;
+        height: 14px;
+        color: color(secondary);
+    }
+}
+
+/*
+ * treeview utility row and filters
+ *
+ **********************************************************************/
+
+.treeview-utility {
+
+    @include bem-e('controls') {
+
+        > button + button { margin-left: 24px; }
+    }
+
+    @include bem-e('filter-toggle') { float: right; }
+
+    @include bem-e('filter-panel') {
+        display: none; // filter panels are hidden by default
+        border-top: 1px solid color(neutral, light);
+        padding: 10px 20px 0;
+    }
+
+    @include bem-e('filter-panel-inputs') {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+
+    @include bem-e('select') { width: calc(50% - 7px); }
+
+    @include bem-e('filter-panel-controls') {
+        padding: 10px 0 10px 10px;
+
+        button + button { margin-left: 20px; }
+    }
+}

@@ -1,0 +1,11 @@
+@import '../../../../theme/variable';
+
+.vtx-footer-wrapper {
+  background-color: $white;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  box-shadow: 2px 0 4px 0 rgba(0, 0, 0, 0.16);
+  width: 100%;
+  z-index: 4;
+}

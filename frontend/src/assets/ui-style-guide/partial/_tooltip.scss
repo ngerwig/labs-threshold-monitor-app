@@ -1,0 +1,81 @@
+/*
+ * tooltip
+ *
+ ********************************************************************************/
+
+.tooltip {
+    @include font-size(12);
+
+    z-index: z-index(modal);
+    position: absolute;
+    box-shadow: $box-shadow-default;
+    padding: 9px 14px;
+    max-width: 300px;
+    background-color: color(neutral, dark);
+    pointer-events: none;
+    opacity: 0;
+    visibility: hidden;
+    color: color(default, light);
+    transition: opacity $transition-duration, visibility $transition-duration;
+    hyphens: auto;
+
+    &::before {
+        position: absolute;
+        left: 50%;
+        width: 0;
+        height: 0;
+        transform: translateX(-7px);
+        content: '';
+    }
+
+    @include bem-m('visible') {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    @include bem-m('top') {
+        transform: translate(-50%, -110%); // gracefully degrading rule for IE11 which doesn't allow the calc value below
+        transform: translate(-50%, calc(-100% - 6px)); // sass-lint:disable-line no-duplicate-properties
+
+        &::before {
+            top: 100%;
+            border-top: 6px solid color(neutral, dark);
+            border-right: 5px solid transparent;
+            border-left: 5px solid transparent;
+        }
+
+        &.tooltip--error::before { border-top: 6px solid color(utility, error); }
+
+        &.tooltip--warning::before { border-top: 6px solid color(utility, warning); }
+    }
+
+    @include bem-m('bottom') {
+        transform: translateX(-50%);
+
+        &::before {
+            top: -6px;
+            border-right: 5px solid transparent;
+            border-bottom: 6px solid color(neutral, dark);
+            border-left: 5px solid transparent;
+        }
+
+        &.tooltip--error::before { border-bottom: 6px solid color(utility, error); }
+
+        &.tooltip--warning::before { border-bottom: 6px solid color(utility, warning); }
+    }
+
+    @include bem-m('error') { background-color: color(utility, error); }
+
+    @include bem-m('warning') {
+        background-color: color(utility, warning);
+        color: color(neutral, darker);
+    }
+}
+
+// tooltip elements should have the default arrow cursor...
+[data-tooltip] { cursor: default; }
+
+// ...with the exception of anchor links and buttons, which should retain the pointer
+a[data-tooltip],
+button[data-tooltip],
+.btn[data-tooltip] { cursor: pointer; }

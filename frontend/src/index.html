@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Vertex Tax Monitoring</title>
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+
+  <!-- Required to convert named colors to RGB -->
+ <!--  <script src="https://cdn.jsdelivr.net/npm/rgbcolor@^1/index.js"></script> -->
+  <!-- Optional if you want blur -->
+  <!-- <script src="https://cdn.jsdelivr.net/npm/stackblur-canvas@^1/dist/stackblur.min.js"></script> -->
+  <!-- Main canvg code -->
+<!--   <script src="https://cdn.jsdelivr.net/npm/canvg/dist/browser/canvg.min.js"></script> -->
+  <!-- <script src="//canvasjs.com/assets/script/canvasjs.min.js"></script> -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <!-- <script type="text/javascript" src="js/script.js"></script> -->
+</head>
+<body>
+  <app-root></app-root>
+  <div style="position:absolute; top: 0; z-index: 0;">
+    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+      <symbol viewBox="0 0 20 20" id="i-account" xmlns="http://www.w3.org/2000/svg">
+        <ellipse cx="9.909" cy="8.818" rx="3.182" ry="3.364" />
+        <path d="M10 0C4.477 0 0 4.477 0 10s4.477 10 10 10 10-4.477 10-10A10 10 0 0 0 10 0zm5.182 16.91a5.455 5.455 0 0 0-10.364 0 8.636 8.636 0 1 1 10.364 0z" />
+      </symbol>
+      <symbol viewBox="0 0 17 4" id="i-action-menu" xmlns="http://www.w3.org/2000/svg">
+        <g transform="translate(.5)">
+          <circle cx="2" cy="2" r="2"></circle>
+          <circle cx="8" cy="2" r="2"></circle>
+          <circle cx="14" cy="2" r="2"></circle>
+        </g>
+      </symbol>
+      <symbol viewBox="0 0 17 17" id="i-information" xmlns="http://www.w3.org/2000/svg">
+        <path d="M8.5 12.705a.805.805 0 0 1-.805-.716V7.337a.805.805 0 1 1 1.61 0V11.9a.805.805 0 0 1-.805.805zm0-8.41a.805.805 0 1 1 0 1.61.805.805 0 0 1 0-1.61zM8.5 0A8.59 8.59 0 0 1 17 8.5 8.59 8.59 0 0 1 8.5 17 8.59 8.59 0 0 1 0 8.5 8.59 8.59 0 0 1 8.5 0zm0 15.658a7.158 7.158 0 1 0 0-14.316 7.158 7.158 0 0 0 0 14.316z" />
+      </symbol>
+      <symbol viewBox="0 0 17 17" id="i-exclamation" xmlns="http://www.w3.org/2000/svg">
+        <path d="M8.5 17A8.59 8.59 0 0 0 17 8.5 8.59 8.59 0 0 0 8.5 0 8.59 8.59 0 0 0 0 8.5 8.59 8.59 0 0 0 8.5 17m0-15.658a7.158 7.158 0 1 1 0 14.316 7.158 7.158 0 0 1 0-14.316m0 2.953a.805.805 0 0 0-.804.805v4.563a.805.805 0 1 0 1.61 0V5.011a.805.805 0 0 0-.806-.716m0 8.41a.805.805 0 1 0 0-1.61.805.805 0 0 0 0 1.61" fill="#131313"/>
+      </symbol>
+      <symbol viewBox="0 0 17 17" id="i-exclamation-no-fill" xmlns="http://www.w3.org/2000/svg">
+        <path d="M8.5 17A8.59 8.59 0 0 0 17 8.5 8.59 8.59 0 0 0 8.5 0 8.59 8.59 0 0 0 0 8.5 8.59 8.59 0 0 0 8.5 17m0-15.658a7.158 7.158 0 1 1 0 14.316 7.158 7.158 0 0 1 0-14.316m0 2.953a.805.805 0 0 0-.804.805v4.563a.805.805 0 1 0 1.61 0V5.011a.805.805 0 0 0-.806-.716m0 8.41a.805.805 0 1 0 0-1.61.805.805 0 0 0 0 1.61"/>
+      </symbol>
+      <symbol viewBox="0 0 17 17" id="i-exclamation-red" xmlns="http://www.w3.org/2000/svg">
+        <path d="M8.5 17A8.59 8.59 0 0 0 17 8.5 8.59 8.59 0 0 0 8.5 0 8.59 8.59 0 0 0 0 8.5 8.59 8.59 0 0 0 8.5 17m0-15.658a7.158 7.158 0 1 1 0 14.316 7.158 7.158 0 0 1 0-14.316m0 2.953a.805.805 0 0 0-.804.805v4.563a.805.805 0 1 0 1.61 0V5.011a.805.805 0 0 0-.806-.716m0 8.41a.805.805 0 1 0 0-1.61.805.805 0 0 0 0 1.61" fill="#C9282D"/>
+      </symbol>
+      <symbol viewBox="0 0 18 18" id="i-exclamation-red-solid-fill" xmlns="http://www.w3.org/2000/svg">
+        <g fill="none">
+          <path d="M9 0a9.095 9.095 0 0 0-9 9 9.095 9.095 0 0 0 9 9 9.095 9.095 0 0 0 9-9 9.095 9.095 0 0 0-9-9z" fill="#C9282D"/>
+          <path d="M9.225 4.457c-.563 0-1.125.354-1.125.708V9.32c0 .354.422.708 1.125.708.563 0 1.125-.354 1.125-.708V5.165c0-.443-.563-.708-1.125-.708zm0 8.914c.563 0 1.125-.417 1.125-1.114 0-.557-.422-1.114-1.125-1.114-.563 0-1.125.418-1.125 1.114 0 .697.563 1.114 1.125 1.114z" fill="#FFF"/>
+        </g>
+      </symbol>
+      <symbol viewBox="0 0 11 11" id="i-chevron-down" xmlns="http://www.w3.org/2000/svg">
+        <path fill="#3666B1" d="M0 3l4.033 4.033L5.5 8.5l1.467-1.467L11 3H7.975L5.5 5.475 3.025 3H0"/>
+      </symbol>
+      <symbol viewBox="0 0 11 11" id="i-chevron-down-blue" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0 3l4.033 4.033L5.5 8.5l1.467-1.467L11 3H7.975L5.5 5.475 3.025 3H0" fill="#00609c"/>
+      </symbol>
+      <symbol viewBox="0 0 11 11" id="i-chevron-down-disabled" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0 3l4 4 1.5 1.5L7 7l4-4H8L5.5 5.5 3 3H0" fill="#636569"/>
+      </symbol>
+      <symbol viewBox="0 0 11 11" id="i-chevron-down-nofill" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0 3l4.033 4.033L5.5 8.5l1.467-1.467L11 3H7.975L5.5 5.475 3.025 3H0"/>
+      </symbol>
+      <symbol viewBox="0 0 5 10" id="i-chevron-left" xmlns="http://www.w3.org/2000/svg">
+        <path d="M5 0L1.333 3.667 0 5l1.333 1.333L5 10V7.25L2.75 5 5 2.75V0"  fill="#00609c"/>
+      </symbol>
+      <symbol viewBox="0 0 5 10" id="i-chevron-right" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0 10l3.667-3.667L5 5 3.667 3.667 0 0v2.75L2.25 5 0 7.25V10" fill="#00609c" />
+      </symbol>
+      <symbol viewBox="0 0 11 11" id="i-chevron-up-blue" xmlns="http://www.w3.org/2000/svg">
+        <path fill="#0064D6" d="M11 7.5L6.967 3.467 5.5 2 4.033 3.467 0 7.5h3.025L5.5 5.025 7.975 7.5H11"/>
+      </symbol>
+      <symbol viewBox="0 0 17 17" id="i-success" xmlns="http://www.w3.org/2000/svg">
+        <path d="M7.068 11.81a.984.984 0 0 1-.805-.357L4.116 9.305a.716.716 0 0 1 0-1.073.626.626 0 0 1 1.073 0l1.969 1.879 4.653-4.653a.626.626 0 0 1 1.073 0 .626.626 0 0 1 0 1.074l-4.92 4.92a1.074 1.074 0 0 1-.896.359zM8.5 0A8.59 8.59 0 0 1 17 8.5 8.59 8.59 0 0 1 8.5 17 8.59 8.59 0 0 1 0 8.5 8.59 8.59 0 0 1 8.5 0zm0 15.658a7.158 7.158 0 1 0 0-14.316 7.158 7.158 0 0 0 0 14.316z"/>
+      </symbol>
+      <symbol viewBox="0 0 18 18" id="i-success-green-solid-fill" xmlns="http://www.w3.org/2000/svg">
+        <g fill="none">
+          <path d="M9 0a9.095 9.095 0 0 0-9 9 9.095 9.095 0 0 0 9 9 9.095 9.095 0 0 0 9-9 9.095 9.095 0 0 0-9-9z" fill="#00943c"/>
+          <path d="M7.484 12.505a1.042 1.042 0 0 1-.852-.379L4.358 9.853a.758.758 0 0 1 0-1.137.663.663 0 0 1 1.137 0l2.084 1.99 4.926-4.927a.663.663 0 0 1 1.137 0 .663.663 0 0 1 0 1.137l-5.21 5.21c-.239.27-.59.41-.948.38z" fill="#FFF"/>
+        </g>
+      </symbol>
+      <symbol viewBox="0 0 13 13" id="i-close" xmlns="http://www.w3.org/2000/svg">
+        <title>close</title>
+        <path d="M12.6 11.1L7.9 6.5l4.6-4.6L10.9.3 6.3 4.8 2.1.6.5 2.3l4.2 4.2-4.3 4.2L2 12.4l4.3-4.3 4.7 4.6 1.6-1.6z"/>
+      </symbol>
+      <symbol viewBox="0 0 17 4" id="i-action-menu" xmlns="http://www.w3.org/2000/svg">
+        <g transform="translate(.5)">
+          <circle cx="2" cy="2" r="2"/>
+          <circle cx="8" cy="2" r="2"/>
+          <circle cx="14" cy="2" r="2"/>
+        </g>
+    </symbol>
+    </svg>
+  </div>
+</body>
+</html>

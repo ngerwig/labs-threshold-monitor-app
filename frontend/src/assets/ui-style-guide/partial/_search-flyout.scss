@@ -1,0 +1,26 @@
+/*
+ * search flyout
+ *
+ ********************************************************************************/
+
+.search-flyout {
+    position: relative;
+
+    @include bem-e('dropdown') {
+        z-index: z-index(dropdown);
+        position: absolute;
+        top: 64px; /* height of label and input */
+        right: 0;
+        display: none;
+        box-shadow: $box-shadow-default;
+        max-height: 172px;
+        overflow-x: scroll;
+
+        &.is-visible { display: block; }
+
+        .tabular-data__container {
+            border-top: 0;
+            border-bottom: 0;
+        }
+    }
+}

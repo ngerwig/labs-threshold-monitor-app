@@ -1,0 +1,103 @@
+<header class="site-header" role="region" aria-label="header">
+  <div class="site-header__utility">
+    <div class=" container-fluid">
+      <div class="row">
+        <div class="col-sm-12 site-header__navbar-wrapper">
+          <button *ngIf="logInStatus" class="nav-toggle" data-header-nav="toggle" (click)="navbarToggle($event)" [ngClass]="{'is-open' : navToggle }">
+            <span class="nav-toggle__icon">
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+              <span class="u-sr-only">Menu</span>
+            </span>
+          </button>
+          <div class="site-header__logo" id="vertex-banner" tabindex="0">
+            <a href="javascript:void(0)"><img src="../../../assets/images/logo-vertex-inc-header.svg" alt="Vertex Logo"></a>
+          </div>
+          <div class="app-name__container">
+            <div class="app-name__text">Threshold Monitor</div>
+          </div>
+
+          <div class="navbar--mobile" *ngIf="logInStatus && !inAuthenicationState" [attr.aria-hidden]="navToggle">
+            <nav class="navbar__container" aria-labelledby="mainmenulabel">
+              <ul class="utility-control__container" id="mainmenulabel" [ngClass]="{'profile-is-open' : isProfileOpen }" role="menubar">
+                <li class="flyout__container flyout__container--utility utility-control__item" role="none">
+                  <button class="utility-control__btn justify-content-between" (click)="profileOpen($event)" [ngClass] = "{'active' : (showList || checkURLProfile())}" role="menuitem">
+                    <span class="d-inline-flex align-items-center">
+                      <svg class="u-icon-i-account-dims utility-control__icon margin--b5 margin--r10">
+                        <use xlink:href="#i-account"></use>
+                      </svg>
+                      <span class="utility-control__label">{{userData?.userProfile?.name}}</span>
+                    </span>
+                    <svg class="u-icon-i-chevron-right-dims l-size no-margin--bottom">
+                      <use xlink:href="#i-chevron-right"></use>
+                    </svg>
+                  </button>
+                  <div class="flyout__panel" data-header-i18n="panel" ><!--*ngIf="showList"-->
+                    <ul class="u-list-unstyled flyout__list" role="menu">
+                      <li class="flyout__item" role="none">
+                        <a href="javascript:void(0)" class="utility-control__btn" (click)="profileOpen($event)" role="menuitem">
+                          <svg class="u-icon-i-chevron-left-dims l-size no-margin--bottom margin--r10">
+                            <use xlink:href="#i-chevron-left"></use>
+                          </svg>
+                          <svg class="u-icon-i-account-dims utility-control__icon margin--r10">
+                            <use xlink:href="#i-account"></use>
+                          </svg> <span class="d-inline-flex align-items-center user__name">{{userData?.userProfile?.name}}</span></a>
+                      </li>
+                      <li class="flyout__item" (click)="gotoProfile()" role="none"><a href="javascript:void(0)" class="utility-control__btn" [ngClass]="{'active': checkURLProfile()}" role="menuitem">My Account</a></li>
+                      <li class="flyout__item" (click)="logout()" role="none"><a href="javascript:void(0)" class="utility-control__btn" role="menuitem">Sign Out</a></li>
+                    </ul>
+                  </div>
+                </li>
+                <li class="utility-control__item d-flex">
+                  <a href="javascript:void(0)" class="utility-control__btn" [ngClass]="{'active' : checkURLDashboard()}" [attr.aria-selected]=" checkURLDashboard()" (click)="navigateToDashBoard()" role="menuitem">DASHBOARD</a>
+                </li>
+                <li class="utility-control__item d-flex">
+                  <a href="javascript:void(0)" class="utility-control__btn" [ngClass]="{'active': checkURLStateGuide()}" (click)="navigateToStatesGuide()" role="menuitem">STATE GUIDES</a>
+                </li>
+                <li class="utility-control__item d-flex">
+                  <a href="javascript:void(0)" class="utility-control__btn" (click)="navigateToContactUs()" role="menuitem">CONTACT US</a>
+                </li>
+              </ul>
+            </nav>
+          </div>
+
+          <div class="navbar--desktop" *ngIf="logInStatus && !inAuthenicationState">
+            <nav class="navbar__container" aria-labelledby="mainmenulabel">
+              <ul class="utility-control__container" id="mainmenulabel" role="menu">
+                <li class="utility-control__item d-flex" role="menuitem">
+                  <a href="javascript:void(0)" class="utility-control__btn" [ngClass]="{'active' : checkURLDashboard()}" (click)="navigateToDashBoard()">DASHBOARD</a>
+                </li>
+                <li class="utility-control__item d-flex" role="menuitem">
+                  <a href="javascript:void(0)" class="utility-control__btn" [ngClass]="{'active': checkURLStateGuide()}" (click)="navigateToStatesGuide()">STATE GUIDES</a>
+                </li>
+                <li class="utility-control__item d-flex" role="menuitem">
+                  <a href="javascript:void(0)" class="utility-control__btn" (click)="navigateToContactUs()" aria-label="contact Us">CONTACT US</a>
+                </li>
+                <li role="menuitem" class="flyout__container flyout__container--utility utility-control__item" (click)="toggleListItems($event)" role="none">
+                  <button id="profile-icon" class="utility-control__btn user-detail-mnu" [ngClass] = "{'active' : (showList || checkURLProfile())}" [attr.aria-label]="'Your account'" [attr.aria-expanded]="showList">
+                    <svg class="u-icon-i-account-dims utility-control__icon margin--b5">
+                      <use xlink:href="#i-account"></use>
+                    </svg>
+                    <svg class="u-icon-i-chevron-down-nofill-dims abs_arrow">
+                      <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#i-chevron-down-nofill"></use>
+                    </svg>
+                    <span class="u-sr-only utility-control__label">Account</span>
+                  </button>
+                  <div class="flyout__panel " data-header-i18n="panel" *ngIf="showList" (keydown.esc)="closeMenus()">
+                    <ul class="u-list-unstyled flyout__list"  role="listbox">
+                      <li class="flyout__item user__name" role="none"  aria-hidden="true"><a href="javascript:void(0)" class="utility-control__btn" tabindex="-1" aria-hidden="true">{{userData?.userProfile?.name}}</a></li>
+                      <li class="flyout__item" tabindex="0" role="option" vtxAccessibilityArrow><a (click)="gotoProfile()" href="javascript:void(0)" class="utility-control__btn" [ngClass]="{'active': checkURLProfile()}">My Account</a></li>
+                      <li class="flyout__item" tabindex="0" role="option" vtxAccessibilityArrow><a (click)="logout()" href="javascript:void(0)" class="utility-control__btn" >Sign Out</a></li>
+                    </ul>
+                  </div>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>

@@ -1,0 +1,6 @@
+{
+    "COMMON_EMAIL_REQUIRED": "Email is required.",
+    "COMMON_NAME_REQUIRED": "Name is required.",
+    "COMMON_PWD_REQUIRED": "Password is required.",
+    "COMMON_CONFIRM_PWD_REQUIRED": "Confirm password is required."
+}

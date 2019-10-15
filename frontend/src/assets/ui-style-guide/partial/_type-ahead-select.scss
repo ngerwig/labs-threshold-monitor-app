@@ -1,0 +1,174 @@
+/*
+ * customization of Chosen plugin
+ * extends /vendor/_chosen-1.8.3.scss
+ *
+ ********************************************************************************/
+
+.chosen-container {
+
+    .chosen-choices {
+        display: block;
+        box-shadow: none;
+        border-radius: 0;
+        border: 1px solid $border-color;
+        padding: 1px 36px 5px 8px;
+        width: 100%;
+        height: auto;
+        background: color(default, light) url('/assets/images/svg/i-chevron-down.svg');
+        background-repeat: no-repeat;
+        background-position: calc(100% - 10px) 50%;
+
+        li.search-field input[type='text'] {
+            @include font-size(12);
+
+            margin: 5px 0 0;
+            width: 25px;
+            height: 25px;
+            font-family: $data-font;
+            color: color(neutral);
+        }
+
+        .chosen-container-active & {
+            outline: 0;
+            box-shadow: none;
+            border-color: color(secondary);
+        }
+
+        li.search-choice {
+            margin: 5px 5px 0 0;
+            box-shadow: 0;
+            border-radius: 0;
+            border: 0;
+            padding: 5px 30px 5px 10px;
+            background-color: rgba(color(secondary), .1);
+            background-image: none;
+            line-height: 1;
+            font-family: $data-font;
+            color: $text-color;
+
+            .search-choice-close {
+                top: 4px;
+                right: 6px;
+                width: 16px;
+                height: 16px;
+                background-image: url('/assets/images/svg/i-close.svg') !important; // sass-lint:disable-line no-important
+                background-repeat: no-repeat !important; // sass-lint:disable-line no-important
+                background-position: 50% 50%;
+                background-size: 10px 10px !important; // sass-lint:disable-line no-important
+
+                &:focus,
+                &:hover { background-position: 50% 50%; }
+            }
+        }
+    }
+
+    .chosen-drop {
+        z-index: z-index(dropdown) - 1;
+        box-shadow: $box-shadow-default;
+        border: 1px solid color(neutral, lighter);
+        border-top: 0;
+        background-color: color(default, light);
+
+        .result-selected { color: color(neutral); }
+    }
+
+    .chosen-results {
+        margin: 0;
+        padding: 0;
+        color: $text-color;
+
+        li {
+            padding: 8px;
+            line-height: 1;
+            font-family: $data-font;
+
+            &.highlighted {
+                background-color: rgba(color(secondary), .1);
+                background-image: none;
+                color: $text-color;
+            }
+
+            &.no-results {
+                background: color(neutral, light);
+                color: color(neutral);
+            }
+        }
+    }
+}
+
+
+/*
+ * single select custom declarations
+ *
+ ************************************************************/
+
+.chosen-container-single {
+
+    &.chosen-container-active.chosen-with-drop .chosen-single {
+        box-shadow: none;
+        border-radius: 0;
+        border: 1px solid $border-color;
+        background: color(default, light) url('/assets/images/svg/i-chevron-down.svg');
+        background-repeat: no-repeat;
+        background-position: calc(100% - 10px) 50%;
+    }
+
+    .chosen-single {
+        z-index: 2000;
+        box-shadow: none;
+        border-radius: 0;
+        border: 1px solid $border-color;
+        padding: 5px 10px;
+        height: auto;
+        background: color(default, light) url('/assets/images/svg/i-chevron-down.svg');
+        background-repeat: no-repeat;
+        background-position: calc(100% - 10px) 50%;
+        line-height: 24px;
+
+        &.chosen-default span { color: color(neutral); }
+
+        input[type='text'] {
+            top: 0;
+            left: 0;
+        }
+
+        span {
+            @include font-size(12);
+
+            margin-right: 26px;
+            font-family: $data-font;
+            color: $text-color;
+        }
+    }
+
+    .chosen-search {
+        padding: 10px;
+
+        input[type='text'] {
+            @include font-size(12);
+
+            margin: 0;
+            box-shadow: none;
+            border-radius: 0;
+            border: 1px solid $border-color;
+            padding: 5px 10px;
+            background-image: none;
+            line-height: 24px;
+            font-family: $data-font;
+            color: $text-color;
+        }
+    }
+
+    .chosen-drop {
+        top: calc(100% - 1px);
+        border-radius: 0;
+    }
+}
+
+
+/*
+ * multi select custom declarations
+ *
+ ************************************************************/
+
+.chosen-container-multi { }

@@ -1,0 +1,111 @@
+@import '../../../../theme/variable';
+
+.site-header {
+  position: fixed;
+  top: 0;
+  height: 88px;
+  padding: 0;
+  width: 100%;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.16);
+  z-index: 5;
+}
+
+.site-header__navbar-wrapper {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.navbar--desktop {
+  width: calc(100% - 338px);
+}
+.navbar__container {
+  .utility-control__container {
+    display: flex;
+    justify-content: flex-end;
+    list-style: none;
+    margin: 0;
+    width: 100%;
+    .utility-control__btn {
+      color: $default-text;
+      cursor: pointer;
+      font-size: 14px;
+      padding: 0 20px;
+      position: relative;
+      text-transform: uppercase;
+      text-decoration: none;
+      width: 100%;
+      &.active {
+        color: $btn-primary;
+        font-family: 'montserratmedium';
+        .utility-control__icon,
+        .abs_arrow {
+          fill: $btn-primary;
+        }
+      }
+      .utility-control__icon {
+        fill: $default-text;
+      }
+      &.active ~ .flyout__panel {
+        right: 0;
+        left: auto;
+      }
+      .utility-control__label {
+        text-transform: capitalize;
+      }
+      .abs_arrow {
+        position: absolute;
+        top: 16px;
+        right: 7px;
+      }
+      &.user-detail-mnu {
+        padding: 0 24px 0 16px;
+      }
+    }
+    .utility-control__item {
+      padding: 0;
+      align-items: center;
+      .flyout__panel {
+        border-color: $border-color;
+        min-width: 176px;
+        .flyout__item {
+          cursor: default;
+          .utility-control__btn {
+            display: block;
+            text-align: left;
+            padding: 0 0 0 36px;
+            //padding: 0 24px;
+            &.active{
+              // background-color: $btn-secondary;
+              color: $btn-primary;
+              cursor: default;
+              pointer-events: none;
+            }
+            &:hover {
+              background-color: $btn-secondary;
+              color: $white;
+            }
+          }
+          &:focus,
+          &:hover {
+            background-color: transparent !important;
+          }
+          &.user__name {
+            .utility-control__btn {
+              background-color: rgba(245, 245, 245, 1) !important;
+              color: #012d5c !important;
+              font-family: "montserratregular", sans-serif;
+              font-weight: bold;
+              text-transform: capitalize;
+              padding: 10px 15px;
+              &:hover {
+                color: #012d5c;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+

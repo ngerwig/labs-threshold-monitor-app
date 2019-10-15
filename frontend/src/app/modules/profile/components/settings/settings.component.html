@@ -1,0 +1,332 @@
+<div class="container-fluid no-padding profile-settings">
+  <div class="row no-margin">
+    <div class="col-12 profile_setttings mobile--view">
+      <div class="row no-margin">
+        <form class="w-100" [formGroup]="profileForm" autocomplete="off">
+          <div class="col-12 profile__wrapper">
+            <h2 class="margin--t20">My Account</h2>
+            <h4 class="blue-text u-margin-top--md">Profile</h4>
+            <div class="col-12 no-padding--left border--bottom padding--b20">
+              <div class="profile__input-container">
+                <div class="form-item u-margin-bottom--sm form-item--verify"
+                  [ngClass]="{'form-item--error': nameError}">
+                  <label for="profileName">Name</label>
+                  <input type="text" id="profileName" name="input-profile-name" formControlName="name"
+                    (blur)="updateName();verifyName();" (keydown)="nameChanged()" aria-describedby="name-err">
+                  <svg *ngIf="nameUpdated" class="u-icon-i-success-green-solid-fill-dims">
+                    <use xlink:href="#i-success-green-solid-fill"></use>
+                  </svg>
+                  <p *ngIf="nameError" class="form-item__error-message" id="name-err">Name is required</p>
+                </div>
+                <div class="form-item u-margin-bottom--sm form-item--verify"
+                  [ngClass]="{'form-item--error': emailError || emailAlreadyExists || dbError}">
+                  <label for="profileEmail">Email</label>
+
+                  <div *ngIf="emailUpdateInProgress"
+                    class="notification__container notification__container--success margin--b10" [ngClass]="{'hide__notification': closeEmailNotification}">
+                    <div class="notification__icon">
+                      <svg class="u-icon-i-success-dims no-margin" aria-hidden="true" role="presentation">
+                        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#i-success"></use>
+                      </svg>
+                      <span class="u-sr-only">Success</span>
+                    </div>
+                    <div class="notification__inner">
+                      <p>{{constants?.MSG_PROFILE_EMAIL_NOTIFICATION1}}</p>
+                    </div>
+                    <button class="notification__btn-close" (click)="closeEmailNotification=true">
+                      <svg class="u-icon-i-close-dims no-margin" aria-hidden="true" role="presentation">
+                        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#i-close"></use>
+                      </svg>
+                      <span class="u-sr-only">Hide Notification</span>
+                    </button>
+                  </div>
+
+                  <div *ngIf="userData?.userProfile?.emailUpdateInProgress"
+                    class="notification__container notification__container--success margin--b10" [ngClass]="{'hide__notification': closeEmailNotification}">
+                    <div class="notification__icon">
+                      <svg class="u-icon-i-success-dims no-margin" aria-hidden="true" role="presentation">
+                        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#i-success"></use>
+                      </svg>
+                      <span class="u-sr-only">Success</span>
+                    </div>
+                    <div class="notification__inner">
+                      <p>{{constants?.MSG_PROFILE_EMAIL_NOTIFICATION2}}</p>
+                    </div>
+                    <button class="notification__btn-close" (click)="closeNotification();closeEmailNotification=true">
+                      <svg class="u-icon-i-close-dims no-margin" aria-hidden="true" role="presentation">
+                        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#i-close"></use>
+                      </svg>
+                      <span class="u-sr-only">Hide Notification</span>
+                    </button>
+                  </div>
+                  <input type="email" id="profileEmail"
+                    [ngClass]="{'form-item__error-message': userData?.userProfile?.emailUpdateInProgress || emailUpdateInProgress}"
+                    name="input-profile-email" (blur)="emailAlreadyExists=false;verifyEmail();"
+                    (keyup)="matchEmail($event)" formControlName="email"
+                    [readonly]="userData?.userProfile?.emailUpdateInProgress || emailUpdateInProgress"
+                    autocomplete="off" (keydown)="emailChanged()"
+                    aria-describedby="prfl-mail-err verification-status">
+                  <p *ngIf="emailError || emailAlreadyExists || dbError" class="form-item__error-message"
+                    id="prfl-mail-err">{{emailMessage}}</p>
+                  <p *ngIf="userData?.userProfile?.emailUpdateInProgress || emailUpdateInProgress"
+                    id="verification-status">Verification pending: {{newEmail}}</p>
+                </div>
+
+                <div *ngIf="!hideButton && !userData?.userProfile?.emailUpdateInProgress"
+                  class="form-item u-margin-bottom--md form-item--verify form-item--error"
+                  [ngClass]="{'form-item--error': currentPasswordForEmailError || passwordForEmailInvalid}">
+                  <label for="currentPasswordForEmail">Current Password</label>
+                  <input type="password" id="currentPasswordForEmail" name="input-current-password"
+                    formControlName="currentPasswordForEmail"
+                    (blur)="passwordForEmailInvalid=false;verifycurrentPasswordForEmail()"
+                    (keydown)="currentPasswordForEmailChanged()" aria-describedby="prfl-cur-pwd-err">
+                  <p *ngIf="currentPasswordForEmailError || passwordForEmailInvalid" class="form-item__error-message"
+                    id="prfl-cur-pwd-err">{{currentPwdErrorMessage}}</p>
+                </div>
+                <div *ngIf="!hideButton && !userData?.userProfile?.emailUpdateInProgress && !emailUpdateInProgress"
+                  class="form-item pt-3">
+                  <button type="submit" (click)="confirmResetEmail();" class="btn btn--primary u-margin-right">UPDATE
+                    EMAIL</button>
+                  <button type="reset" class="btn btn--tertiary" (click)="cancelEmailForm()">CANCEL</button>
+                </div>
+              </div>
+            </div>
+            <div class="col-12 no-padding border--bottom">
+              <div id="res-state" class="row padding--t15 padding--b15 d-flex d-flex-middle u-link c-pointer"
+                aria-label="States in which your business has a physical presence">
+                <div class="col-10 no-padding--right">
+                  <h4 class="d-inline-flex no-margin u-vertical-align--middle mobile-view__w-80"
+                    aria-label="States in which your business has a physical presence" aria-hidden="true">State(s) in
+                    which your business has a physical presence </h4>
+                  <vtx-tooltip toolTipType='info' [toolTipMessage]="Information">
+                  </vtx-tooltip>
+                  <ng-template #Information>
+                    <p id="tool-info">Select all states where your company has a physical presence or is already
+                      registered to withhold sales tax. If your company has a physical location in a state, you are
+                      required to withhold tax in this state despite the threshold, so Wayfair regulations do not apply.
+                    </p>
+                  </ng-template>
+                </div>
+                <div class="col-2 text-right" tabindex="0" (keydown.enter)="navigateToRegisteredStates($event)"
+                  (click)="navigateToRegisteredStates($event)" role="button">
+                  <svg class="u-icon-i-chevron-right-dims l-size">
+                    <use xlink:href="#i-chevron-right"></use>
+                  </svg>
+                </div>
+              </div>
+            </div>
+            <div class="col-12 no-padding border--bottom">
+              <h4 class="blue-text padding--t20 no-margin--bottom">Password</h4>
+              <div class="profile__input-container">
+                <div *ngIf="!showChangePasswordBtn && !hidePasswordForm" class="padding--t15 padding--b15">
+                  <div class="form-item u-margin-bottom--sm form-item--verify"
+                    [ngClass]="{'form-item--error': currentPwdError || passwordInvalid || backendErrorForPasswordChange}">
+                    <label for="currentPassword">Current Password</label>
+                    <input type="password" id="currentPassword" name="input-new-password"
+                      formControlName="currentPassword" autocomplete="off"
+                      (blur)="passwordInvalid=false;currentPwdError=false;verifyCurrentPassword()"
+                      (keydown)="currentPasswordChanged()"
+                      aria-describedby="create-password-required-error-message pwd-required-error-message">
+                    <p id="create-password-required-error-message" *ngIf="currentPwdError"
+                      class="form-item__error-message">{{currentPwdErrorMessage}}</p>
+                    <p id="pwd-required-error-message" *ngIf="backendErrorForPasswordChange"
+                      class="form-item__error-message">Incorrect password. Would you like to reset the password?</p>
+                  </div>
+                  <div class="form-item u-margin-bottom--sm form-item--verify new-password"
+                    [ngClass]="{'form-item--error': passwordError || samePasswordNotAllowed}">
+                    <label for="newPassword">New password</label>
+                    <input type="password" id="newPassword" name="input-new-password" formControlName="newPassword"
+                      (blur)="isSameParrword();verifyNewPassword()" (keydown)="passwordChanged()"
+                      aria-describedby="new-pwd-required-error-message new-pwd-req-error-msg-bcd">
+                    <p id="new-pwd-required-error-message" *ngIf="passwordError" class="form-item__error-message">
+                      {{passwordErrorMessage}}</p>
+                    <p id="new-pwd-req-error-msg-bcd" *ngIf="samePasswordNotAllowed && !passwordError"
+                      class="form-item__error-message">Current and New passwords can’t be the same.</p>
+                  </div>
+                  <div class="form-item u-margin-bottom--sm form-item--verify"
+                    [ngClass]="{'form-item--error': confirmPwdError}">
+                    <label for="newPassword">Confirm Password</label>
+                    <input type="password" id="confirmPassword" name="input-confirm-password"
+                      formControlName="confirmNewPassword" (blur)="verifyConfirmPwd()" (keydown)="confirmPwdChanged()"
+                      aria-describedby="confirm-pwd-req-err-msg">
+                    <p id="confirm-pwd-req-err-msg" *ngIf="confirmPwdError" class="form-item__error-message">
+                      {{confirmPwdErrorMessage}}</p>
+                  </div>
+                  <div *ngIf="!showPasswordNotification" class="padding--t15">
+                    <button class="btn btn--secondary u-margin-right" (click)="updateNewPassword()">UPDATE
+                      PASSWORD</button>
+                    <button type="reset" class="btn btn--tertiary u-margin-right"
+                      (click)="cancelChangePwd()">CANCEL</button>
+                  </div>
+                </div>
+                <div *ngIf="showPasswordNotification" class="notification__container notification__container--success">
+                  <div class="notification__icon">
+                    <svg class="u-icon-i-success-dims no-margin" aria-hidden="true" role="presentation">
+                      <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#i-success"></use>
+                    </svg>
+                    <span class="u-sr-only">Success</span>
+                  </div>
+                  <div class="notification__inner">
+                    <p aria-live="true">Your password has been successfuly updated.</p>
+                  </div>
+                  <button class="notification__btn-close"
+                    (click)="showPasswordNotification=false; showChangePasswordBtn=false">
+                    <svg class="u-icon-i-close-dims no-margin" aria-hidden="true" role="presentation">
+                      <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#i-close"></use>
+                    </svg>
+                    <span class="u-sr-only">Hide Notification</span>
+                  </button>
+                </div>
+                <div class="padding--t15 padding--b15" *ngIf="showChangePasswordBtn || hidePasswordForm">
+                  <button class="btn btn--secondary u-margin-right"
+                    (click)="changePassword()" id="pfl-change-pwd">CHANGE
+                    PASSWORD</button>
+                </div>
+              </div>
+            </div>
+            <div class="col-12 no-padding border--bottom">
+              <div class="padding--t15 padding--b15">
+                <h4 class="blue-text no-margin--top padding-b10">Threshold Preference</h4>
+                <h4 class="font-s14 padding-b5 gray-text">Threshold Nearing Level</h4>
+                <p class="font-s14">This setting controls the level of the threshold for predicting the “Threshold
+                  Nearing” level for the Map and Alert(s).</p>
+                <div class="form-item">
+                  <select style="max-width: 120px;" id="sample-select-01"
+                    (change)="updateNotifications('thresholdNearingLevel', $event.target.value)" #thresholdNearingLevel
+                    formControlName="thresholdNearingLevel" name="sample-select-01"
+                    aria-label="Threshold Nearing Level">
+                    <option value="null">Select one</option>
+                    <option *ngFor="let item of dropdownArray" [value]="item.data" selected="selected">{{item.value}}
+                    </option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="col-12 no-padding border--bottom margin--t10">
+              <ul class="notification-list font-s14" role="none">
+                <li role="none">
+                  <div class="notification-list__info">
+                    <h4 class="no-margin">Notifications</h4>
+                  </div>
+                  <div class="notification-list__on-off">On/Off</div>
+                  <div class="notification-list_frequency">Frequency</div>
+                </li>
+                <li role="none">
+                  <div class="notification-list__info">Threshold Crossed (result summary of the imported data)</div>
+                  <div class="notification-list__on-off">
+                    <div class="toggle-switch">
+                      <input type="checkbox" name="onoffswitch" class="toggle-switch__checkbox"
+                        (change)="updateNotifications('thresholdCrossed', $event.currentTarget.checked)"
+                        #thresholdCrossed formControlName="thresholdCrossed" id="notifySwitch01">
+                      <label class="toggle-switch__label" for="notifySwitch01"
+                        (keydown.space)="onKeydownUpdateNotifications('thresholdCrossed', thresholdCrossed)"
+                        (keydown.enter)="onKeydownUpdateNotifications('thresholdCrossed', thresholdCrossed)"
+                        role="button" tabindex="0"
+                        aria-label="Threshold Crossed (result summary of the imported data) notification"
+                        [attr.aria-pressed]="thresholdCrossed.checked">
+                        <span class="toggle-switch__inner"></span>
+                        <span class="toggle-switch__switch"></span>
+                      </label>
+                    </div>
+                  </div>
+                </li>
+                <li role="none">
+                  <div class="notification-list__info">Threshold Nearing</div>
+                  <div class="notification-list__on-off">
+                    <div class="toggle-switch">
+                      <input type="checkbox" name="onoffswitch" class="toggle-switch__checkbox"
+                        (change)="updateNotifications('thresholdNearing', $event.currentTarget.checked)"
+                        #thresholdNearing formControlName="thresholdNearing" id="notifySwitch02" checked>
+                      <label class="toggle-switch__label" for="notifySwitch02"
+                        (keydown.space)="onKeydownUpdateNotifications('thresholdNearing', thresholdNearing)"
+                        (keydown.enter)="onKeydownUpdateNotifications('thresholdNearing', thresholdNearing)"
+                        role="button" tabindex="0" aria-label="Threshold Nearing notification"
+                        [attr.aria-pressed]="thresholdNearing.checked">
+                        <span class="toggle-switch__inner"></span>
+                        <span class="toggle-switch__switch"></span>
+                      </label>
+                    </div>
+                  </div>
+                  <div class="notification-list_frequency">
+                    <select id="frequencyItem01" name="frequencyItem01"
+                      (change)="updateNotifications('thresholdNearingFrequency', $event.target.value)"
+                      #thresholdNearingFrequency formControlName="thresholdNearingFrequency" required
+                      aria-label="frequency">
+                      <option value=""></option>
+                      <option *ngFor="let item of frequencyArray" [value]="item.data" selected="true">{{item.value}}
+                      </option>
+                    </select>
+                  </div>
+                </li>
+                <li role="none">
+                  <div class="notification-list__info">Tax Rules have changed for certain State(s)</div>
+                  <div class="notification-list__on-off">
+                    <div class="toggle-switch">
+                      <input type="checkbox" name="onoffswitch" class="toggle-switch__checkbox"
+                        (change)="updateNotifications('taxRule', $event.currentTarget.checked)" #taxRule
+                        formControlName="taxRule" id="notifySwitch03" checked>
+                      <label class="toggle-switch__label" for="notifySwitch03"
+                        (keydown.space)="onKeydownUpdateNotifications('taxRule', taxRule)"
+                        (keydown.enter)="onKeydownUpdateNotifications('taxRule', taxRule)" role="button" tabindex="0"
+                        aria-label="Tax Rules have changed for certain State(s) notification"
+                        [attr.aria-pressed]="taxRule.checked">
+                        <span class="toggle-switch__inner"></span>
+                        <span class="toggle-switch__switch"></span>
+                      </label>
+                    </div>
+                  </div>
+                  <div class="notification-list_frequency">
+                    <select id="frequencyItem01" name="frequencyItem01"
+                      (change)="updateNotifications('taxRuleFrequency', taxRuleFrequency.value)" #taxRuleFrequency
+                      formControlName="taxRuleFrequency" required aria-label="frequency">
+                      <option value=""></option>
+                      <option *ngFor="let item of frequencyArray" [value]="item.data">{{item.value}}</option>
+                    </select>
+                  </div>
+                </li>
+                <li role="none">
+                  <div class="notification-list__info">Update your Data to see Effect of Thresholds</div>
+                  <div class="notification-list__on-off">
+                    <div class="toggle-switch">
+                      <input type="checkbox" name="onoffswitch" class="toggle-switch__checkbox"
+                        (change)="updateNotifications('reminderUploadData', $event.currentTarget.checked)"
+                        #reminderUploadData formControlName="reminderUploadData" id="notifySwitch04" checked>
+                      <label class="toggle-switch__label" for="notifySwitch04"
+                        (keydown.space)="onKeydownUpdateNotifications('reminderUploadData', reminderUploadData)"
+                        (keydown.enter)="onKeydownUpdateNotifications('reminderUploadData', reminderUploadData)"
+                        role="button" tabindex="0"
+                        [attr.aria-label]="'Update your Data to see Effect of Thresholds notification'"
+                        [attr.aria-pressed]="reminderUploadData.checked">
+                        <span class="toggle-switch__inner"></span>
+                        <span class="toggle-switch__switch"></span>
+                      </label>
+                    </div>
+                  </div>
+                  <div class="notification-list_frequency">
+                    <select id="frequencyItem01" name="frequencyItem01"
+                      (change)="updateNotifications('reminderUploadDataFrequency', reminderUploadDataFrequency.value)"
+                      #reminderUploadDataFrequency formControlName="reminderUploadDataFrequency" required
+                      [attr.aria-label]="'frequency'">
+                      <option value=""></option>
+                      <option *ngFor="let item of frequencyArray" [value]="item.data" selected="selected">{{item.value}}
+                      </option>
+                    </select>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="col-12 no-padding">
+              <div class="padding--t25 padding--b25">
+                <button class="btn btn--secondary u-margin-right" id="deactivate-btn" (click)="confirmDeactivation()">DEACTIVATE
+                  ACCOUNT</button>
+              </div>
+            </div>
+            <div class="col-12 text-center pt-5 pb-3 px-1 px-sm-3">
+              <p class="no-margin--bottom profile__footer">Copyright &copy; 2019 Vertex, Inc All rights reserved.</p>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

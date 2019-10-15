@@ -1,0 +1,7 @@
+<div class="main-page-wrapper loading" [ngClass]="{'signin-bg':currentPath.includes('authentication')||currentPath=='/'}" >
+  <app-header ></app-header>
+  <div role="region" aria-label="main">
+    <router-outlet></router-outlet>
+  </div>
+</div>
+<vtx-loader></vtx-loader>

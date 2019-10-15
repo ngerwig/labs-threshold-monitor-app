@@ -1,0 +1,497 @@
+/*
+ * forms and form elements
+ *
+ ********************************************************************************/
+
+fieldset {
+    margin: 0;
+    border: 0;
+    padding: 20px;
+
+    *:first-child { margin-top: 0; }
+    *:last-child { margin-bottom: 0; }
+}
+
+label {
+    @include font-size(12);
+
+    display: inline-block;
+    margin-bottom: 6px;
+    font-family: $brand-font-medium;
+}
+
+[type='search'],
+[type='text'],
+[type='tel'],
+[type='email'],
+[type='number'],
+[type='password'],
+select,
+textarea {
+    @include line-height(12, 16);
+    @include font-size(12);
+
+    display: block;
+    box-shadow: none;
+    border-radius: 0;
+    border: 1px solid $border-color;
+    padding: 9px 10px;
+    width: 100%;
+    height: auto;
+    background-color: color(default, light);
+    font-family: $data-font;
+    color: $text-color;
+
+    &:focus {
+        outline: 0;
+        border-color: color(secondary);
+    }
+}
+
+[type='search'] {
+    padding-right: 60px;
+    background-image: url('/assets/images/search.svg');
+    background-repeat: no-repeat;
+    background-position: calc(100% - 10px) 50%;
+}
+
+//override iOS treatment
+[type='search'],
+[type='text'],
+[type='tel'],
+[type='email'],
+[type='number'],
+textarea {
+    border: 1px solid $border-color;
+    appearance: none;
+}
+
+// clear defaults
+button {
+    border-radius: 0;
+    border: 0;
+    padding: 0;
+    background: transparent;
+}
+
+/*
+ * input
+ *
+ ************************************************************/
+
+input {
+
+    &::-webkit-input-placeholder {
+        font-family: $data-font;
+        color: color(neutral);
+    }
+
+    &:-moz-placeholder {
+        font-family: $data-font;
+        color: color(neutral);
+    }
+
+    &::-moz-placeholder {
+        font-family: $data-font;
+        color: color(neutral);
+    }
+
+    &:-ms-input-placeholder {
+        line-height: 1px;
+        font-family: $data-font;
+        color: color(neutral);
+    }
+}
+
+
+/*
+ * input list spacing
+ *
+ ************************************************************/
+
+.input {
+
+    @include bem-e('list') {
+
+        li { margin-top: 0; }
+    }
+}
+
+
+/*
+ * select
+ *
+ ************************************************************/
+
+// used for a standard select as well as custom select (multiline select)
+%custom-select {
+    border: 1px solid $border-color;
+    padding-right: 40px;
+    background: color(default, light) url('/assets/images/svg/i-chevron-down-blue.svg');
+    background-repeat: no-repeat;
+    background-position: calc(100% - 10px) 50%;
+    color: color(neutral);
+}
+
+select {
+    @extend %custom-select;
+
+    appearance: none;
+
+    &::-ms-expand { display: none; }
+
+    // creates a mock "placeholder" treatment
+    option {
+
+        &:first-child,
+        &:disabled {
+            display: none;
+            color: color(neutral);
+        }
+    }
+
+    &.is-selected { color: $text-color; }
+}
+
+
+/*
+ * textarea
+ *
+ ************************************************************/
+
+textarea {
+    width: 100%;
+    height: 175px;
+    overflow: auto; /* remove IE default scrollbars */
+    vertical-align: top;
+    line-height: $base-line-height;
+}
+
+
+/*
+ * submit button
+ *
+ ************************************************************/
+
+[type='submit'] {
+    display: inline-block;
+    width: auto;
+    max-width: none;
+}
+
+
+/*
+ * custom checkbox and radio buttons
+ *
+ ************************************************************/
+
+.custom__cb,
+.custom__rb {
+    margin-top: 0;
+    line-height: 18px; /* PX height of the checkbox/radio button */
+
+    input {
+        position: absolute;
+        left: -9999px;
+        opacity: 0;
+        appearance: none;
+
+        + label {
+            position: relative;
+            display: inline-block;
+            margin: 0 5px 0 28px;
+            cursor: pointer;
+            vertical-align: top;
+            font-family: $data-font;
+
+            &::before {
+                z-index: z-index(basement);
+                position: absolute;
+                top: 0;
+                left: -28px;
+                display: inline-block;
+                border: 1px solid $border-color;
+                width: 18px;
+                height: 18px;
+                background-color: color(default, light);
+                content: '';
+            }
+
+            &::after {
+                z-index: z-index(default);
+                position: absolute;
+                top: 0;
+                left: -28px;
+                display: block;
+                width: 18px;
+                height: 18px;
+                opacity: 0;
+                transition: opacity $transition-duration;
+                content: '';
+            }
+        }
+    }
+
+    &__label-text { margin-left: 5px; }
+
+    [type='radio']:checked + label::after,
+    [type='checkbox']:checked + label::after { opacity: 1; }
+}
+
+.custom__cb + .custom__cb,
+.custom__rb + .custom__rb { margin-top: ($base-margin-bottom / 2); }
+
+.custom__cb-group--horizontal,
+.custom__rb-group--horizontal {
+    z-index: z-index(default);
+    position: relative;
+    display: flex;
+
+    .custom__cb,
+    .custom__rb {
+        margin-right: 10px;
+
+        + .custom__cb,
+        + .custom__rb { margin-top: 0; }
+    }
+}
+
+/*
+ * custom checkbox
+ *
+ ****************************************/
+
+.custom__cb {
+
+    input + label { text-indent: -8px; }
+
+    [type='checkbox'] + label {
+
+        &::after { background: url('/assets/images/svg/i-check.svg') no-repeat 0 0; }
+    }
+}
+
+// "on with exclusions" and "off with inclusions" states for checkboxes in "four state" treeview
+.treeview--four-state .custom__cb {
+
+    [type='checkbox'].indeterminate + label {
+
+        &::after {
+            top: 0;
+            left: -28px;
+            outline: 1px solid color(secondary, base);
+            width: 17px;
+            height: 17px;
+            background-color: #b3d4fc;
+            opacity: 1;
+        }
+    }
+
+    [type='checkbox'].indeterminate:not(:checked) + label {
+
+        &::after { background-image: none; }
+    }
+}
+
+// indeterminate state for checkboxes in "three state" treeview
+.treeview--three-state .custom__cb {
+
+    [type='checkbox'].indeterminate + label {
+        &::after {
+            top: 5px;
+            left: -23px;
+            width: 8px;
+            height: 8px;
+            background-color: color(secondary);
+            background-image: none;
+            opacity: 1;
+        }
+    }
+}
+
+/*
+ * custom radio button
+ *
+ ****************************************/
+
+.custom__rb {
+
+    [type='radio'] + label {
+
+        &::before { border-radius: 50%; }
+
+        &::after {
+            margin: 3px;
+            border-radius: 50%;
+            border: 1px solid color(default, light);
+            width: 12px;
+            height: 12px;
+            background-color: color(secondary);
+        }
+    }
+
+    [type='radio']:checked + label::after { border-radius: 50%; }
+
+    /* styles within are only applied to IE10/11 */
+    @media screen and (-ms-high-contrast: active), screen and (-ms-high-contrast: none) {
+
+        [type='radio']:checked + label::after { background-clip: padding-box; }
+    }
+}
+
+
+/*
+ * single and 2-column form element display
+ *
+ ************************************************************/
+
+.form {
+
+    // 2-column form container
+    @include bem-m('2-col') {
+
+        ul {
+            display: flex;
+            flex-flow: row wrap;
+        }
+    }
+
+    // standard form element container
+    @include bem-e('item') {
+        margin-top: 20px;
+        width: 100%;
+
+        &:first-child { margin-top: 0; }
+
+        // 2-column form element container
+        @include bem-m('2-col') {
+
+            @media (min-width: $screen-sm-min) {
+                width: 50%;
+
+                &:nth-child(even) { padding-left: 10px; }
+                &:nth-child(odd) { padding-right: 10px; }
+
+                &:nth-child(1),
+                &:nth-child(2) { margin-top: 0; }
+            }
+        }
+
+        // inline form element container
+        @include bem-m('inline') {
+
+            &:first-child { padding-left: 0; }
+
+            @media (min-width: $screen-sm-min) {
+                display: inline-block;
+                margin-top: 0;
+                padding-left: 20px;
+                width: auto;
+            }
+
+            label {
+
+                @media (min-width: $screen-sm-min) { margin-right: 5px; }
+            }
+
+            input,
+            select {
+
+                @media (min-width: $screen-sm-min) {
+                    display: inline-block;
+                    width: auto;
+                }
+            }
+        }
+    }
+
+    .btn + .btn {
+        display: block;
+        margin-top: 20px;
+
+        @media (min-width: $screen-sm-min) {
+            display: inline-block;
+            margin-top: 0;
+            margin-left: 20px;
+        }
+    }
+}
+
+
+/*
+ * non-input form value
+ *
+ ************************************************************/
+
+.form-static-value { margin: 0; }
+
+
+/*
+ * form item errors and disabled states
+ *
+ ************************************************************/
+
+.form-item {
+
+    @include bem-m('error') {
+
+        > label,
+        .input-group > label { color: color(utility, error); }
+
+        [type='search'],
+        [type='password'],
+        [type='text'],
+        [type='tel'],
+        [type='email'],
+        [type='number'],
+        select,
+        textarea { border-color: color(utility, error); }
+
+        .custom__cb input + label::before,
+        .custom__rb input + label::before { border-color: color(utility, error); }
+
+        .input-group__icon { border: 1px solid color(utility, error); }
+    }
+
+    @include bem-m('disabled') {
+
+        label { color: color(neutral); }
+
+        [type='search'],
+        [type='text'],
+        [type='tel'],
+        [type='email'],
+        [type='number'],
+        select,
+        textarea { background-color: color(neutral, lighter); }
+
+        .custom__cb input + label,
+        .custom__rb input + label { cursor: default; }
+
+        .custom__cb input + label::before { background-color: color(neutral, lighter); }
+
+        .custom__cb input:checked + label::after { background: url('/assets/images/svg/i-check-disabled.svg') no-repeat 0 0; }
+
+        .custom__rb input:checked + label::after { background-color: color(neutral, lighter); }
+
+        select {
+            background-color: color(neutral, lighter);
+            background-image: url('/assets/images/svg/i-chevron-down-disabled.svg');
+        }
+
+        .input-group__btn {
+            background-color: color(neutral, lighter);
+            cursor: default;
+
+            svg { fill: color(neutral); }
+        }
+    }
+
+    @include bem-e('error-message') {
+        @include font-size(11);
+        @include line-height(11, 14);
+
+        margin-top: 8px;
+        color: color(utility, error);
+    }
+}

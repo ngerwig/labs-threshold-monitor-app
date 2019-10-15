@@ -1,0 +1,294 @@
+/*
+ * tab content
+ *
+ ********************************************************************************/
+
+
+/*
+ * overflow tab content
+ *
+ ************************************************************/
+
+.tabs {
+
+    @include bem-e('container') { }
+
+    @include bem-e('tab-list') {
+        margin: 0;
+        border-bottom: 1px solid $border-color;
+        padding: 0;
+        overflow-x: auto;
+        overflow-y: hidden;
+        white-space: nowrap;
+        -ms-overflow-style: -ms-autohiding-scrollbar;
+    }
+
+    @include bem-e('tab-list-item') {
+        position: relative;
+        display: inline-block;
+        margin: 0;
+        list-style-type: none;
+        text-align: center;
+
+        &::after {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            max-height: 0;
+            background-color: $link-color;
+            transition: max-height $transition-duration;
+            content: '';
+        }
+
+        &.is-selected {
+
+            &::after { max-height: 2px; }
+        }
+    }
+
+    @include bem-e('tab-link') {
+        @include font-size(14);
+
+        display: block;
+        padding: 12px 30px;
+        width: 100%;
+        height: 100%;
+        cursor: pointer;
+        text-align: center;
+        text-decoration: none;
+        font-family: $brand-font-medium;
+        color: $text-color;
+        transition: color $transition-duration;
+
+        &:hover,
+        .is-selected & { color: $link-color; }
+
+        @include bem-m('disabled') {
+            cursor: default;
+            color: color(neutral, light);
+
+            &:hover { color: color(neutral, light); }
+        }
+
+        @include bem-m('error') {
+            color: color(utility, error);
+
+            &:hover,
+            .is-selected & { color: color(utility, error); }
+
+            &::before {
+                position: relative;
+                top: 2px;
+                display: inline-block;
+                margin-right: 5px;
+                width: 16px;
+                height: 16px;
+                background: url('/assets/images/svg/i-exclamation-red.svg') no-repeat center;
+                background-size: cover;
+                content: '';
+            }
+        }
+    }
+
+    @include bem-e('panel') {
+        display: none;
+        margin-top: 30px;
+
+        &.is-active { display: block; }
+    }
+}
+
+
+/*
+ * tabs plus
+ * experimental component - not to be used at this time
+ *
+ ************************************************************/
+
+.tabs-plus {
+
+    @include bem-e('tab-list-container') {
+        position: relative;
+        display: flex;
+        border-bottom: 1px solid $border-color;
+    }
+
+    @include bem-e('tab-list') {
+        display: flex;
+        flex: 1;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+    }
+
+    @include bem-e('tab-list-item') {
+        position: relative;
+        flex: none;
+        margin: 0;
+        list-style-type: none;
+
+        &::after {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            max-height: 0;
+            background-color: $link-color;
+            transition: max-height $transition-duration;
+            content: '';
+        }
+
+        &.is-selected {
+
+            &::after { max-height: 2px; }
+        }
+    }
+
+    @include bem-e('tab-link') {
+        @include font-size(14);
+
+        display: block;
+        padding: 12px 30px;
+        width: 100%;
+        height: 100%;
+        cursor: pointer;
+        text-align: center;
+        text-decoration: none;
+        font-family: $brand-font-medium;
+        color: $text-color;
+        transition: color $transition-duration;
+
+        &:hover,
+        .is-selected & { color: $link-color; }
+
+        @include bem-m('disabled') {
+            cursor: default;
+            text-decoration: none;
+            color: color(neutral);
+
+            &:hover { color: color(neutral); }
+        }
+
+        @include bem-m('error') {
+            display: flex;
+            align-items: center;
+            color: color(utility, error);
+
+            &:hover,
+            .is-selected & { color: color(utility, error); }
+
+            &::before {
+                position: relative;
+                top: -1px;
+                display: inline-block;
+                margin-right: 5px;
+                width: 16px;
+                height: 16px;
+                background: url('/assets/images/svg/i-exclamation-red.svg') no-repeat center;
+                background-size: cover;
+                content: '';
+            }
+        }
+    }
+
+    @include bem-e('panel') {
+        display: none;
+        margin-top: 30px;
+
+        &.is-active { display: block; }
+    }
+}
+
+
+/*
+ * tab flyout trigger button and icon
+ *
+ ****************************************/
+
+.tab-flyout {
+
+    @include bem-e('btn') {
+        @include line-height(14, 24);
+        @include font-size(14);
+
+        padding: 15px 40px 15px 35px;
+        text-align: center;
+        text-decoration: none;
+        font-family: $brand-font-medium;
+        transition: color $transition-duration;
+
+        &:hover { cursor: pointer; }
+    }
+
+    @include bem-e('icon') {
+        fill: color(neutral);
+        transition: fill $transition-duration;
+    }
+
+    @include bem-e('label') {
+        margin-left: 5px;
+        color: $text-color;
+        transition: color $transition-duration;
+    }
+}
+
+
+/*
+ * tab flyout - modifier of `_flyout`
+ *
+ ****************************************/
+
+.flyout {
+
+    @include bem-e('container') {
+
+        @include bem-m('error') {
+
+            .tab-flyout__icon { fill: color(utility, error); }
+
+            .tab-flyout__label {
+                color: color(utility, error);
+
+                &::before {
+                    position: relative;
+                    top: 3px;
+                    display: inline-block;
+                    margin-right: 5px;
+                    width: 16px;
+                    height: 16px;
+                    background: url('/assets/images/svg/i-exclamation-red.svg') no-repeat center;
+                    background-size: cover;
+                    content: '';
+                }
+            }
+
+            &:focus,
+            &:hover {
+
+                .tab-flyout__icon { fill: color(utility, error) !important; } // sass-lint:disable-block no-important
+
+                .tab-flyout__label { color: color(utility, error) !important; } // sass-lint:disable-block no-important
+            }
+        }
+
+        @include bem-m('tabs') {
+
+            &:focus,
+            &:hover {
+
+                .tab-flyout__icon { fill: color(secondary); }
+                .tab-flyout__label { color: color(secondary); }
+            }
+
+            .tabs-plus__tab-link--error {
+                @include line-height(13, 10);
+            }
+        }
+
+        // hides the 'More' container
+        &.is-hidden { display: none; }
+    }
+}

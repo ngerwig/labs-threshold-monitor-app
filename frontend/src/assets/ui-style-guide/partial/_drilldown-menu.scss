@@ -1,0 +1,259 @@
+/*
+ * header
+ *
+ ********************************************************************************/
+
+.drilldown-menu {
+
+    @include bem-e('container') { overflow: hidden; }
+
+    @include bem-e('header') {
+        z-index: 10;
+        padding: $base-vertical-margin 24px 14px;
+        height: 45px;
+
+        &:not(.is-slid) {
+
+            .drilldown-menu__nav { display: none; }
+
+            .drilldown-menu__label { margin-left: 0; }
+        }
+
+        &.is-slid {
+
+            .drilldown-menu__header__container {
+                opacity: 0;
+                transform: translateX(-100%);
+
+                @include bem-m('child') { opacity: 1; }
+            }
+        }
+
+        .flyout__btn-close { right: 12px; }
+
+        @include bem-e('container') {
+            width: 100%;
+            opacity: 1;
+            transform: translateX(0);
+            transition: transform .75s, opacity .5s;
+
+            @include bem-m('child') { opacity: 0; }
+        }
+
+        @include bem-m('level') {
+            display: flex;
+            align-items: center;
+            padding: 0;
+        }
+    }
+
+    @include bem-e('label') { display: inline-block; }
+
+    @include bem-e('list-container') {
+        position: relative;
+        min-height: 125px;
+        max-height: 215px;
+        overflow-x: hidden;
+        overflow-y: scroll;
+    }
+
+    @include bem-e('list') {
+        transform: translateX(0);
+        transition: transform .75s;
+
+        &.is-slid { transform: translateX(-100%); }
+
+        @include bem-m('child') {
+            position: absolute;
+            top: 0;
+            left: 100%;
+            width: 100%;
+            pointer-events: none;
+            transition: opacity .5s;
+
+            &.is-active {
+                z-index: z-index(default);
+                pointer-events: auto;
+            }
+        }
+    }
+
+    @include bem-e('item') {
+        border-bottom: 1px solid color(neutral, lighter);
+        padding: 9px 18px;
+        background-color: rgba(color(default, dark), .05);
+        transition: background-color $transition-duration;
+
+        &:focus,
+        &:hover { background-color: rgba(color(secondary), .1); }
+
+        &:last-child { border-bottom: 0; }
+
+        @include bem-m('header') { background-color: color(default, light); }
+
+        @include bem-m('parent') {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0;
+
+            .drilldown-menu__nav {
+                border-left: 1px solid color(neutral, lighter);
+                padding: 5px;
+            }
+
+            .custom__cb,
+            > .drilldown-menu__link { padding-left: 18px; }
+
+            .drilldown-menu__item {
+
+                .custom__cb { padding: 0; }
+            }
+        }
+
+        @include bem-m('child') {
+
+            .custom__cb { padding: 0; }
+        }
+
+        @include bem-m('hidden') { display: none; }
+
+        .custom__cb {
+
+            input + label { text-indent: 0; }
+        }
+    }
+
+    @include bem-e('nav') {
+        cursor: pointer;
+
+        svg { fill: color(secondary); }
+
+        @include bem-m('header') { padding: 16px 13px 16px 0; }
+
+        &:hover,
+        &:focus {
+
+            .drilldown-menu__nav-icon { background-color: color(default, light); }
+        }
+    }
+
+    @include bem-e('nav-icon') {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        width: 28px;
+        height: 28px;
+        background-color: transparent;
+        transition: background-color $transition-duration;
+    }
+
+    @include bem-e('text-nav') {
+        margin-top: 2px;
+        cursor: pointer;
+        font-family: $brand-font;
+
+        &:focus,
+        &:hover { text-decoration: underline; }
+    }
+
+    @include bem-e('search') {
+        border-bottom: 1px solid color(neutral, lighter);
+        padding: 8px 20px;
+    }
+
+    @include bem-e('btn-container') {
+        border-top: 1px solid color(neutral, lighter);
+        padding: 20px;
+
+        .btn-group {
+
+            .btn:not(:last-child) { margin-right: 5px; }
+        }
+    }
+}
+
+
+/*
+ * utility flyout - modifier of `_flyout`
+ *
+ ************************************************************/
+
+.flyout {
+
+    @include bem-e('container') {
+
+        @include bem-m('drilldown') {
+            display: inline-block;
+
+            &.is-open {
+
+                .flyout__panel {
+                    top: 50px;
+                    right: auto;
+                    left: 0;
+                }
+
+                .flyout__container--drilldown-inner {
+
+                    .flyout__panel {
+                        top: auto;
+                        left: -9999px;
+                    }
+
+                    &.is-open {
+
+                        .flyout__panel {
+                            top: 25px;
+                            right: auto;
+                            left: 0;
+                        }
+                    }
+                }
+            }
+
+            .flyout__panel { width: 385px; }
+
+            .flyout__label {
+                @include font-size(12);
+
+                text-align: left;
+                color: color(neutral, dark);
+            }
+
+            .flyout__content { padding: 0; }
+        }
+
+        @include bem-m('drilldown-inner') {
+
+            .flyout__panel { width: 230px; }
+
+            .flyout__item {
+                border-top: 0;
+                border-bottom: 1px solid color(neutral, lighter);
+
+                &:first-child,
+                &:last-child { border-bottom: 0; }
+            }
+
+            .flyout__link {
+                padding: 10px 15px;
+
+                &.is-active {
+                    pointer-events: none;
+                    opacity: .5;
+                    text-decoration: none;
+                }
+
+                @include bem-m('action') {
+                    display: flex;
+                    align-items: center;
+                    color: color(secondary);
+
+                    svg { margin-right: 8px; }
+                }
+            }
+        }
+    }
+}

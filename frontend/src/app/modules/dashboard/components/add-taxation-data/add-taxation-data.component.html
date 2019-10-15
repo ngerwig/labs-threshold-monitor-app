@@ -1,0 +1,35 @@
+<div class="dashboard__wrapper">
+  <div class="container dashboard__container pt-5 px-lg-0">
+    <h1 class="text-center mt-0" role="none">
+      {{consts.HEADER_GTSTRTED}}
+      <button id="tax-notification-icon" class="btn-text btn--info-notify" [disabled]="disableInfoIcon" (click)="showNotification($event)" (keydown.enter)="showNotification($event)" aria-label="show notification" [attr.aria-hidden]="disableInfoIcon">
+        <svg class="u-icon-i-information-dims">
+            <use xlink:href="#i-information"></use>
+        </svg>
+      </button>
+    </h1>
+    <vtx-notification (showNotification)="infoIconFunction($event)" [showMessage]="showNotificationBox" [notificationMessageId]="'get-started-not'">
+      <ol class="mr-1 notification_order-list" type="1" id="get-started-not">
+          <li>{{consts.MSG_GTSTRTED_NOTIFICATION_FRSTHLF}}<a class = "u-link--primary u-line font-medium" href="javascript::" (click)="navigateToStatesGuide($event)" (keydown.enter)="navigateToStatesGuide($event)" aria-hidden="false"aria-label="state guides">{{consts.LABEL_COMMON_STATE_GUIDES}}</a>{{consts.MSG_GTSTRTED_NOTIFICATION_SCONDHLF}}</li>
+          <li>{{consts.MSG_COMMON_WISCONSIN_NOTIFICATION}}</li>
+      </ol>
+    </vtx-notification>
+    <div class="row mt-4 text-center">
+      <div class="col-md-6 col-12 mb-4 mb-md-0">
+        <div class="dashboard__widget shadow" (click)="navigateToImportData()" (keydown.enter)="navigateToImportData()" role="button" tabindex="0" aria-label="Import your taxation data">
+          <img src="assets/images/i-import.svg" alt="Import" />
+          <h4 class="mt-4">{{consts.LABEL_GTSTRTED_IMPORT_DATA_FRSTHLF}}<br />{{consts.LABEL_GTSTRTED_IMPORT_DATA_SCONDHLF}}</h4>
+        </div>
+      </div>
+      <div class="col-md-6 col-12">
+        <div class="dashboard__widget shadow" (click)="navigateToTaxationData()" (keydown.enter)="navigateToTaxationData()" role="button" tabindex="0" aria-label="Add your taxation data manually">
+          <img src="assets/images/i-add.svg" alt="Import" />
+          <h4 class="mt-4">{{consts.LABEL_GTSTRTED_ADD_DATA_MANUALLY_FRSTHLF}}<br />{{consts.LABEL_GTSTRTED_ADD_DATA_MANUALLY_SCONDHLF}}</h4>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="innerpage__footer text-center padding--b15">
+    <p class="no-margin--bottom">{{consts.LABEL_COMMON_CPY_RIGHT_FRSTHLF}}&copy;{{consts.LABEL_COMMON_CPY_RIGHT_SCONDHLF}}</p>
+  </div>
+</div>

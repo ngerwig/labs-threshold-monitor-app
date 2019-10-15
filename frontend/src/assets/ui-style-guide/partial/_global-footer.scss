@@ -1,0 +1,45 @@
+/*
+ * footer
+ *
+ ********************************************************************************/
+
+.site-footer {
+    @include font-size(12);
+
+    padding: 15px $grid-horizontal-padding;
+    width: 100%;
+    background-color: color(secondary, darker);
+    color: $footer-text-color;
+}
+
+/*
+ * legal links and text
+ *
+ ************************************************************/
+
+.legal {
+
+    @include bem-e('nav') { display: inline-block; }
+
+    @include bem-e('item') {
+        display: inline-block;
+        margin-top: 0;
+
+        @media (min-width: $screen-md-min) { display: list-item; }
+
+        &::after {
+            display: inline-block;
+            margin: 0 8px 0 14px;
+            vertical-align: top;
+            color: $footer-text-color;
+            content: '|';
+        }
+
+        &:last-child {
+
+            &::after { display: none; }
+        }
+    }
+
+    @include bem-e('link') { color: $footer-text-color; }
+}

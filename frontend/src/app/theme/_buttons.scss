@@ -1,0 +1,100 @@
+@import './variable';
+
+.btn {
+  font-family: "montserratregular", sans-serif;
+  padding: 9px 15px 7px;
+  &.btn--primary {
+    background-color: $btn-primary !important;
+    border-color: $btn-primary !important;
+    color: $white !important
+  }
+  &.btn--secondary {
+    background-color: $btn-secondary !important;
+    border-color: $btn-secondary !important;
+    color: $white !important
+  }
+  &.btn--error-counts {
+    background-color: $alert-text;
+    color: $white !important;
+    border-radius: 50%;
+    display: flex;
+    font-size: 0.75rem;
+    line-height: 1.25;
+    height: 18px;
+    padding: 0;
+    align-items: center;
+    justify-content: center;
+    min-width: auto;
+    width: 18px;
+  }
+  &.btn--secondary-outline {
+    border-color: $btn-secondary;
+    &.btn--sm {
+      border-width: 1px;
+      border-radius: 3px !important;
+      padding: 4px 8px;
+      min-width: 32px;
+      svg {
+        fill: $btn-secondary;
+        margin: 0;
+        height: 18px;
+        width: 18px;
+      }
+    }
+  }
+  &.btn--radius {
+    border-radius: 3px !important;
+  }
+  &.u-margin-top--md {
+    margin-top: 15px;
+  }
+}
+
+.btn-text {
+  &.btn--info-notify {
+    display: inline-flex;
+    justify-content: center;
+    height: 24px;
+    margin-left: 10px;
+    width: 24px;
+    &[disabled] {
+      opacity: 0.5;
+    }
+  }
+}
+
+.btn--actions {
+  &.flyout__container--btn-dropdown {
+    .flyout__panel {
+      border: 1px solid $border-color;
+      display: none;
+      right: 0;
+      left: auto;
+      top: 28px;
+      min-width: 142px;
+      .flyout__item {
+        font-family: "montserratmedium", sans-serif;
+        font-size: 0.875rem !important;
+        &.in-active {
+          background-color: transparent;
+          cursor: default;
+          opacity: 0.5;
+          .flyout__link {
+            cursor: default;
+          }
+        }
+      }
+      .flyout__link {
+        color: $default-text;
+      }
+      .flyout__list {
+        border-bottom: 0;
+      }
+    }
+    &.is-open {
+      .flyout__panel {
+        display: block;
+      }
+    }
+  }
+}

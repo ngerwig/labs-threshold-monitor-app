@@ -1,0 +1,231 @@
+/*
+ * global button treatments
+ *
+ ********************************************************************************/
+
+.btn {
+    @include line-height(12, 16);
+    @include font-size(12);
+
+    display: inline-block;
+    box-shadow: none;
+    border-radius: $border-radius;
+    border: 2px solid transparent;
+    padding: 8px 15px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-family: $brand-font-medium;
+    transition: box-shadow $transition-duration, border-color $transition-duration, background-color $transition-duration, color $transition-duration;
+
+    // universal focus/hover state
+    &:focus,
+    &:hover { text-decoration: none; }
+
+    // BUTTON disabled state
+    &:disabled {
+        box-shadow: none;
+        pointer-events: none; /* disables the BUTTON */
+        opacity: .5;
+    }
+
+    @media (min-width: $screen-xs-min) {
+        min-width: 108px;
+        white-space: nowrap;
+    }
+
+    svg {
+        width: 14px;
+        height: 14px;
+        vertical-align: bottom;
+    }
+
+    // primary button treatment
+    @include bem-m('primary') {
+        box-shadow: $box-shadow-default;
+        border-color: color(primary);
+        background-color: color(primary);
+        color: $text-color;
+
+        &:focus,
+        &:hover { box-shadow: none; }
+
+        svg { fill: $text-color; }
+    }
+
+    // secondary button treatment
+    @include bem-m('secondary') {
+        border-color: color(secondary);
+        background-color: color(secondary);
+        color: color(default, light);
+
+        &:focus,
+        &:hover {
+            border-color: color(secondary, dark);
+            background-color: color(secondary, dark);
+        }
+
+        svg { fill: color(default, light); }
+    }
+
+    // tertiary button treatment
+    @include bem-m('tertiary') {
+        border-color: color(neutral, dark);
+        background-color: transparent;
+        color: color(neutral, dark);
+
+        &:focus,
+        &:hover {
+            background-color: color(neutral, dark);
+            color: color(default, light);
+
+            svg { fill: color(default, light); }
+        }
+
+        svg {
+            fill: color(neutral, dark);
+            transition: fill $transition-duration;
+        }
+    }
+
+    @include bem-m('transparent') {
+        min-width: unset;
+        color: color(neutral, darker);
+
+        svg { fill: color(neutral, darker); }
+    }
+
+    // small button treatment for buttons
+    @include bem-m('sm') {
+        @include font-size(10);
+
+        padding: 5px 10px;
+        min-width: 72px;
+    }
+
+    @include bem-e('show-hide') {
+        position: relative;
+        padding-left: 40px;
+
+        &::after {
+            position: absolute;
+            top: 10px;
+            left: 16px;
+            width: 15px;
+            height: 15px;
+            background: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2222%22%20height%3D%2215%22%20viewBox%3D%220%200%2022%2015%22%3E%3Cpath%20d%3D%22M11%200A11.8%2011.8%200%200%200%200%207.5a11.8%2011.8%200%200%200%2022%200A11.8%2011.8%200%200%200%2011%200zm0%2012.5a5%205%200%201%201%205-5%205%205%200%200%201-5%205zm0-8a3%203%200%201%200%203%203%203%203%200%200%200-3-3z%22/%3E%3C/svg%3E%0A');
+            background-repeat: no-repeat;
+            background-size: 15px;
+            content: '';
+        }
+
+        &.is-toggled {
+
+            &::after {
+                background: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2222%22%20height%3D%2218%22%20viewBox%3D%220%200%2022%2018%22%3E%3Cpath%20d%3D%22M6%209a5%205%200%200%201%205-5l2.3-2.3-2.3-.2A11.8%2011.8%200%200%200%200%209a12%2012%200%200%200%202.3%203.7zM17.8%203.6L20%201.4%2018.6%200%202%2016.6%203.4%2018%206%2015.4a11.7%2011.7%200%200%200%205%201.1A11.8%2011.8%200%200%200%2022%209a11.8%2011.8%200%200%200-4.2-5.4zM11%2014a5%205%200%200%201-2.7-.8l1.5-1.5a3%203%200%200%200%204-4l1.5-1.5A5%205%200%200%201%2011%2014z%22/%3E%3C/svg%3E%0A');
+                background-repeat: no-repeat;
+                background-size: 15px;
+            }
+        }
+    }
+}
+
+.btn-close {
+    position: absolute;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    background-color: color(default, light);
+    transition: background-color $transition-duration;
+
+    &:hover { cursor: pointer; }
+
+    &:focus,
+    &:hover {
+        background-color: color(secondary, base);
+
+        svg { fill: color(default, light); }
+    }
+
+    svg {
+        fill: color(secondary, base);
+        transition: fill $transition-duration;
+    }
+}
+
+.btn-group {
+    display: inline-block;
+
+    .btn:not(:last-child) { margin-right: 20px; }
+
+    @include bem-m('dropdown') {
+        display: inline-flex;
+        box-shadow: $box-shadow-default;
+        border-radius: $border-radius;
+        transition: box-shadow $transition-duration;
+
+        &:focus,
+        &:hover { box-shadow: none; }
+
+        .btn {
+            box-shadow: none;
+            min-width: 95px;
+
+            &:first-child { margin-right: 0; }
+        }
+
+        &.is-open { box-shadow: none; }
+
+        @include bem-m('double-btn') {
+
+            .btn {
+                border-top-right-radius: 0;
+                border-bottom-right-radius: 0;
+            }
+        }
+    }
+
+    @include bem-e('dropdown-content') {
+        display: inline;
+
+        .btn {
+            border-top-right-radius: $border-radius;
+            border-top-left-radius: 0;
+            border-bottom-right-radius: $border-radius;
+            border-bottom-left-radius: 0;
+            border-left: 1px solid color(primary, dark);
+            padding-right: 0;
+            padding-left: 0;
+            min-width: 45px;
+
+            &:focus,
+            &:hover,
+            &.is-open {
+                border-color: color(primary, dark);
+                background-color: color(primary, dark);
+            }
+
+            svg { margin-left: 0; }
+        }
+    }
+}
+
+// link button treatment
+.btn-txt {
+    @include font-size(12);
+
+    padding: 10px;
+    cursor: pointer;
+    text-decoration: underline;
+    font-family: $brand-font;
+    color: color(neutral, dark);
+
+    &:focus,
+    &:hover { text-decoration: none; }
+
+    &:disabled {
+        pointer-events: none;
+        opacity: .5;
+    }
+}

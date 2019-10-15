@@ -1,0 +1,217 @@
+/*
+ * flyout panel
+ *
+ ********************************************************************************/
+
+
+.flyout {
+
+    @include bem-e('container') {
+        position: relative;
+
+        /*
+         * show on hover
+         *
+         ************************************************************/
+
+        @include bem-m('hover') {
+
+            &:focus,
+            &:hover {
+
+                .flyout__panel {
+                    right: 0;
+                    left: auto;
+                }
+            }
+        }
+
+        /*
+         * dropdown button
+         *
+         ************************************************************/
+
+        @include bem-m('btn-dropdown') {
+            display: inline-flex;
+
+            &.is-open {
+
+                .flyout__panel {
+                    top: 45px;
+                    right: auto;
+                    left: 0;
+                }
+
+                svg { transform: rotate(180deg); }
+            }
+
+            svg {
+                margin-bottom: 2px;
+                margin-left: 5px;
+                width: 10px;
+                height: 10px;
+                vertical-align: middle;
+                transition: transform $transition-duration;
+            }
+        }
+
+        /*
+         * table action
+         *
+         ************************************************************/
+
+        @include bem-m('table-action') {
+            position: static;
+            display: inline-block;
+            padding-left: 14px; /* match <td> padding */
+
+            &.is-open {
+
+                .flyout__panel {
+                    top: auto;
+                    right: 10px; /* match <td> padding */
+                    left: auto;
+                }
+            }
+
+            .flyout__panel { width: auto; }
+
+            .drilldown-menu__list-container { max-height: 245px; } // 245px = 41px item x 6 - 1px border of 6th item
+
+            .drilldown-menu__item {
+                padding: 0;
+                background-color: color(default, light);
+                cursor: pointer;
+                font-family: $brand-font;
+
+                &:focus,
+                &:hover { background-color: color(secondary, light); }
+
+                .drilldown-menu__link {
+                    @include font-size(12);
+                    @include line-height(12, 15);
+
+                    display: inline-block;
+                    padding: 12px 20px;
+                    text-decoration: none;
+                    color: color(neutral, dark);
+                }
+
+                &.drilldown-menu__item--header .drilldown-menu__link { padding-left: 0; }
+            }
+
+            .drilldown-menu__item--parent > .drilldown-menu__nav {
+                margin-left: $base-vertical-margin;
+                padding: 6px 8px;
+            }
+
+            .drilldown-menu__list--child {
+
+                .drilldown-menu__item:first-of-type {
+                    padding-right: 48px; // compensate for position absolute close button
+                    padding-left: 14px; // align chevron icon with text in other list items
+
+                    &:hover { background-color: color(default, light); }
+
+                    .drilldown-menu__link { text-decoration: underline; }
+
+                    .drilldown-menu__nav .drilldown-menu__nav-icon:hover { background-color: color(neutral, lighter); }
+                }
+
+                .drilldown-menu__nav {
+                    border-left: 0;
+                    padding: 0;
+                    cursor: pointer;
+                    vertical-align: middle;
+
+                    &.flyout__btn-close {
+                        top: 7px;
+                        right: 10px;
+                    }
+                }
+            }
+        }
+    }
+
+    @include bem-e('panel') {
+        z-index: z-index(dropdown) - 1;
+        position: absolute;
+        top: 0;
+        left: 0;
+        box-shadow: 0 10px 30px -10px rgba(color(default, dark), .07);
+        min-width: 230px;
+        background-color: color(default, light);
+
+        @media (min-width: $screen-xs-min) {
+            top: auto;
+            left: -9999px;
+            display: block;
+            box-shadow: $box-shadow-default;
+            border: 1px solid color(neutral, lighter);
+        }
+    }
+
+    @include bem-e('header') {
+        position: relative;
+        border-bottom: 1px solid color(neutral, lighter);
+        padding: 14px 20px 12px;
+    }
+
+    @include bem-e('btn-close') {
+        position: absolute;
+        top: 9px;
+        right: 20px;
+        width: 28px;
+        height: 28px;
+        cursor: pointer;
+
+        svg { fill: color(secondary); }
+    }
+
+    @include bem-e('label') {
+        @include font-size(12);
+
+        display: block;
+        text-align: center;
+        color: color(neutral);
+    }
+
+    @include bem-e('content') { padding: ($grid-vertical-padding / 2) $grid-horizontal-padding $grid-vertical-padding; }
+
+    @include bem-e('list') {
+        margin-bottom: 0;
+
+        @media (max-width: $screen-sm-max) { border-bottom: 1px solid $border-color; }
+    }
+
+    @include bem-e('item') {
+        @include font-size(13);
+
+        margin-top: 0;
+        border-top: 1px solid color(neutral, lighter);
+        padding: 0;
+        background-color: color(default, light);
+        cursor: pointer;
+        text-align: left;
+        font-family: $brand-font;
+
+        &:first-child { border-top: 0; }
+
+        &:focus,
+        &:hover { background-color: color(secondary, light); }
+    }
+
+    @include bem-e('link') {
+        @include font-size(12);
+        @include line-height(12, 15);
+
+        display: inline-block;
+        padding: 12px 18px 10px;
+        width: 100%;
+        cursor: pointer;
+        text-align: left;
+        text-decoration: none;
+        font-family: inherit;
+        color: color(neutral, dark);
+    }
+}

@@ -1,0 +1,67 @@
+@import './variable';
+
+[type='search'],
+[type='text'],
+[type='tel'],
+[type='email'],
+[type='number'],
+[type='password'],
+select,
+textarea {
+  font-family: 'montserratregular';
+  font-size: 0.875rem;
+}
+
+@media screen and (min-width:0\0) {
+  [type='search'],
+  [type='text'],
+  [type='tel'],
+  [type='email'],
+  [type='number'],
+  [type='password'],
+  select,
+  textarea {
+    line-height: normal !important;
+  }
+}
+
+.form-item {
+  .custom__rb {
+    label {
+      color: $default-text;
+      font-size: 0.875rem;
+      font-family: "montserratregular";
+      font-weight: 500;
+    }
+  }
+}
+
+.pwd__show-input {
+  position: relative;
+  input {
+    padding-right: 36px;
+  }
+  .btn__show-hide {
+    cursor: pointer;
+    width: 38px;
+    height: 38px;
+    padding: 5px;
+    position: relative;
+    float: right;
+    margin-left: -25px;
+    margin-top: -38px;
+
+    &:after {
+      background-size: 20px;
+      height: 15px;
+      top: 12px;
+      left: 8px;
+      width: 22px;
+    }
+    &.is-toggled:after {
+      background-size: 18px;
+      left: 10px;
+    }
+  }
+ 
+}

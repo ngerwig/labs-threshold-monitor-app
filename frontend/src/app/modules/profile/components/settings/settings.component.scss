@@ -1,0 +1,63 @@
+@import '../../../../theme/variable';
+
+.profile-settings {
+  max-width: 920px;
+}
+.profile__input-container {
+  max-width: 385px;
+  .notification__container {
+    width: calc(100% - 30px);
+  }
+}
+.profile__footer {
+  color: $dark-gray;
+  font-size: 0.875rem;
+}
+
+@media (max-width:767px) {
+  .profile__footer {
+    font-size: 0.75rem;
+  }
+}
+
+.notification-list {
+  list-style: none;
+  margin:  0 0 10px;
+  padding: 0;
+  li {
+   color: #141414;
+   display: flex;
+   padding-left: 10px;
+   margin: 0;
+   min-height: 52px;
+   align-items: center;
+    &:first-child {
+      color: #003970;
+      font-weight: 500;
+      padding-left: 0;
+    }
+    &:nth-child(even) {
+      background-color: #f5f5f5;
+    }
+    .notification-list__info {
+      text-align: left;
+      width: calc(100% - 272px);
+    }
+    .notification-list__on-off {
+      width: 100px;
+    }
+    .notification-list_frequency {
+      width: 172px;
+    }
+  }
+}
+
+.left-nav-arrow {
+  display: inline-block;
+  height: 14px;
+  margin-bottom: 8px;
+  width: 14px;
+}
+.hide__notification {
+  display: none !important;
+}

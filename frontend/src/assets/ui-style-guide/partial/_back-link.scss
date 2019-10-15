@@ -1,0 +1,21 @@
+/*
+ * back link
+ *
+ ********************************************************************************/
+
+.back-link {
+
+    @include bem-e('container') {
+        display: inline-block;
+        margin-bottom: 20px;
+
+        @media (min-width: $screen-md-min) { margin-bottom: 50px; }
+
+        svg {
+            @extend .u-icon-left;
+
+            margin-top: -3px;
+            fill: color(secondary);
+        }
+    }
+}

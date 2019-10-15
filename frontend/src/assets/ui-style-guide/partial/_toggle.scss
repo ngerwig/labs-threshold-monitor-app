@@ -1,0 +1,241 @@
+/*
+ * custom toggle switch
+ * based off Accessible Super Toggle - https://codepen.io/personable/pen/ZGKjwe
+ *
+ ********************************************************************************/
+
+/*
+ * variables
+ *
+ ************************************************************/
+
+$toggle-width:                  50px;
+$toggle-height:                 18px;
+$toggle-background-off:         color(neutral, lighter);
+$toggle-background-on:          color(secondary);
+$toggle-border:                 2px;
+$toggle-switch-color:           color(default, light);
+$toggle-switch-size:            $toggle-height - (2 * $toggle-border);
+$toggle-text-left-off-color:    color(neutral, dark);
+$toggle-text-left-on-color:     color(default, light);
+$toggle-text-right-off-color:   color(neutral, dark);
+$toggle-text-right-on-color:    color(default, light);
+
+
+/*
+ * custom toggle setup
+ *
+ ************************************************************/
+
+.toggle {
+
+    @include bem-e('container') {
+        position: relative;
+        display: inline-block;
+        vertical-align: middle;
+    }
+
+    @include bem-e('input') {
+        position: absolute;
+        top: 0;
+        left: 0;
+        opacity: 0;
+
+        &:checked {
+
+            ~ label {
+
+                .toggle__switch {
+                    border-color: $toggle-background-on;
+                    background: $toggle-background-on;
+
+                    &::after { transform: translate3d(calc(50px - 18px), 0, 0); }
+
+                    @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+
+                        &::after { margin-left: 32px; }
+                    }
+                }
+
+                .toggle__disabled-message {
+
+                    &::before { content: attr(data-checked); }
+                }
+
+                .toggle__switch-text-left {
+                    opacity: 1;
+                    color: $toggle-text-left-on-color;
+                }
+
+                .toggle__switch-text-right {
+                    opacity: 0;
+                    color: $toggle-text-right-on-color;
+                }
+            }
+
+            &:focus ~ label {
+
+                .toggle__switch::after {
+                    box-shadow: inset 0 0 0 1px $toggle-switch-color,
+                                inset 0 0 0 3px $toggle-background-on,
+                                0 4px 2px 0 rgba(color(default, dark), .05),
+                                0 2px 2px 0 rgba(color(default, dark), .1),
+                                0 4px 4px 0 rgba(color(default, dark), .05);
+                    }
+            }
+        }
+
+        &[disabled] {
+
+            ~ label {
+
+                .toggle__disabled-message { display: block; }
+
+                .toggle__switch,
+                [class^='toggle__switch-text-'] { display: none; }
+            }
+        }
+
+        &:focus ~ label {
+
+            .toggle__switch::after {
+                box-shadow: inset 0 0 0 1px $toggle-switch-color,
+                            inset 0 0 0 3px $toggle-background-off,
+                            0 4px 2px 0 rgba(color(default, dark), .05),
+                            0 2px 2px 0 rgba(color(default, dark), .1),
+                            0 4px 4px 0 rgba(color(default, dark), .05);
+            }
+        }
+    }
+
+    @include bem-e('label') {
+        box-sizing: border-box;
+        margin: 0;
+        user-select: none;
+    }
+
+    @include bem-e('disabled-message') {
+        display: none;
+
+        &::before {
+            opacity: .8;
+            font-style: italic;
+            content: attr(data-unchecked);
+        }
+    }
+
+    @include bem-e('switch') {
+        @include font-size(10);
+
+        position: relative;
+        display: flex;
+        align-items: center;
+        border-radius: ($toggle-width / 4) + 2;
+        border: $toggle-border solid $toggle-background-off;
+        padding: 1px 2px 0;
+        width: $toggle-width;
+        height: $toggle-height;
+        background: $toggle-background-off;
+        background-clip: padding-box;
+        line-height: 1;
+        transition: background .1s, border-color .1s;
+
+        &::after {
+            z-index: z-index(default);
+            position: absolute;
+            top: 0;
+            left: 0;
+            box-shadow: 0 3px 6px rgba(color(default, dark), .3);
+            border-radius: 100%;
+            width: $toggle-switch-size;
+            height: $toggle-switch-size;
+            background-color: $toggle-switch-color;
+            transform: translate3d(0, 0, 0);
+            transition: box-shadow $transition-duration ease-in-out,
+                        transform $transition-duration ease-in-out;
+            content: '';
+        }
+    }
+
+    @include bem-e('switch-text-left') {
+        opacity: 0;
+        color: $toggle-text-left-off-color;
+    }
+
+    @include bem-e('switch-text-right') {
+        opacity: 1;
+        color: $toggle-text-right-off-color;
+    }
+}
+
+[class^='toggle__switch-text-'] {
+    z-index: z-index(default);
+    position: relative;
+    flex: 0 0 50%;
+    text-align: center;
+    text-transform: uppercase;
+    line-height: 1;
+    transition: color .1s ease-out,
+                opacity .1s ease-out;
+    speak: none;
+}
+
+
+/*
+ * toggle switch
+ *
+ ************************************************************/
+
+.toggle-switch {
+
+    @include bem-e('container') {
+        position: relative;
+        display: inline-flex;
+    }
+
+    @include bem-e('radio') {
+
+        input {
+            position: absolute;
+            left: 0;
+            opacity: 0;
+        }
+
+        input + label {
+            @extend .btn;
+
+            z-index: z-index(default) + 1;
+            position: relative;
+            margin: 0;
+            border-radius: 0;
+            border: 0;
+            min-width: unset;
+            background-color: color(neutral, lighter);
+            color: color(neutral);
+
+            &:focus,
+            &:hover { box-shadow: $box-shadow-inset; }
+        }
+
+        input:checked + label {
+            background-color: color(secondary);
+            color: color(default, light);
+        }
+
+        &:first-child {
+
+            input + label {
+                border-top-left-radius: $border-radius;
+                border-bottom-left-radius: $border-radius;
+            }
+        }
+
+        &:last-child {
+
+            input + label {
+                border-top-right-radius: $border-radius;
+                border-bottom-right-radius: $border-radius;
+            }
+        }
+    }
+}

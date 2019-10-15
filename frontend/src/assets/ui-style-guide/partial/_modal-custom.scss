@@ -1,0 +1,81 @@
+/*
+ * customization of Modaal Modal plugin
+ * extends /vendor/_modaal-0.3.1.scss
+ *
+ ********************************************************************************/
+
+.modaal {
+
+    &-container {
+        box-shadow: $box-shadow-default;
+        color: $text-color;
+    }
+
+    &-content-container { padding: 0; }
+
+    &-content-row {
+        > *:first-child { margin-top: 0; }
+        > *:last-child { margin-bottom: 0; }
+    }
+
+    &-content-container-inner {  }
+
+    .modaal-wrapper &-close {
+        @extend .btn-close;
+
+        background-color: color(neutral, lighter);
+
+        .u-icon-close-dims { transition: fill $transition-duration; }
+
+        &:focus,
+        &:hover {
+            outline: inherit;
+
+            svg { fill: color(default, light); }
+        }
+
+        &::before,
+        &::after { display: none; }
+    }
+}
+
+.modaal-confirm-wrap {
+    border-top: 1px solid $border-color;
+    padding: 20px;
+    text-align: left;
+}
+
+.modaal-content-row {
+    padding: 20px;
+
+    @include bem-m('hug') { padding: 0; }
+
+}
+
+.modaal-confirm-btn {
+    @extend .btn;
+
+    margin-right: 0;
+    margin-left: 0;
+
+    // confirm modal button
+    &.modaal-ok {
+        @extend .btn--primary;
+
+        transition: box-shadow $transition-duration, border-color $transition-duration, background-color $transition-duration, color $transition-duration;
+
+        &:focus,
+        &:hover { background-color: color(primary); }
+    }
+
+    // cancel modal button
+    &.modaal-cancel {
+        @extend .btn--tertiary;
+
+        margin-left: 20px;
+        text-decoration: none;
+
+        &:focus,
+        &:hover { color: color(default, light); }
+    }
+}

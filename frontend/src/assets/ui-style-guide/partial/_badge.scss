@@ -1,0 +1,43 @@
+/*
+ * badge
+ *
+ ********************************************************************************/
+
+.badge {
+    @include font-size(9);
+
+    display: inline-block;
+    border-radius: 9px;
+    padding: 0 6px;
+    min-width: 16px;
+    height: 16px;
+    text-align: center;
+    text-indent: 0;
+    line-height: 17px;
+    font-family: $brand-font-medium;
+
+    // color states for badges
+    @include bem-m('error') {
+        background-color: $error-color;
+        color: color(default, light);
+    }
+
+    @include bem-m('info') {
+        background-color: $info-color;
+        color: color(default, light);
+    }
+
+    @include bem-m('success') { background-color: $success-color; }
+
+    @include bem-m('warning') { background-color: $warning-color; }
+
+    @include bem-m('user-defined') {
+        background-color: color(utility, user-defined);
+        color: color(default, dark);
+    }
+
+    @include bem-m('vertex-defined') {
+        background-color: color(secondary);
+        color: color(default, light);
+    }
+}

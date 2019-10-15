@@ -1,0 +1,29 @@
+
+<span class="vtx-tooltip vtx-tooltip--top margin--l10" *ngIf="toolTipType === 'info'; else error">
+  <button class="btn-txt" (click)="tootltipFunction()" (blur)="tooltipOutClickFunction()" [ngClass]="{'tooltip--active' : tooltipOpen}" [attr.aria-describedby]="'msg-info'">
+    <svg class="u-icon-i-information-dims">
+      <use xlink:href="#i-information"></use>
+    </svg>
+  </button>
+  <span class="vtx-tooltip__message" *ngIf="tooltipOpen" id="msg-info">
+    <ng-container *ngTemplateOutlet="toolTipMessage;context:ctx"></ng-container>
+    <i class="vtx-tooltip__arrow"></i>
+  </span>
+</span>
+
+<ng-template #error>
+  <span class="vtx-tooltip vtx-tooltip--top">
+    <button type="button" class="btn btn--error-counts" (click)="tootltipFunction()" [attr.aria-label]="'error info '+ errorCounts" (blur)="tooltipOutClickFunction()" (click)="tooltipMobileSetUp()" (blur)="tooltipMobileSetUpOutClickFunction()" [ngClass]="{'tooltip--active' : tooltipOpen}" [attr.aria-describedby]="'error-info'">{{errorCounts}}</button>
+    <span class="vtx-tooltip__message tooltip--error">
+      <button class="btn-text error__close-btn" aria-label="error">
+        <svg class="u-icon-i-close-dims">
+          <use xlink:href="#i-close"></use>
+        </svg>
+      </button>
+      <span id="error-info" *ngIf="tooltipOpen">
+          <ng-container *ngTemplateOutlet="toolTipMessage;context:ctx"></ng-container>
+      </span>
+      <i class="vtx-tooltip__arrow"></i>
+    </span>
+  </span>      
+</ng-template >

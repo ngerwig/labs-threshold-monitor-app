@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16" height="16" viewBox="0 0 16 16">
+  <defs>
+    <clipPath id="clip-path">
+      <path id="Path_65" data-name="Path 65" d="M.825,10.295a37.134,37.134,0,0,0,3.522,2.951l5.6.3A43.847,43.847,0,0,0,13.1,10.421l.94-4.14a8.908,8.908,0,0,0-2.43-4.025A12.954,12.954,0,0,0,6.828,0l-5.4,2.743L0,7.134Z" transform="matrix(0.839, 0.545, -0.545, 0.839, 7.377, 0)" fill="none"/>
+    </clipPath>
+    <clipPath id="clip-Nearing">
+      <rect width="16" height="16"/>
+    </clipPath>
+  </defs>
+  <g id="Nearing" clip-path="url(#clip-Nearing)">
+    <g id="Group_1692" data-name="Group 1692" transform="translate(-595.643 -181.389)">
+      <path id="Path_5829" data-name="Path 5829" d="M7.065,0A7.065,7.065,0,1,1,0,7.065,7.065,7.065,0,0,1,7.065,0Z" transform="translate(596.528 182.434)" fill="#d47500"/>
+      <g id="Group_1209" data-name="Group 1209" transform="translate(590.531 186.143) rotate(-31)" clip-path="url(#clip-path)">
+        <g id="Group_1208" data-name="Group 1208" transform="translate(-58.754 -25.584)">
+          <g id="Group_1207" data-name="Group 1207" transform="translate(0 0)">
+            <g id="Group_1206" data-name="Group 1206" transform="translate(0 0)">
+              <g id="Group_1205" data-name="Group 1205">
+                <g id="Group_1192" data-name="Group 1192" transform="translate(0 68.15)">
+                  <rect id="Rectangle_777" data-name="Rectangle 777" width="126.811" height="0.856" fill="#fff"/>
+                </g>
+                <g id="Group_1193" data-name="Group 1193" transform="translate(14.846 63.591)">
+                  <rect id="Rectangle_778" data-name="Rectangle 778" width="97.119" height="0.814" fill="#fff"/>
+                </g>
+                <g id="Group_1194" data-name="Group 1194" transform="translate(14.846 58.99)">
+                  <rect id="Rectangle_779" data-name="Rectangle 779" width="97.119" height="0.814" fill="#fff"/>
+                </g>
+                <g id="Group_1195" data-name="Group 1195" transform="translate(14.846 54.389)">
+                  <rect id="Rectangle_780" data-name="Rectangle 780" width="97.119" height="0.814" fill="#fff"/>
+                </g>
+                <g id="Group_1196" data-name="Group 1196" transform="translate(14.846 49.788)">
+                  <rect id="Rectangle_781" data-name="Rectangle 781" width="97.119" height="0.814" fill="#fff"/>
+                </g>
+                <g id="Group_1197" data-name="Group 1197" transform="translate(14.846 45.19)">
+                  <rect id="Rectangle_782" data-name="Rectangle 782" width="97.119" height="0.814" fill="#fff"/>
+                </g>
+                <g id="Group_1198" data-name="Group 1198" transform="translate(23.639 39.253)">
+                  <rect id="Rectangle_783" data-name="Rectangle 783" width="89.215" height="0.814" fill="#742e01"/>
+                </g>
+                <g id="Group_1199" data-name="Group 1199" transform="translate(14.846 35.988)">
+                  <rect id="Rectangle_784" data-name="Rectangle 784" width="97.119" height="0.814" transform="translate(0 0)" fill="#742e01"/>
+                </g>
+                <g id="Group_1200" data-name="Group 1200" transform="translate(13.923 29.853)">
+                  <rect id="Rectangle_785" data-name="Rectangle 785" width="97.119" height="0.814" transform="translate(0.035 2.87)" fill="#742e01"/>
+                  <rect id="Rectangle_789" data-name="Rectangle 789" width="97.119" height="0.814" transform="translate(0 0)" fill="#742e01"/>
+                </g>
+                <g id="Group_1201" data-name="Group 1201" transform="translate(14.846 26.786)">
+                  <rect id="Rectangle_786" data-name="Rectangle 786" width="97.119" height="0.814" fill="#fff"/>
+                </g>
+                <g id="Group_1202" data-name="Group 1202" transform="translate(14.846 22.188)">
+                  <rect id="Rectangle_787" data-name="Rectangle 787" width="97.119" height="0.814" fill="#fff"/>
+                </g>
+                <g id="Group_1203" data-name="Group 1203" transform="translate(14.846 17.587)">
+                  <rect id="Rectangle_788" data-name="Rectangle 788" width="97.119" height="0.814" fill="#fff"/>
+                </g>
+                <g id="Group_1204" data-name="Group 1204" transform="translate(14.846 0)">
+                  <path id="Path_5828" data-name="Path 5828" d="M0,0Z" transform="translate(0 0)" fill="#0586ff"/>
+                </g>
+              </g>
+            </g>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>
