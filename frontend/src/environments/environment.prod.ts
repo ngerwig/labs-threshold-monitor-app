@@ -3,7 +3,7 @@ export const environment = {
 };
 
 export const Url = {
-  baseUrl: 'https://api-vertextm.triconinfotech.net',
-  clientUrl: 'https://qa-vertextm.triconinfotech.net',
+  baseUrl: 'https://api-tm.vertex.tax',
+  clientUrl: 'https://tm.vertex.tax',
   adminUrl: ''
 };
