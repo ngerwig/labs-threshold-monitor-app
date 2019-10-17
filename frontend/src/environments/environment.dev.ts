@@ -7,8 +7,8 @@ export const environment = {
 };
 
 export const Url = {
-  baseUrl: 'https://api-dev-vertextm.triconinfotech.net',
-  clientUrl: 'https://qa-vertextm.triconinfotech.net',
+  baseUrl: 'https://api-dev-tm.vertex.tax',
+  clientUrl: 'https://dev-tm.vertex.tax',
   adminUrl: ''
 };
 

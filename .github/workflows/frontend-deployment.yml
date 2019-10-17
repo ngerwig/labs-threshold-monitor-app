@@ -1,38 +1,38 @@
-name: QA - Frontend Build & Deployment
+name: Dev - Frontend Build & Deployment
 on:
   push:
-    branches:    
-      - qa
+    branches:
+      - dev
     paths:
       - 'frontend/**'
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v1
-      with:
-        ref: qa
-    - uses: actions/setup-node@v1
-      with:
-        node-version: '10.x'
-    - name: Building Artifacts.
-      run: |
-        cd frontend
-        pwd && ls -ltr
-        npm install
-        npm run build-qa --if-present
-        pwd && ls -ltr
-    - name: Uploading Artifacts to S3 Bucket
-      env:
-        AWS_BUCKET_NAME: "s3-static-content-tm-vertex-qa"
-        AWS_DEFAULT_REGION: "us-east-1"
-        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      run: |
-        cd frontend/dist/vertex-tax-monitoring-ui && pwd && ls
-        echo "Adding robot.txt to root directory."
-        echo -e "User-agent: * \nDisallow: /" > robots.txt
-        echo "Removing old content from S3 bucket."
-        aws s3 rm s3://$AWS_BUCKET_NAME --recursive
-        echo "Uploading new content to S3 bucket."
-        aws s3 cp . s3://$AWS_BUCKET_NAME/ --recursive
+      - uses: actions/checkout@v1
+        with:
+          ref: dev
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '10.x'
+      - name: Building Artifacts.
+        run: |
+          cd frontend
+          pwd && ls -ltr
+          npm install
+          npm run build-dev --if-present
+          pwd && ls -ltr
+      - name: Uploading Artifacts to S3 Bucket
+        env:
+          AWS_BUCKET_NAME: "s3-static-content-tm-vertexinc-dev"
+          AWS_DEFAULT_REGION: "us-west-1"
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        run: |
+          cd frontend/dist/vertex-tax-monitoring-ui && pwd && ls
+          echo "Adding robot.txt to root directory."
+          echo -e "User-agent: * \nDisallow: /" > robots.txt
+          echo "Removing old content from S3 bucket."
+          aws s3 rm s3://$AWS_BUCKET_NAME --recursive
+          echo "Uploading new content to S3 bucket."
+          aws s3 cp . s3://$AWS_BUCKET_NAME/ --recursive
