@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/threshold-monitor-frontend-source-code.iml" filepath="$PROJECT_DIR$/threshold-monitor-frontend-source-code.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/labs-threshold-monitor-app.iml" filepath="$PROJECT_DIR$/.idea/labs-threshold-monitor-app.iml" />
     </modules>
   </component>
 </project>
